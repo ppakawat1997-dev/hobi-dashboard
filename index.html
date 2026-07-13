@@ -80,7 +80,9 @@
   .partner-name{font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .partner-id-small{font-size:10px; color:var(--text3); margin-top:1px;}
   .partner-area-col{font-size:12px; color:var(--text2);}
-  .partner-equip-col{font-size:12px; color:var(--text2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .partner-equip-col{font-size:12px; color:var(--text2); min-width:0;}
+  .partner-equip-col .equip-text{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .partner-equip-col .avail-pill{margin-top:3px;}
   .partner-price-col{font-size:12px; font-weight:500; color:var(--blue); text-align:right;}
   .partner-chevron{display:flex; align-items:center; justify-content:center; color:var(--text3); font-size:15px; transition:transform .2s;}
   .partner-card.expanded .partner-chevron{transform:rotate(90deg);}
@@ -925,7 +927,7 @@ function renderPartners(){
             <div class="partner-id-small">#${p.id} · ${p.contact||''}</div>
           </div>
           <div class="partner-area-col"><i class="ti ti-map-pin" style="font-size:12px;"></i> ${p.area||'—'}</div>
-          <div class="partner-equip-col">${equipSummary} ${availPill}</div>
+          <div class="partner-equip-col"><div class="equip-text">${equipSummary}</div>${availPill}</div>
           <div class="partner-price-col">${p.price ? p.price+' ฿' : '—'}</div>
           <div class="partner-chevron"><i class="ti ti-chevron-right"></i></div>
         </div>
