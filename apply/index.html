@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hobi Partner — สมัครเป็นพาร์ตเนอร์ปล่อยเช่าเครื่องจักร</title>
+<meta name="description" content="ปล่อยเครื่องจักรและรถของคุณให้ทำเงินกับ Hobi แพลตฟอร์มจับคู่ผู้เช่ากับเจ้าของเครื่องจักรก่อสร้าง สมัครฟรี ไม่มีค่าแรกเข้า">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<style>
+  :root{
+    --bg:#f0f0f0; --card:#ffffff; --border:#d4d4d8; --text:#27272a; --text2:#71717a; --text3:#a1a1aa;
+    --red:#c81e1e; --red-light:#fbe0e0; --green:#16a34a; --green-light:#e6f7ec;
+    --amber:#d97706; --amber-light:#fef3e2; --hero:#1a0505;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05);
+  }
+  [data-theme="dark"]{
+    --bg:#18181b; --card:#27272a; --border:#3f3f46; --text:#f4f4f5; --text2:#a1a1aa; --text3:#71717a;
+    --red:#f87171; --red-light:#3a1515; --green:#34d27a; --green-light:#15301f;
+    --amber:#f5a623; --amber-light:#3a2c10; --hero:#0f0303;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box; font-family:"Segoe UI",-apple-system,Roboto,"Sarabun","Noto Sans Thai",Arial,sans-serif;}
+  html{color-scheme:light; scroll-behavior:smooth;}
+  html[data-theme="dark"]{color-scheme:dark;}
+  body{margin:0; background:var(--bg); color:var(--text); line-height:1.55; transition:background-color .2s,color .2s;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 20px;}
+  h1,h2,h3{margin:0; line-height:1.25;}
+  .req{color:var(--red);}
+
+  /* ---------- Nav ---------- */
+  .nav{position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--card) 88%,transparent);
+       backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav-in{display:flex; align-items:center; justify-content:space-between; height:62px;}
+  .logo{display:flex; align-items:center; gap:9px; font-weight:700; font-size:19px; letter-spacing:.2px;}
+  .logo i{font-size:24px; color:var(--red);}
+  .logo .tag{font-size:11px; font-weight:600; color:var(--red); background:var(--red-light);
+             padding:2px 8px; border-radius:20px; letter-spacing:.3px;}
+  .nav-actions{display:flex; align-items:center; gap:8px;}
+  .icon-btn{width:38px; height:38px; border-radius:9px; border:1px solid var(--border); background:var(--card);
+            color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px;}
+  .icon-btn:hover{background:var(--bg);}
+
+  .btn{display:inline-flex; align-items:center; gap:7px; padding:10px 18px; border-radius:10px;
+       border:1px solid var(--border); background:var(--card); font-size:14px; font-weight:600; color:var(--text);
+       cursor:pointer; white-space:nowrap; text-decoration:none; transition:filter .15s,background-color .15s;}
+  .btn:hover{background:var(--bg);}
+  .btn-primary{background:var(--red); color:#fff; border-color:var(--red);}
+  .btn-primary:hover{filter:brightness(1.08); background:var(--red);}
+  .btn-lg{padding:14px 26px; font-size:15px;}
+
+  /* ---------- Hero ---------- */
+  .hero{background:radial-gradient(1200px 500px at 80% -10%,rgba(200,30,30,.28),transparent 60%),var(--hero);
+        color:#fff; padding:74px 0 90px; overflow:hidden; position:relative;}
+  .hero .wrap{position:relative; z-index:2;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;}
+  .badge{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#ffd7d7;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); padding:6px 13px; border-radius:30px; margin-bottom:20px;}
+  .hero h1{font-size:44px; font-weight:800; letter-spacing:-.5px; margin-bottom:16px;}
+  .hero h1 span{color:#ff8a8a;}
+  .hero p.lead{font-size:17px; color:#e6d5d5; max-width:520px; margin:0 0 28px;}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px;}
+  .hero-cta .btn-primary{box-shadow:0 8px 30px rgba(200,30,30,.45);}
+  .hero-cta .btn-ghost{background:rgba(255,255,255,.06); color:#fff; border-color:rgba(255,255,255,.18);}
+  .hero-cta .btn-ghost:hover{background:rgba(255,255,255,.13);}
+  .trust{display:flex; gap:22px; flex-wrap:wrap; font-size:13px; color:#d9c4c4;}
+  .trust b{color:#fff;}
+  .hero-card{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:22px;
+             backdrop-filter:blur(4px);}
+  .hero-card h3{font-size:14px; color:#ffbcbc; margin-bottom:14px; font-weight:600;}
+  .mini-row{display:flex; align-items:center; gap:12px; padding:11px 0; border-top:1px solid rgba(255,255,255,.08);}
+  .mini-row:first-of-type{border-top:none;}
+  .mini-ic{width:40px; height:40px; border-radius:10px; background:rgba(200,30,30,.25); color:#ff9d9d;
+           display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;}
+  .mini-row .t{font-size:14px; font-weight:600; color:#fff;}
+  .mini-row .s{font-size:12px; color:#cbb3b3;}
+
+  /* ---------- Sections ---------- */
+  section{padding:72px 0;}
+  .sec-head{text-align:center; max-width:640px; margin:0 auto 46px;}
+  .sec-head .eyebrow{color:var(--red); font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase;}
+  .sec-head h2{font-size:32px; font-weight:800; margin:8px 0 12px; letter-spacing:-.4px;}
+  .sec-head p{color:var(--text2); font-size:16px; margin:0;}
+
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .step{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:26px 24px; position:relative; box-shadow:var(--shadow);}
+  .step .num{position:absolute; top:-14px; left:24px; width:34px; height:34px; border-radius:10px; background:var(--red);
+             color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:15px;}
+  .step i{font-size:26px; color:var(--red); margin:8px 0 12px; display:block;}
+  .step h3{font-size:17px; margin-bottom:8px;}
+  .step p{color:var(--text2); font-size:14px; margin:0;}
+
+  .benefits{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
+  .benefit{display:flex; gap:14px; padding:22px; background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);}
+  .benefit i{font-size:24px; color:var(--red); flex-shrink:0;}
+  .benefit h3{font-size:16px; margin-bottom:5px;}
+  .benefit p{color:var(--text2); font-size:14px; margin:0;}
+
+  .stats-band{background:var(--red); color:#fff;}
+  .stats-band .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;}
+  .stat .v{font-size:38px; font-weight:800; letter-spacing:-1px;}
+  .stat .l{font-size:14px; color:#ffd7d7; margin-top:2px;}
+
+  /* ---------- Form ---------- */
+  .form-section{background:var(--card); border-top:1px solid var(--border);}
+  .form-card{max-width:760px; margin:0 auto; background:var(--bg); border:1px solid var(--border); border-radius:18px; padding:32px; box-shadow:var(--shadow);}
+  .fs{margin-bottom:26px;}
+  .fs-title{display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; margin-bottom:16px; color:var(--text);}
+  .fs-title i{color:var(--red); font-size:19px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text);}
+  .hint{font-weight:400; color:var(--text3); font-size:12px;}
+  input,select,textarea{width:100%; padding:11px 13px; border-radius:10px; border:1px solid var(--border);
+    background:var(--card); color:var(--text); font-size:14px; outline:none; transition:border-color .15s,box-shadow .15s;}
+  input:focus,select:focus,textarea:focus{border-color:var(--red); box-shadow:0 0 0 3px var(--red-light);}
+  input::placeholder,textarea::placeholder{color:var(--text3);}
+  textarea{resize:vertical; min-height:80px;}
+
+  /* equipment builder */
+  .equip-row{display:grid; grid-template-columns:1.4fr 1.4fr .7fr auto; gap:10px; margin-bottom:10px; align-items:center;}
+  .equip-row .rm{width:40px; height:42px; border-radius:9px; border:1px solid var(--border); background:var(--card);
+                 color:var(--red); cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center;}
+  .equip-row .rm:hover{background:var(--red-light);}
+  .add-equip{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--red);
+             background:var(--red-light); border:1px dashed var(--red); padding:9px 14px; border-radius:10px; cursor:pointer;}
+  .add-equip:hover{filter:brightness(.97);}
+
+  #map{height:230px; border-radius:12px; border:1px solid var(--border); margin-top:6px; z-index:1;}
+  .map-hint{font-size:12px; color:var(--text3); margin-top:6px;}
+
+  .consent{display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text2); margin:4px 0 22px;}
+  .consent input{width:auto; margin-top:3px;}
+  .submit-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  #formMsg{font-size:13.5px; font-weight:600;}
+  #formMsg.ok{color:var(--green);} #formMsg.err{color:var(--red);}
+
+  /* success */
+  .success-box{display:none; text-align:center; padding:20px 0;}
+  .success-box .ic{width:76px; height:76px; border-radius:50%; background:var(--green-light); color:var(--green);
+                   font-size:40px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;}
+  .success-box h3{font-size:22px; margin-bottom:8px;}
+  .success-box p{color:var(--text2); max-width:440px; margin:0 auto 20px;}
+
+  /* faq */
+  .faq details{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:2px 18px; margin-bottom:12px; box-shadow:var(--shadow);}
+  .faq summary{cursor:pointer; font-weight:600; font-size:15px; padding:16px 0; list-style:none; display:flex; justify-content:space-between; align-items:center;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"\ea5f"; font-family:"tabler-icons"; color:var(--red); transition:transform .2s;}
+  .faq details[open] summary::after{transform:rotate(180deg);}
+  .faq p{color:var(--text2); font-size:14px; padding:0 0 16px; margin:0;}
+
+  /* footer */
+  footer{background:var(--card); border-top:1px solid var(--border); padding:40px 0 30px;}
+  .foot-grid{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:center;}
+  footer .logo{font-size:17px;}
+  .foot-links{display:flex; gap:20px; font-size:14px; color:var(--text2); flex-wrap:wrap;}
+  .foot-links a{text-decoration:none;} .foot-links a:hover{color:var(--red);}
+  .copy{font-size:12.5px; color:var(--text3); margin-top:22px; text-align:center; border-top:1px solid var(--border); padding-top:20px;}
+  .link-note{font-size:12px; color:var(--text3); text-align:center; margin-top:8px;}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr; gap:30px;}
+    .hero h1{font-size:34px;}
+    .steps{grid-template-columns:1fr;}
+    .stats-band .wrap{grid-template-columns:1fr 1fr;}
+    .grid2{grid-template-columns:1fr;}
+    .equip-row{grid-template-columns:1fr 1fr; }
+    .equip-row .rm{grid-column:2; justify-self:end;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="wrap nav-in">
+    <div class="logo"><i class="ti ti-truck-loading"></i> Hobi <span class="tag">PARTNER</span></div>
+    <div class="nav-actions">
+      <a href="#how" class="btn" style="border:none;background:none;">วิธีสมัคร</a>
+      <button class="icon-btn" id="themeToggle" title="สลับธีม"><i class="ti ti-moon" id="themeIcon"></i></button>
+      <a href="#apply" class="btn btn-primary"><i class="ti ti-writing"></i> สมัครเลย</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge"><i class="ti ti-star-filled"></i> สมัครฟรี ไม่มีค่าแรกเข้า</span>
+        <h1>ปล่อยเครื่องจักรของคุณ<br>ให้ <span>ทำเงินทุกวัน</span></h1>
+        <p class="lead">Hobi คือแพลตฟอร์มจับคู่ผู้รับเหมากับเจ้าของเครื่องจักรก่อสร้าง — เครน แบ็คโฮ รถ 6 ล้อ รถกระบะ ลงทะเบียนเครื่องจักรของคุณ แล้วรับงานเช่าจากลูกค้าในพื้นที่ของคุณ</p>
+        <div class="hero-cta">
+          <a href="#apply" class="btn btn-primary btn-lg"><i class="ti ti-writing"></i> สมัครเป็นพาร์ตเนอร์</a>
+          <a href="#how" class="btn btn-ghost btn-lg"><i class="ti ti-player-play"></i> ดูวิธีการ</a>
+        </div>
+        <div class="trust">
+          <span><b>50+</b> พาร์ตเนอร์ทั่วประเทศ</span>
+          <span><b>37</b> เครื่องจักรพร้อมเช่า</span>
+          <span><b>7</b> จังหวัดให้บริการ</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>ทำไมต้องเป็นพาร์ตเนอร์ Hobi</h3>
+        <div class="mini-row"><div class="mini-ic"><i class="ti ti-coin"></i></div>
+          <div><div class="t">เพิ่มรายได้จากเครื่องที่ว่าง</div><div class="s">ปล่อยเช่าช่วงที่ไม่มีงานของตัวเอง</div></div></div>
+        <div class="mini-row"><div class="mini-ic"><i class="ti ti-map-pin"></i></div>
+          <div><div class="t">ลูกค้าหาคุณเจอบนแผนที่</div><div class="s">แสดงพื้นที่ให้บริการของคุณ</div></div></div>
+        <div class="mini-row"><div class="mini-ic"><i class="ti ti-shield-check"></i></div>
+          <div><div class="t">ทีมงานช่วยดูแลดีล</div><div class="s">ยืนยันตัวตนและช่วยประสานงาน</div></div></div>
+        <div class="mini-row"><div class="mini-ic"><i class="ti ti-clock-hour-4"></i></div>
+          <div><div class="t">สมัครเสร็จใน 3 นาที</div><div class="s">อนุมัติภายใน 1-2 วันทำการ</div></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">ง่ายใน 3 ขั้นตอน</div>
+      <h2>เริ่มรับงานได้ในไม่กี่วัน</h2>
+      <p>ไม่ต้องมีความรู้ด้านเทคนิค กรอกข้อมูลเครื่องจักรและพื้นที่ให้บริการ แล้วรอทีมงานติดต่อกลับ</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><i class="ti ti-forms"></i>
+        <h3>กรอกใบสมัคร</h3><p>ใส่ข้อมูลบริษัท เครื่องจักรที่มี ราคาเช่า และพื้นที่ให้บริการของคุณ</p></div>
+      <div class="step"><div class="num">2</div><i class="ti ti-user-check"></i>
+        <h3>ทีมงานตรวจสอบ</h3><p>ทีม Hobi ยืนยันข้อมูลและติดต่อกลับเพื่อยืนยันตัวตนภายใน 1-2 วัน</p></div>
+      <div class="step"><div class="num">3</div><i class="ti ti-rocket"></i>
+        <h3>เริ่มรับงาน</h3><p>เครื่องจักรของคุณขึ้นแพลตฟอร์ม ลูกค้าค้นหาและติดต่อเช่าได้ทันที</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAND ============ -->
+<section class="stats-band" style="padding:44px 0;">
+  <div class="wrap">
+    <div class="stat"><div class="v">0฿</div><div class="l">ค่าสมัคร / ค่าแรกเข้า</div></div>
+    <div class="stat"><div class="v">1-2 วัน</div><div class="l">อนุมัติเฉลี่ย</div></div>
+    <div class="stat"><div class="v">24 ชม.</div><div class="l">ลูกค้าค้นหาได้ตลอด</div></div>
+    <div class="stat"><div class="v">7+</div><div class="l">จังหวัดที่เปิดรับ</div></div>
+  </div>
+</section>
+
+<!-- ============ BENEFITS ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">สิทธิประโยชน์</div>
+      <h2>ทำไมเจ้าของเครื่องจักรถึงเลือก Hobi</h2>
+    </div>
+    <div class="benefits">
+      <div class="benefit"><i class="ti ti-trending-up"></i><div><h3>เพิ่มการใช้งานเครื่อง</h3><p>เปลี่ยนวันที่เครื่องจอดว่างให้กลายเป็นรายได้</p></div></div>
+      <div class="benefit"><i class="ti ti-map-search"></i><div><h3>เจอลูกค้าในพื้นที่</h3><p>ระบบจับคู่ลูกค้าตามจังหวัดและพื้นที่ให้บริการที่คุณกำหนด</p></div></div>
+      <div class="benefit"><i class="ti ti-file-invoice"></i><div><h3>จัดการงานง่าย</h3><p>ดูรายการเครื่องจักร ราคา และสถานะดีลได้ในที่เดียว</p></div></div>
+      <div class="benefit"><i class="ti ti-headset"></i><div><h3>มีทีมซัพพอร์ต</h3><p>ทีมงานคนไทยช่วยประสานงานและแก้ปัญหาให้</p></div></div>
+      <div class="benefit"><i class="ti ti-lock"></i><div><h3>ข้อมูลปลอดภัย</h3><p>เก็บข้อมูลบริษัทและติดต่อของคุณอย่างเป็นความลับ</p></div></div>
+      <div class="benefit"><i class="ti ti-cash"></i><div><h3>คุณตั้งราคาเอง</h3><p>กำหนดราคาเช่าต่อวันของแต่ละเครื่องได้ด้วยตัวเอง</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATION FORM ============ -->
+<section class="form-section" id="apply">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">ใบสมัคร</div>
+      <h2>สมัครเป็นพาร์ตเนอร์</h2>
+      <p>กรอกข้อมูลด้านล่าง ใบสมัครของคุณจะถูกส่งเข้าระบบ Hobi ทันที ทีมงานจะติดต่อกลับเพื่อยืนยัน</p>
+    </div>
+
+    <div class="form-card">
+      <!-- success screen -->
+      <div class="success-box" id="successBox">
+        <div class="ic"><i class="ti ti-check"></i></div>
+        <h3>ส่งใบสมัครเรียบร้อย!</h3>
+        <p>ขอบคุณที่สนใจเป็นพาร์ตเนอร์กับ Hobi ใบสมัครของคุณเข้าสู่ระบบแล้วในสถานะ <b>รอตรวจสอบ (pending)</b> ทีมงานจะติดต่อกลับภายใน 1-2 วันทำการ</p>
+        <button class="btn btn-primary" onclick="resetForm()"><i class="ti ti-plus"></i> สมัครอีกรายการ</button>
+      </div>
+
+      <form id="applyForm">
+        <!-- Company -->
+        <div class="fs">
+          <div class="fs-title"><i class="ti ti-building"></i> ข้อมูลบริษัท</div>
+          <div class="field">
+            <label>ชื่อบริษัท / ห้างหุ้นส่วน <span class="req">*</span></label>
+            <input id="f_name" required placeholder="เช่น เอส.พี. เครน จำกัด">
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label>ชื่อผู้ติดต่อ <span class="req">*</span></label>
+              <input id="f_contact" required placeholder="เช่น คุณสมชาย วงศ์ดี">
+            </div>
+            <div class="field">
+              <label>เบอร์โทร <span class="req">*</span></label>
+              <input id="f_phone" required inputmode="tel" placeholder="08x-xxx-xxxx">
+            </div>
+          </div>
+          <div class="field">
+            <label>อีเมล <span class="hint">(ถ้ามี)</span></label>
+            <input id="f_email" type="email" placeholder="name@company.com">
+          </div>
+        </div>
+
+        <!-- Service area -->
+        <div class="fs">
+          <div class="fs-title"><i class="ti ti-map-2"></i> พื้นที่ให้บริการ</div>
+          <div class="grid2">
+            <div class="field">
+              <label>จังหวัด / พื้นที่หลัก <span class="req">*</span></label>
+              <input id="f_area" required list="provinces" placeholder="เช่น Bangkok, Nonthaburi">
+              <datalist id="provinces">
+                <option value="Bangkok"><option value="Nonthaburi"><option value="Pathum Thani">
+                <option value="Samut Prakan"><option value="Samut Sakhon"><option value="Nakhon Pathom">
+                <option value="Chonburi"><option value="Ayutthaya">
+              </datalist>
+            </div>
+            <div class="field">
+              <label>ช่วงราคาเช่า/วัน <span class="hint">(บาท)</span></label>
+              <input id="f_price" placeholder="เช่น 3,500 - 8,500">
+            </div>
+          </div>
+          <div class="field">
+            <label>ที่อยู่บริษัท</label>
+            <textarea id="f_address" placeholder="ที่อยู่สำหรับติดต่อ / จอดเครื่องจักร"></textarea>
+          </div>
+          <div class="field">
+            <label>ปักหมุดตำแหน่ง <span class="hint">(ลากหมุดหรือคลิกบนแผนที่)</span></label>
+            <div id="map"></div>
+            <div class="map-hint"><i class="ti ti-current-location"></i> พิกัด: <span id="latlng">13.7563, 100.5018</span></div>
+          </div>
+        </div>
+
+        <!-- Equipment -->
+        <div class="fs">
+          <div class="fs-title"><i class="ti ti-truck"></i> เครื่องจักร / รถที่มี <span class="req">*</span></div>
+          <div id="equipList"></div>
+          <button type="button" class="add-equip" onclick="addEquip()"><i class="ti ti-plus"></i> เพิ่มเครื่องจักร</button>
+        </div>
+
+        <!-- Notes -->
+        <div class="fs">
+          <div class="fs-title"><i class="ti ti-note"></i> หมายเหตุเพิ่มเติม</div>
+          <div class="field">
+            <textarea id="f_notes" placeholder="ข้อมูลอื่นๆ ที่อยากให้ทีมงานทราบ เช่น เงื่อนไขการเช่า เวลาทำการ ฯลฯ"></textarea>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="f_consent" required>
+          <span>ยินยอมให้ Hobi จัดเก็บและใช้ข้อมูลนี้เพื่อการพิจารณาเป็นพาร์ตเนอร์ และติดต่อกลับ</span>
+        </label>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary btn-lg" id="submitBtn"><i class="ti ti-send"></i> ส่งใบสมัคร</button>
+          <span id="formMsg"></span>
+        </div>
+      </form>
+    </div>
+    <p class="link-note">ใบสมัครเชื่อมกับระบบแดชบอร์ด Hobi โดยตรง — ข้อมูลจะปรากฏให้ทีมงานเห็นแบบเรียลไทม์</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding-top:20px;">
+  <div class="wrap" style="max-width:760px;">
+    <div class="sec-head">
+      <div class="eyebrow">คำถามที่พบบ่อย</div>
+      <h2>สงสัยตรงไหน?</h2>
+    </div>
+    <div class="faq">
+      <details><summary>สมัครมีค่าใช้จ่ายไหม?</summary><p>ไม่มีค่าสมัครและไม่มีค่าแรกเข้าครับ คุณลงทะเบียนเครื่องจักรได้ฟรี</p></details>
+      <details><summary>ต้องมีเครื่องจักรกี่คันถึงสมัครได้?</summary><p>เริ่มได้ตั้งแต่ 1 คันขึ้นไป ไม่ว่าจะเป็นเครน แบ็คโฮ รถ 6 ล้อ หรือรถกระบะ</p></details>
+      <details><summary>ใช้เวลานานแค่ไหนถึงจะได้รับอนุมัติ?</summary><p>โดยเฉลี่ยทีมงานจะตรวจสอบและติดต่อกลับภายใน 1-2 วันทำการ</p></details>
+      <details><summary>ข้อมูลของผมปลอดภัยไหม?</summary><p>ข้อมูลบริษัทและการติดต่อจะถูกใช้เพื่อการพิจารณาและประสานงานเท่านั้น</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><i class="ti ti-truck-loading"></i> Hobi <span class="tag">PARTNER</span></div>
+        <p style="color:var(--text2); font-size:13px; margin:10px 0 0; max-width:320px;">แพลตฟอร์มจับคู่ผู้เช่ากับเจ้าของเครื่องจักรก่อสร้างทั่วประเทศไทย</p>
+      </div>
+      <div class="foot-links">
+        <a href="#how">วิธีสมัคร</a>
+        <a href="#apply">สมัครพาร์ตเนอร์</a>
+        <a href="#">ติดต่อทีมงาน</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 Hobi Partner Platform · สมัครเป็นพาร์ตเนอร์ปล่อยเช่าเครื่องจักร</div>
+  </div>
+</footer>
+
+<!-- ============ FIREBASE (shared with Hobi dashboard) ============ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+/* ---------- Theme ---------- */
+(function(){
+  const saved = localStorage.getItem('hobi-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  syncIcon();
+  document.getElementById('themeToggle').addEventListener('click', ()=>{
+    const cur = document.documentElement.getAttribute('data-theme')==='dark' ? 'light':'dark';
+    document.documentElement.setAttribute('data-theme', cur);
+    localStorage.setItem('hobi-theme', cur);
+    syncIcon();
+    if(window._map) setTimeout(()=>window._map.invalidateSize(),50);
+  });
+  function syncIcon(){
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    document.getElementById('themeIcon').className = 'ti ' + (dark?'ti-sun':'ti-moon');
+  }
+})();
+
+/* ---------- Firebase: SAME project/collection as the Hobi dashboard ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyCcgqk8syDd4etzczr0Lev-GpGJQg2Yapg",
+  authDomain: "hobi-partner-dashboard.firebaseapp.com",
+  projectId: "hobi-partner-dashboard",
+  storageBucket: "hobi-partner-dashboard.firebasestorage.app",
+  messagingSenderId: "1088313132252",
+  appId: "1:1088313132252:web:ad8058e7b118e1c0d8e019",
+  measurementId: "G-J5V8Q9XC89"
+};
+let db = null, firebaseReady = false;
+try{ firebase.initializeApp(firebaseConfig); db = firebase.firestore(); firebaseReady = true; }
+catch(e){ console.error('Firebase init failed:', e); }
+const HOBI_DOC = db ? db.collection('hobi').doc('data') : null;
+
+/* ---------- Map picker ---------- */
+let marker, pickedLat = 13.7563, pickedLng = 100.5018;
+window.addEventListener('load', ()=>{
+  const map = L.map('map').setView([pickedLat, pickedLng], 11);
+  window._map = map;
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  marker = L.marker([pickedLat, pickedLng], {draggable:true}).addTo(map);
+  marker.on('dragend', e=> setLatLng(e.target.getLatLng()));
+  map.on('click', e=>{ marker.setLatLng(e.latlng); setLatLng(e.latlng); });
+  setTimeout(()=>map.invalidateSize(), 200);
+});
+function setLatLng(ll){
+  pickedLat = +ll.lat.toFixed(5); pickedLng = +ll.lng.toFixed(5);
+  document.getElementById('latlng').textContent = pickedLat + ', ' + pickedLng;
+}
+
+/* ---------- Equipment builder ---------- */
+const EQUIP_TYPES = ['Crane','Backhoe','6-wheel','10-wheel','Pickup','Trailer','Bulldozer','Roller','Forklift','Other'];
+function addEquip(type='', model='', qty=1){
+  const row = document.createElement('div');
+  row.className = 'equip-row';
+  row.innerHTML =
+    `<select class="eq-type">${EQUIP_TYPES.map(t=>`<option${t===type?' selected':''}>${t}</option>`).join('')}</select>
+     <input class="eq-model" placeholder="รุ่น เช่น KATO NK300" value="${model.replace(/"/g,'&quot;')}">
+     <input class="eq-qty" type="number" min="1" value="${qty}" title="จำนวน">
+     <button type="button" class="rm" title="ลบ" onclick="this.parentElement.remove()"><i class="ti ti-trash"></i></button>`;
+  document.getElementById('equipList').appendChild(row);
+}
+addEquip('Crane','',1); // start with one row
+
+function collectTags(){
+  const tags = [];
+  document.querySelectorAll('#equipList .equip-row').forEach(r=>{
+    const type = r.querySelector('.eq-type').value;
+    const model = r.querySelector('.eq-model').value.trim();
+    const qty = parseInt(r.querySelector('.eq-qty').value,10) || 1;
+    if(type){
+      tags.push(`${type} x${qty}${model ? ' ('+model+')' : ''}`); // matches dashboard tag format
+    }
+  });
+  return tags;
+}
+
+/* ---------- Submit → append pending partner to shared Firestore doc ---------- */
+const form = document.getElementById('applyForm');
+const msg = document.getElementById('formMsg');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  msg.className=''; msg.textContent='';
+
+  const tags = collectTags();
+  if(tags.length === 0){
+    msg.className='err'; msg.innerHTML='<i class="ti ti-alert-circle"></i> กรุณาเพิ่มเครื่องจักรอย่างน้อย 1 รายการ';
+    return;
+  }
+
+  const application = {
+    name:    document.getElementById('f_name').value.trim(),
+    contact: document.getElementById('f_contact').value.trim(),
+    phone:   document.getElementById('f_phone').value.trim(),
+    email:   document.getElementById('f_email').value.trim(),
+    area:    document.getElementById('f_area').value.trim(),
+    status:  "pending",                 // dashboard shows these as pending partners
+    tags:    tags,
+    price:   document.getElementById('f_price').value.trim(),
+    lat:     pickedLat,
+    lng:     pickedLng,
+    address: document.getElementById('f_address').value.trim(),
+    notes:   document.getElementById('f_notes').value.trim(),
+    source:  "partner-portal",
+    appliedAt: new Date().toISOString()
+  };
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> กำลังส่ง...';
+  msg.className=''; msg.innerHTML='';
+
+  try{
+    if(!firebaseReady || !HOBI_DOC) throw new Error('offline');
+    // Atomic read-modify-write so we never clobber the dashboard's partner list
+    await db.runTransaction(async (tx)=>{
+      const snap = await tx.get(HOBI_DOC);
+      const data = snap.exists ? (snap.data() || {}) : {};
+      const partners = Array.isArray(data.partners) ? data.partners.slice() : [];
+      const maxId = partners.reduce((m,p)=> Math.max(m, Number(p.id)||0), Number(data.partnerIdCounter)||0);
+      application.id = maxId + 1;
+      partners.push(application);
+      // merge:true preserves sheet1Rows/sheet2Rows and keeps the dashboard's id counter ahead of us
+      tx.set(HOBI_DOC, {partners, partnerIdCounter: application.id}, {merge:true});
+    });
+    showSuccess();
+  }catch(err){
+    console.error(err);
+    // Fallback: queue locally so nothing is lost if the network/DB is unavailable
+    try{
+      const q = JSON.parse(localStorage.getItem('hobi-pending-applications')||'[]');
+      q.push(application); localStorage.setItem('hobi-pending-applications', JSON.stringify(q));
+    }catch(_){}
+    showSuccess(true);
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-send"></i> ส่งใบสมัคร';
+  }
+});
+
+function showSuccess(offline){
+  form.style.display = 'none';
+  const box = document.getElementById('successBox');
+  box.style.display = 'block';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+  if(offline){
+    box.querySelector('p').innerHTML =
+      'ใบสมัครถูกบันทึกไว้ในเครื่องแล้ว แต่ตอนนี้เชื่อมต่อระบบไม่ได้ชั่วคราว กรุณาลองส่งอีกครั้งเมื่อออนไลน์ หรือทีมงานจะติดต่อกลับ';
+  }
+}
+function resetForm(){
+  form.reset();
+  document.getElementById('equipList').innerHTML='';
+  addEquip('Crane','',1);
+  document.getElementById('successBox').style.display='none';
+  form.style.display='block';
+  msg.className=''; msg.textContent='';
+  form.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+</body>
+</html>
