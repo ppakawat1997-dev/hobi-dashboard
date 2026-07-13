@@ -169,6 +169,24 @@
   .avail-tag-status{font-size:10px; font-weight:600; margin-left:6px; padding:0 5px; border-radius:8px;}
   .expand-tag.free .avail-tag-status{background:var(--green-light); color:var(--green);}
   .expand-tag.busy .avail-tag-status{background:var(--pink-light); color:var(--pink);}
+
+  /* Partner self-service portal (magic link #/update/<token>) */
+  #partnerPortal{display:none; position:fixed; inset:0; overflow:auto; background:var(--bg); z-index:2000;}
+  .portal-wrap{max-width:540px; margin:0 auto; padding:28px 16px 60px;}
+  .portal-logo{display:flex; align-items:center; gap:8px; font-weight:600; font-size:16px; margin-bottom:22px; color:var(--text);}
+  .portal-logo i{font-size:20px; color:var(--blue);}
+  .portal-wrap h1{font-size:20px; margin:0 0 4px; color:var(--text);}
+  .portal-company{font-size:14px; color:var(--text2); margin:0 0 4px;}
+  .portal-hint{font-size:12.5px; color:var(--text3); margin:0 0 18px;}
+  .portal-equip-card{display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:10px;}
+  .portal-equip-name{font-size:14px; font-weight:600; color:var(--text);}
+  .portal-equip-model{font-size:12px; color:var(--text3); margin-top:2px;}
+  .avail-toggle.lg{font-size:13.5px; padding:8px 16px; border-radius:24px;}
+  .avail-toggle.lg i{font-size:17px;}
+  .portal-footer{margin-top:18px; font-size:12px; color:var(--text3); display:flex; align-items:center; gap:6px;}
+  .portal-saved{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--green); font-weight:600; opacity:0; transition:opacity .3s;}
+  .portal-saved.show{opacity:1;}
+  .portal-error{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; color:var(--text2); font-size:14px;}
   .detail-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:12.5px;}
   .detail-table th{text-align:left; padding:8px 10px; color:var(--text3); font-weight:600; border-bottom:1px solid var(--border); font-size:11px; text-transform:uppercase;}
   .detail-table td{padding:10px 10px; border-bottom:1px solid var(--border); color:var(--text);}
@@ -732,11 +750,15 @@
 
     <div class="modal-actions">
       <button class="btn" id="detailDelete"><i class="ti ti-trash"></i> Delete</button>
+      <button class="btn" id="detailCopyLink" title="คัดลอกลิงก์ให้พาร์ทเนอร์อัปเดตสถานะว่าง/ไม่ว่างเอง"><i class="ti ti-link"></i> ลิงก์อัปเดต</button>
       <button class="btn" id="detailClose">Close</button>
       <button class="btn btn-primary" id="detailEdit"><i class="ti ti-edit"></i> Edit</button>
     </div>
   </div>
 </div>
+
+<!-- Partner self-service portal (magic link #/update/<token>) -->
+<div id="partnerPortal"></div>
 
 <!-- Sync Google Sheet Modal -->
 <div class="modal-overlay" id="syncModal">
@@ -948,6 +970,7 @@ function renderPartners(){
             ${p.phone ? `<div class="expand-btn primary" onclick="event.stopPropagation();window.open('tel:${p.phone}')"><i class="ti ti-phone"></i> โทรเลย</div>` : ''}
             <div class="expand-btn edit-btn" onclick="event.stopPropagation();openEditPartner(${p.id})"><i class="ti ti-edit"></i> แก้ไข</div>
             <div class="expand-btn" onclick="event.stopPropagation();openDetailPartner(${p.id})"><i class="ti ti-info-circle"></i> ดูทั้งหมด</div>
+            <div class="expand-btn" onclick="event.stopPropagation();copyPartnerLink(${p.id})" title="คัดลอกลิงก์ให้พาร์ทเนอร์อัปเดตสถานะว่าง/ไม่ว่างเอง"><i class="ti ti-link"></i> ลิงก์อัปเดต</div>
             <div class="expand-btn danger-btn" onclick="event.stopPropagation();deletePartner(${p.id})" style="margin-left:auto;color:var(--pink);"><i class="ti ti-trash"></i> ลบ</div>
           </div>
         </div>
@@ -1077,6 +1100,121 @@ function toggleEquipAvail(partnerId, tagIndex){
   renderPartners();
   rebuildSummaries();
   if(typeof openDetailPartner === 'function') openDetailPartner(partnerId); // refresh open modal
+}
+
+// ===== Partner self-service portal (magic link) =====
+// Each partner can get a secret link (#/update/<token>) that opens a minimal
+// page showing only THEIR equipment with big ว่าง/ไม่ว่าง toggles. No login —
+// the unguessable token in the partner record is the access key.
+let portalToken = null;
+
+function genUpdateToken(){
+  const bytes = new Uint8Array(16);
+  if(window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
+  else for(let i=0;i<bytes.length;i++) bytes[i] = Math.floor(Math.random()*256);
+  return Array.from(bytes, b=> (b%36).toString(36)).join('');
+}
+
+function ensureUpdateToken(p){
+  if(!p.updateToken){
+    let t;
+    do{ t = genUpdateToken(); }while(partners.some(x=> x.updateToken === t));
+    p.updateToken = t;
+    persistPartners();
+  }
+  return p.updateToken;
+}
+
+function copyPartnerLink(id){
+  const p = partners.find(x=>x.id===id);
+  if(!p) return;
+  const link = location.origin + location.pathname + '#/update/' + ensureUpdateToken(p);
+  const fallback = ()=> prompt('คัดลอกลิงก์นี้ส่งให้พาร์ทเนอร์:', link);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link)
+      .then(()=> alert(`คัดลอกลิงก์อัปเดตสถานะของ "${p.name}" แล้ว\nส่งให้พาร์ทเนอร์ทาง LINE ได้เลย`), fallback);
+  } else fallback();
+}
+
+function formatUpdatedAt(ts){
+  if(!ts) return '';
+  try{ return new Date(ts).toLocaleString('th-TH', {dateStyle:'medium', timeStyle:'short'}); }
+  catch(e){ return new Date(ts).toLocaleString(); }
+}
+
+function renderPartnerPortal(token){
+  portalToken = token;
+  const portal = document.getElementById('partnerPortal');
+  const app = document.querySelector('.app');
+  if(app) app.style.display = 'none';
+  portal.style.display = 'block';
+
+  const p = partners.find(x=> x.updateToken === token);
+  if(!p){
+    portal.innerHTML = `
+      <div class="portal-wrap">
+        <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+        <div class="portal-error">
+          ไม่พบลิงก์นี้ หรือข้อมูลยังโหลดไม่เสร็จ<br>
+          <span style="font-size:12px; color:var(--text3);">ลองรีเฟรชหน้า ถ้ายังไม่ได้ กรุณาติดต่อทีม Hobi เพื่อขอลิงก์ใหม่</span>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const rows = (p.tags||[]).map((t, idx)=>{
+    const busy = tagBusy(t);
+    const base = tagDisplayText(t);
+    const m = base.match(/^(.+?)\s*x(\d+)(?:\s*\((.*)\))?$/);
+    const type = m ? m[1].trim() : base;
+    const qty = m ? (parseInt(m[2])||0) : 1;
+    const model = m ? (m[3]||'').trim() : '';
+    return `
+      <div class="portal-equip-card">
+        <div>
+          <div class="portal-equip-name">${type} ×${qty}</div>
+          ${model ? `<div class="portal-equip-model">${model}</div>` : ''}
+        </div>
+        <button class="avail-toggle lg ${busy ? 'busy' : 'free'}" onclick="portalToggle(${idx})">
+          <i class="ti ti-${busy ? 'circle-x' : 'circle-check'}"></i> ${busy ? 'ไม่ว่าง' : 'ว่าง'}
+        </button>
+      </div>`;
+  }).join('');
+
+  portal.innerHTML = `
+    <div class="portal-wrap">
+      <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+      <h1>อัปเดตสถานะเครื่องจักร</h1>
+      <p class="portal-company">${p.name}</p>
+      <p class="portal-hint">กดปุ่มเพื่อสลับสถานะ ว่าง / ไม่ว่าง — ระบบบันทึกให้อัตโนมัติ ทีม Hobi เห็นทันที</p>
+      ${rows || '<div class="portal-error">ยังไม่มีรายการเครื่องจักรในระบบ กรุณาติดต่อทีม Hobi</div>'}
+      <div class="portal-footer">
+        <span>${p.availUpdatedAt ? 'อัปเดตล่าสุด: ' + formatUpdatedAt(p.availUpdatedAt) : ''}</span>
+        <span class="portal-saved" id="portalSaved"><i class="ti ti-check"></i> บันทึกแล้ว</span>
+      </div>
+    </div>`;
+}
+
+function portalToggle(idx){
+  const p = partners.find(x=> x.updateToken === portalToken);
+  if(!p || !p.tags || !p.tags[idx]) return;
+  p.tags[idx] = setTagAvailability(p.tags[idx], tagBusy(p.tags[idx]));
+  p.availUpdatedAt = Date.now();
+  persistPartners();
+  renderPartnerPortal(portalToken);
+  // flash the saved indicator on the freshly rendered footer
+  const saved = document.getElementById('portalSaved');
+  if(saved){ saved.classList.add('show'); setTimeout(()=> saved.classList.remove('show'), 1800); }
+  // keep the (hidden) dashboard views in sync too
+  renderPartners();
+  rebuildSummaries();
+}
+
+function closePartnerPortal(){
+  portalToken = null;
+  document.getElementById('partnerPortal').style.display = 'none';
+  const app = document.querySelector('.app');
+  if(app) app.style.display = 'flex';
 }
 
 // Dynamically populate Category and Area filter dropdowns based on actual data
@@ -1943,7 +2081,8 @@ function openDetailPartner(id){
     const pct = av.total ? Math.round((av.avail/av.total)*100) : 0;
     availEl.innerHTML = `
       <span class="dot" style="background:${av.avail ? 'var(--green)' : 'var(--text3)'};"></span>
-      พร้อมใช้งาน <strong>${av.avail}</strong> / ${av.total} คัน (${pct}%)`;
+      พร้อมใช้งาน <strong>${av.avail}</strong> / ${av.total} คัน (${pct}%)
+      ${p.availUpdatedAt ? `<span style="margin-left:auto; font-size:11px; color:var(--text3);">อัปเดต ${formatUpdatedAt(p.availUpdatedAt)}</span>` : ''}`;
   }
 
   document.getElementById('d_price').textContent = `Price: ${p.price} THB / day`;
@@ -1958,6 +2097,9 @@ document.getElementById('detailClose').addEventListener('click', ()=>{
 });
 document.getElementById('detailEdit').addEventListener('click', ()=>{
   if(detailEditId!=null) openEditPartner(detailEditId);
+});
+document.getElementById('detailCopyLink').addEventListener('click', ()=>{
+  if(detailEditId!=null) copyPartnerLink(detailEditId);
 });
 document.getElementById('detailDelete').addEventListener('click', ()=>{
   if(detailEditId!=null) deletePartner(detailEditId);
@@ -2858,10 +3000,13 @@ function syncBothSheets(){
     // Preserve equipment availability (!busy) across a re-sync — the Raw Data
     // sheets have no availability column, so without this a sync would silently
     // reset every "ไม่ว่าง" flag back to "ว่าง". Key by sheet/partner id + the
-    // equipment display text.
+    // equipment display text. Same for the partner's magic-link token and
+    // last-updated stamp, which live only on the partner record.
     const availBackup = {};
+    const metaBackup = {};
     partners.forEach(p=>{
       const key = p._sheetId != null ? String(p._sheetId) : String(p.id);
+      metaBackup[key] = {updateToken: p.updateToken, availUpdatedAt: p.availUpdatedAt};
       (p.tags||[]).forEach(t=>{
         if(tagBusy(t)) (availBackup[key] = availBackup[key] || {})[tagDisplayText(t).trim()] = true;
       });
@@ -2899,8 +3044,10 @@ function syncBothSheets(){
         price: g.price || '0 - 0',
         lat: (!isNaN(g.lat) && g.lat) ? g.lat : null,
         lng: (!isNaN(g.lng) && g.lng) ? g.lng : null,
-        address: g.address || '', 
-        notes: ''
+        address: g.address || '',
+        notes: '',
+        updateToken: (metaBackup[String(g.sourceId)]||{}).updateToken,
+        availUpdatedAt: (metaBackup[String(g.sourceId)]||{}).availUpdatedAt
       });
       if(!isNaN(numericId) && newId > partnerIdCounter) partnerIdCounter = newId;
       added++;
@@ -3011,6 +3158,7 @@ function applyRemoteData(data){
     rebuildSummaries();
     renderSheet1();
     renderSheet2();
+    if(portalToken) renderPartnerPortal(portalToken); // live-refresh the partner portal too
 
     // Keep localStorage as an offline cache too (so a fresh page load
     // never has to fall back to the hardcoded sample data)
@@ -3123,6 +3271,13 @@ if(firebaseReady && HOBI_DOC){
 
 function handleRoute(){
   const hash = location.hash || '';
+  // Partner self-service portal takes over the whole page
+  const mu = hash.match(/^#\/update\/([a-z0-9]+)/i);
+  if(mu){
+    renderPartnerPortal(mu[1]);
+    return;
+  }
+  if(portalToken) closePartnerPortal();
   const m = hash.match(/^#\/partners\/(\d+)/);
   if(m){
     const id = parseInt(m[1]);
