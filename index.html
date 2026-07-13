@@ -69,18 +69,21 @@
 
   /* Partner cards */
   .partners-grid{display:flex; flex-direction:column; gap:0; border:0.5px solid var(--border); border-radius:12px; overflow:hidden;}
-  .list-header{display:grid; grid-template-columns:6px 1fr 80px 150px 120px 32px; gap:10px; padding:8px 16px; background:var(--bg); border-bottom:0.5px solid var(--border);}
+  .list-header{display:grid; grid-template-columns:6px 34px 1fr 80px 150px 120px 32px; gap:10px; padding:8px 16px; background:var(--bg); border-bottom:0.5px solid var(--border);}
   .list-header span{font-size:10px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.06em;}
   .list-header .lh-price{text-align:right;}
   .partner-card{background:var(--card); border-bottom:0.5px solid var(--border); cursor:pointer; position:relative;}
   .partner-card:last-child{border-bottom:none;}
-  .partner-row{display:grid; grid-template-columns:6px 1fr 80px 150px 120px 32px; align-items:center; gap:10px; padding:10px 16px; transition:background .1s;}
+  .partner-row{display:grid; grid-template-columns:6px 34px 1fr 80px 150px 120px 32px; align-items:center; gap:10px; padding:10px 16px; transition:background .1s;}
+  .partner-num{font-size:12px; color:var(--text3); text-align:center; font-variant-numeric:tabular-nums;}
   .partner-row:hover{background:var(--bg);}
   .partner-status-bar{width:6px; height:28px; border-radius:3px; flex-shrink:0;}
   .partner-name{font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .partner-id-small{font-size:10px; color:var(--text3); margin-top:1px;}
   .partner-area-col{font-size:12px; color:var(--text2);}
-  .partner-equip-col{font-size:12px; color:var(--text2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .partner-equip-col{font-size:12px; color:var(--text2); min-width:0;}
+  .partner-equip-col .equip-text{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .partner-equip-col .avail-pill{margin-top:3px;}
   .partner-price-col{font-size:12px; font-weight:500; color:var(--blue); text-align:right;}
   .partner-chevron{display:flex; align-items:center; justify-content:center; color:var(--text3); font-size:15px; transition:transform .2s;}
   .partner-card.expanded .partner-chevron{transform:rotate(90deg);}
@@ -148,6 +151,54 @@
   .equip-summary-card .count{font-size:11px; color:var(--text3);}
   .equip-summary-card .price{font-size:13px; font-weight:700; color:var(--blue);}
   .equip-total-row{display:flex; justify-content:space-between; padding-top:8px; border-top:1px solid var(--border); font-size:13px; font-weight:600;}
+
+  /* Equipment availability (ว่าง / ไม่ว่าง) */
+  .equip-avail-row{display:flex; align-items:center; gap:7px; margin-top:8px; padding-top:8px; border-top:1px solid var(--border); font-size:12.5px; color:var(--text2);}
+  .equip-avail-row .dot{width:9px; height:9px; border-radius:50%;}
+  .avail-toggle{display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; border:1px solid transparent; font-size:11.5px; font-weight:600; cursor:pointer; white-space:nowrap; font-family:inherit; transition:background .15s, border-color .15s;}
+  .avail-toggle i{font-size:13px;}
+  .avail-toggle.free{background:var(--green-light); color:var(--green); border-color:var(--green-light);}
+  .avail-toggle.free:hover{border-color:var(--green);}
+  .avail-toggle.busy{background:var(--pink-light); color:var(--pink); border-color:var(--pink-light);}
+  .avail-toggle.busy:hover{border-color:var(--pink);}
+  .avail-stepper{display:inline-flex; align-items:center; gap:6px;}
+  .step-btn{width:26px; height:26px; border-radius:7px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:15px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; line-height:1; padding:0;}
+  .step-btn:hover:not(:disabled){background:var(--bg);}
+  .step-btn:disabled{opacity:.35; cursor:default;}
+  .avail-count{font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap;}
+  .avail-count.all{background:var(--green-light); color:var(--green);}
+  .avail-count.some{background:var(--amber-light); color:var(--amber);}
+  .avail-count.none{background:var(--pink-light); color:var(--pink);}
+  .avail-stepper.lg .step-btn{width:36px; height:36px; font-size:19px; border-radius:9px;}
+  .avail-stepper.lg .avail-count{font-size:13.5px; padding:6px 13px;}
+  .avail-pill{display:inline-block; font-size:10.5px; font-weight:600; padding:1px 7px; border-radius:10px; vertical-align:middle; white-space:nowrap;}
+  .avail-pill.all{background:var(--green-light); color:var(--green);}
+  .avail-pill.some{background:var(--amber-light); color:var(--amber);}
+  .avail-pill.none{background:var(--pink-light); color:var(--pink);}
+  .avail-dot{display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:5px; vertical-align:middle;}
+  .expand-tag.busy{opacity:.75;}
+  .avail-tag-status{font-size:10px; font-weight:600; margin-left:6px; padding:0 5px; border-radius:8px;}
+  .expand-tag.free .avail-tag-status{background:var(--green-light); color:var(--green);}
+  .expand-tag.part .avail-tag-status{background:var(--amber-light); color:var(--amber);}
+  .expand-tag.busy .avail-tag-status{background:var(--pink-light); color:var(--pink);}
+
+  /* Partner self-service portal (magic link #/update/<token>) */
+  #partnerPortal{display:none; position:fixed; inset:0; overflow:auto; background:var(--bg); z-index:2000;}
+  .portal-wrap{max-width:540px; margin:0 auto; padding:28px 16px 60px;}
+  .portal-logo{display:flex; align-items:center; gap:8px; font-weight:600; font-size:16px; margin-bottom:22px; color:var(--text);}
+  .portal-logo i{font-size:20px; color:var(--blue);}
+  .portal-wrap h1{font-size:20px; margin:0 0 4px; color:var(--text);}
+  .portal-company{font-size:14px; color:var(--text2); margin:0 0 4px;}
+  .portal-hint{font-size:12.5px; color:var(--text3); margin:0 0 18px;}
+  .portal-equip-card{display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:10px;}
+  .portal-equip-name{font-size:14px; font-weight:600; color:var(--text);}
+  .portal-equip-model{font-size:12px; color:var(--text3); margin-top:2px;}
+  .avail-toggle.lg{font-size:13.5px; padding:8px 16px; border-radius:24px;}
+  .avail-toggle.lg i{font-size:17px;}
+  .portal-footer{margin-top:18px; font-size:12px; color:var(--text3); display:flex; align-items:center; gap:6px;}
+  .portal-saved{display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--green); font-weight:600; opacity:0; transition:opacity .3s;}
+  .portal-saved.show{opacity:1;}
+  .portal-error{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; color:var(--text2); font-size:14px;}
   .detail-table{width:100%; border-collapse:collapse; margin-top:8px; font-size:12.5px;}
   .detail-table th{text-align:left; padding:8px 10px; color:var(--text3); font-weight:600; border-bottom:1px solid var(--border); font-size:11px; text-transform:uppercase;}
   .detail-table td{padding:10px 10px; border-bottom:1px solid var(--border); color:var(--text);}
@@ -177,7 +228,7 @@
   .form-group textarea{resize:vertical; min-height:60px;}
   .equip-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
   .equip-header h2{margin:0;}
-  .equip-table{display:grid; grid-template-columns:1fr 1fr 70px 100px 1fr 32px; gap:10px; align-items:end;}
+  .equip-table{display:grid; grid-template-columns:1fr 1fr 70px 100px 1fr 96px 32px; gap:10px; align-items:end;}
   .equip-table .col-label{font-size:12px; color:var(--text2); margin-bottom:6px;}
   .equip-row-form{background:var(--bg); border-radius:10px; padding:14px; margin-bottom:10px;}
   .remove-equip{display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text2); cursor:pointer;}
@@ -242,6 +293,7 @@
   table.raw-table td[contenteditable]{padding:7px 10px; min-width:90px; outline:none; color:var(--text);}
   table.raw-table td[contenteditable]:focus{background:var(--blue-light);}
   table.raw-table td.raw-del{width:40px; text-align:center; cursor:pointer; color:var(--text3); padding:7px; background:var(--bg); border-left:1px solid var(--border);}
+  table.raw-table td.raw-num{width:48px; min-width:48px; text-align:center; color:var(--text3); padding:7px 6px; background:var(--bg); font-size:12px; font-variant-numeric:tabular-nums;}
   table.raw-table td.raw-del:hover{color:var(--pink); background:var(--pink-light);}
   table.raw-table th:last-child{background:var(--bg); position:sticky; right:0; z-index:10; border-left:1px solid var(--border);}
   .raw-paste-box{display:none; margin-bottom:14px;}
@@ -435,12 +487,12 @@
             <label>Service area <span class="req">*</span></label>
             <select id="f_area">
               <option value="">Select area</option>
-              <option>Bangkok</option>
-              <option>Nonthaburi</option>
-              <option>Pathum Thani</option>
-              <option>Samut Prakan</option>
-              <option>Nakhon Pathom</option>
-              <option>Samut Sakhon</option>
+              <option>กรุงเทพ</option>
+              <option>นนทบุรี</option>
+              <option>ปทุมธานี</option>
+              <option>สมุทรปราการ</option>
+              <option>สมุทรสาคร</option>
+              <option>นครปฐม</option>
             </select>
           </div>
         </div>
@@ -548,6 +600,7 @@
           <table class="raw-table">
             <thead>
               <tr>
+                <th style="width:48px; text-align:center;">ลำดับ</th>
                 <th style="min-width:120px;">Partner ID</th>
                 <th style="min-width:150px;">Company</th>
                 <th style="min-width:130px;">Contact Name</th>
@@ -613,6 +666,7 @@
           <table class="raw-table">
             <thead>
               <tr>
+                <th style="width:48px; text-align:center;">ลำดับ</th>
                 <th style="min-width:120px;">Partner ID</th>
                 <th style="min-width:150px;">Company</th>
                 <th style="min-width:100px;">Type</th>
@@ -693,6 +747,7 @@
           <span>Total units</span>
           <span id="d_total_units"></span>
         </div>
+        <div class="equip-avail-row" id="d_avail_summary"></div>
         <p class="partner-price" id="d_price" style="margin:10px 0 0;"></p>
       </div>
     </div>
@@ -702,7 +757,7 @@
       <h4><i class="ti ti-list-details"></i> Equipment details</h4>
       <table class="detail-table">
         <thead>
-          <tr><th>Type</th><th>Quantity</th><th>Price/day (฿)</th><th>Model / Remark</th></tr>
+          <tr><th>Type</th><th>Quantity</th><th>Price/day (฿)</th><th>Model / Remark</th><th style="text-align:center;">สถานะ</th></tr>
         </thead>
         <tbody id="d_tags"></tbody>
       </table>
@@ -710,11 +765,15 @@
 
     <div class="modal-actions">
       <button class="btn" id="detailDelete"><i class="ti ti-trash"></i> Delete</button>
+      <button class="btn" id="detailCopyLink" title="คัดลอกลิงก์ให้พาร์ทเนอร์อัปเดตสถานะว่าง/ไม่ว่างเอง"><i class="ti ti-link"></i> ลิงก์อัปเดต</button>
       <button class="btn" id="detailClose">Close</button>
       <button class="btn btn-primary" id="detailEdit"><i class="ti ti-edit"></i> Edit</button>
     </div>
   </div>
 </div>
+
+<!-- Partner self-service portal (magic link #/update/<token>) -->
+<div id="partnerPortal"></div>
 
 <!-- Sync Google Sheet Modal -->
 <div class="modal-overlay" id="syncModal">
@@ -859,6 +918,7 @@ function renderPartners(){
   grid.innerHTML = `
     <div class="list-header">
       <span></span>
+      <span style="text-align:center;">ลำดับ</span>
       <span>บริษัท / พาร์ทเนอร์</span>
       <span>พื้นที่</span>
       <span>อุปกรณ์</span>
@@ -866,7 +926,7 @@ function renderPartners(){
       <span></span>
     </div>`;
 
-  list.forEach(p=>{
+  list.forEach((p, listIdx)=>{
     const statusColor = p.status==='active' ? '#16a34a' : '#d97706';
     const badge = p.status==='active'
       ? '<span class="badge badge-active">Active</span>'
@@ -884,19 +944,33 @@ function renderPartners(){
       ? equipEntries.slice(0,2).map(([t,q])=>`${t} ×${q}`).join(' · ') + (equipEntries.length>2 ? ` +${equipEntries.length-2}` : '')
       : '—';
 
-    // Build expand tags
-    const expandTags = p.tags.map(t=>`<span class="expand-tag">${tagDisplayText(t)}</span>`).join('');
+    // Availability roll-up shown as a small pill in the equipment column
+    const av = availabilityCounts(p);
+    const availPill = av.total
+      ? `<span class="avail-pill ${av.avail===0 ? 'none' : (av.avail<av.total ? 'some' : 'all')}">ว่าง ${av.avail}/${av.total}</span>`
+      : '';
+
+    // Build expand tags — each carries an availability dot + status
+    // (full = green ว่าง, partial = amber ว่าง n/qty, none = pink ไม่ว่าง)
+    const expandTags = p.tags.map(t=>{
+      const qty = tagQty(t), avl = tagAvail(t);
+      const state = avl === 0 ? 'busy' : (avl < qty ? 'part' : 'free');
+      const dotColor = avl === 0 ? 'var(--pink)' : (avl < qty ? 'var(--amber)' : 'var(--green)');
+      const label = avl === 0 ? 'ไม่ว่าง' : (avl < qty ? `ว่าง ${avl}/${qty}` : 'ว่าง');
+      return `<span class="expand-tag ${state}"><span class="avail-dot" style="background:${dotColor};"></span>${tagDisplayText(t)}<span class="avail-tag-status">${label}</span></span>`;
+    }).join('');
 
     grid.innerHTML += `
       <div class="partner-card" data-id="${p.id}">
         <div class="partner-row">
           <div class="partner-status-bar" style="background:${statusColor};"></div>
+          <div class="partner-num">${listIdx+1}</div>
           <div>
             <div class="partner-name">${p.name}</div>
             <div class="partner-id-small">#${p.id} · ${p.contact||''}</div>
           </div>
           <div class="partner-area-col"><i class="ti ti-map-pin" style="font-size:12px;"></i> ${p.area||'—'}</div>
-          <div class="partner-equip-col">${equipSummary}</div>
+          <div class="partner-equip-col"><div class="equip-text">${equipSummary}</div>${availPill}</div>
           <div class="partner-price-col">${p.price ? p.price+' ฿' : '—'}</div>
           <div class="partner-chevron"><i class="ti ti-chevron-right"></i></div>
         </div>
@@ -917,6 +991,7 @@ function renderPartners(){
             ${p.phone ? `<div class="expand-btn primary" onclick="event.stopPropagation();window.open('tel:${p.phone}')"><i class="ti ti-phone"></i> โทรเลย</div>` : ''}
             <div class="expand-btn edit-btn" onclick="event.stopPropagation();openEditPartner(${p.id})"><i class="ti ti-edit"></i> แก้ไข</div>
             <div class="expand-btn" onclick="event.stopPropagation();openDetailPartner(${p.id})"><i class="ti ti-info-circle"></i> ดูทั้งหมด</div>
+            <div class="expand-btn" onclick="event.stopPropagation();copyPartnerLink(${p.id})" title="คัดลอกลิงก์ให้พาร์ทเนอร์อัปเดตสถานะว่าง/ไม่ว่างเอง"><i class="ti ti-link"></i> ลิงก์อัปเดต</div>
             <div class="expand-btn danger-btn" onclick="event.stopPropagation();deletePartner(${p.id})" style="margin-left:auto;color:var(--pink);"><i class="ti ti-trash"></i> ลบ</div>
           </div>
         </div>
@@ -936,6 +1011,15 @@ function renderPartners(){
 ['search','filterArea','filterStatus','sortByPrice','filterSize'].forEach(id=>{
   document.getElementById(id).addEventListener('input', renderPartners);
 });
+
+// Canonical form of a partner ID for cross-sheet matching: trims whitespace
+// and strips leading zeros. Google Sheets often drops leading zeros from
+// numeric cells, so "0133557002356" in one sheet and "133557002356" in the
+// other must still be treated as the same partner.
+function canonId(v){
+  const s = (v == null ? '' : String(v)).trim();
+  return s.replace(/^0+(?=\d)/, '');
+}
 
 // Normalize Thai/English contract status values to 'active' or 'pending'
 function normalizeStatus(raw){
@@ -994,13 +1078,228 @@ function getDisplayCoords(p){
   return jitterCoord(base, p.id || 0);
 }
 
-// Tag format: "Type x5 (Model) @price" — @price is optional, used internally for per-type pricing
+// Tag format: "Type x5 (Model) @price !busy|!availN" — optional internal
+// markers appended after the display text:
+//   @price   per-type price
+//   !busy    0 units available (legacy boolean marker, kept for old data)
+//   !availN  N of the line's quantity available (partial availability)
+// No availability marker = every unit available (ว่างทั้งหมด).
 function tagDisplayText(tag){
-  return tag.replace(/\s*@[\d.]+$/, '');
+  return tag.replace(/\s*!avail\d+\s*$/, '').replace(/\s*!busy\s*$/, '').replace(/\s*@[\d.]+\s*$/, '');
 }
 function tagPrice(tag){
-  const m = tag.match(/@([\d.]+)$/);
+  const m = tag.match(/@([\d.]+)/);
   return m ? parseFloat(m[1]) : NaN;
+}
+// Total units on this tag line (the xN part; 1 if absent)
+function tagQty(tag){
+  const m = tagDisplayText(tag).match(/x(\d+)/);
+  return m ? (parseInt(m[1])||1) : 1;
+}
+// How many units of this line are currently available
+function tagAvail(tag){
+  const qty = tagQty(tag);
+  const m = tag.match(/!avail(\d+)/);
+  if(m) return Math.min(parseInt(m[1])||0, qty);
+  return /!busy/.test(tag) ? 0 : qty;
+}
+function tagBusy(tag){
+  return tagAvail(tag) === 0;
+}
+// Return a rebuilt tag string with N units marked available (clamped 0..qty).
+// Keeps display text + @price; picks the lightest marker that encodes N.
+function setTagAvail(tag, n){
+  const qty = tagQty(tag);
+  n = Math.max(0, Math.min(qty, Math.round(n)));
+  const price = tagPrice(tag);
+  let base = tagDisplayText(tag).trim();
+  if(!isNaN(price)) base += ` @${price}`;
+  if(n === 0) base += ' !busy';
+  else if(n < qty) base += ` !avail${n}`;
+  return base;
+}
+// Boolean convenience wrapper: all available / none available
+function setTagAvailability(tag, available){
+  return setTagAvail(tag, available ? tagQty(tag) : 0);
+}
+// Count available vs total equipment units for a partner (by qty).
+function availabilityCounts(p){
+  let total = 0, avail = 0;
+  (p.tags||[]).forEach(t=>{
+    total += tagQty(t);
+    avail += tagAvail(t);
+  });
+  return {total, avail};
+}
+// Persist partner changes locally + to the cloud (used by inline availability
+// toggles that don't go through the add/edit form).
+function persistPartners(){
+  try{ localStorage.setItem('hobi_partners', JSON.stringify(partners)); }catch(e){}
+  if(typeof saveAllToFirestore === 'function') saveAllToFirestore();
+}
+// Toggle the availability of a single equipment line (by index) for a partner,
+// then re-render the views that show it and sync.
+function toggleEquipAvail(partnerId, tagIndex){
+  const p = partners.find(x=>x.id===partnerId);
+  if(!p || !p.tags || !p.tags[tagIndex]) return;
+  const nowAvailable = tagBusy(p.tags[tagIndex]); // if busy -> becoming available
+  p.tags[tagIndex] = setTagAvailability(p.tags[tagIndex], nowAvailable);
+  persistPartners();
+  renderPartners();
+  rebuildSummaries();
+  if(typeof openDetailPartner === 'function') openDetailPartner(partnerId); // refresh open modal
+}
+
+// Adjust the available-unit count of one equipment line by +/-1 (multi-unit
+// lines use a stepper instead of the all-or-nothing toggle).
+function stepAvail(partnerId, tagIndex, delta){
+  const p = partners.find(x=>x.id===partnerId);
+  if(!p || !p.tags || !p.tags[tagIndex]) return;
+  p.tags[tagIndex] = setTagAvail(p.tags[tagIndex], tagAvail(p.tags[tagIndex]) + delta);
+  persistPartners();
+  renderPartners();
+  rebuildSummaries();
+  if(typeof openDetailPartner === 'function') openDetailPartner(partnerId);
+}
+
+// Shared renderer for the availability control on one tag line.
+// qty 1  -> toggle chip (ว่าง/ไม่ว่าง)
+// qty >1 -> [− ว่าง n/qty +] stepper
+function availControlHtml(tag, onToggle, onStep, size){
+  const qty = tagQty(tag), avail = tagAvail(tag);
+  const lg = size === 'lg' ? ' lg' : '';
+  if(qty <= 1){
+    const busy = avail === 0;
+    return `
+      <button class="avail-toggle${lg} ${busy ? 'busy' : 'free'}" title="คลิกเพื่อสลับสถานะว่าง/ไม่ว่าง" onclick="${onToggle}">
+        <i class="ti ti-${busy ? 'circle-x' : 'circle-check'}"></i> ${busy ? 'ไม่ว่าง' : 'ว่าง'}
+      </button>`;
+  }
+  const cls = avail === 0 ? 'none' : (avail < qty ? 'some' : 'all');
+  return `
+    <div class="avail-stepper${lg}">
+      <button class="step-btn" ${avail<=0?'disabled':''} onclick="${onStep.replace('DELTA','-1')}" title="ลดจำนวนคันที่ว่าง">−</button>
+      <span class="avail-count ${cls}">ว่าง ${avail}/${qty}</span>
+      <button class="step-btn" ${avail>=qty?'disabled':''} onclick="${onStep.replace('DELTA','1')}" title="เพิ่มจำนวนคันที่ว่าง">+</button>
+    </div>`;
+}
+
+// ===== Partner self-service portal (magic link) =====
+// Each partner can get a secret link (#/update/<token>) that opens a minimal
+// page showing only THEIR equipment with big ว่าง/ไม่ว่าง toggles. No login —
+// the unguessable token in the partner record is the access key.
+let portalToken = null;
+
+function genUpdateToken(){
+  const bytes = new Uint8Array(16);
+  if(window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
+  else for(let i=0;i<bytes.length;i++) bytes[i] = Math.floor(Math.random()*256);
+  return Array.from(bytes, b=> (b%36).toString(36)).join('');
+}
+
+function ensureUpdateToken(p){
+  if(!p.updateToken){
+    let t;
+    do{ t = genUpdateToken(); }while(partners.some(x=> x.updateToken === t));
+    p.updateToken = t;
+    persistPartners();
+  }
+  return p.updateToken;
+}
+
+function copyPartnerLink(id){
+  const p = partners.find(x=>x.id===id);
+  if(!p) return;
+  const link = location.origin + location.pathname + '#/update/' + ensureUpdateToken(p);
+  const fallback = ()=> prompt('คัดลอกลิงก์นี้ส่งให้พาร์ทเนอร์:', link);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link)
+      .then(()=> alert(`คัดลอกลิงก์อัปเดตสถานะของ "${p.name}" แล้ว\nส่งให้พาร์ทเนอร์ทาง LINE ได้เลย`), fallback);
+  } else fallback();
+}
+
+function formatUpdatedAt(ts){
+  if(!ts) return '';
+  try{ return new Date(ts).toLocaleString('th-TH', {dateStyle:'medium', timeStyle:'short'}); }
+  catch(e){ return new Date(ts).toLocaleString(); }
+}
+
+function renderPartnerPortal(token){
+  portalToken = token;
+  const portal = document.getElementById('partnerPortal');
+  const app = document.querySelector('.app');
+  if(app) app.style.display = 'none';
+  portal.style.display = 'block';
+
+  const p = partners.find(x=> x.updateToken === token);
+  if(!p){
+    portal.innerHTML = `
+      <div class="portal-wrap">
+        <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+        <div class="portal-error">
+          ไม่พบลิงก์นี้ หรือข้อมูลยังโหลดไม่เสร็จ<br>
+          <span style="font-size:12px; color:var(--text3);">ลองรีเฟรชหน้า ถ้ายังไม่ได้ กรุณาติดต่อทีม Hobi เพื่อขอลิงก์ใหม่</span>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const rows = (p.tags||[]).map((t, idx)=>{
+    const base = tagDisplayText(t);
+    const m = base.match(/^(.+?)\s*x(\d+)(?:\s*\((.*)\))?$/);
+    const type = m ? m[1].trim() : base;
+    const qty = m ? (parseInt(m[2])||0) : 1;
+    const model = m ? (m[3]||'').trim() : '';
+    return `
+      <div class="portal-equip-card">
+        <div>
+          <div class="portal-equip-name">${type} ×${qty}</div>
+          ${model ? `<div class="portal-equip-model">${model}</div>` : ''}
+        </div>
+        ${availControlHtml(t, `portalToggle(${idx})`, `portalStep(${idx}, DELTA)`, 'lg')}
+      </div>`;
+  }).join('');
+
+  portal.innerHTML = `
+    <div class="portal-wrap">
+      <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+      <h1>อัปเดตสถานะเครื่องจักร</h1>
+      <p class="portal-company">${p.name}</p>
+      <p class="portal-hint">กดปุ่มเพื่อสลับ ว่าง / ไม่ว่าง หรือกด − / + ระบุจำนวนคันที่ว่าง — ระบบบันทึกให้อัตโนมัติ ทีม Hobi เห็นทันที</p>
+      ${rows || '<div class="portal-error">ยังไม่มีรายการเครื่องจักรในระบบ กรุณาติดต่อทีม Hobi</div>'}
+      <div class="portal-footer">
+        <span>${p.availUpdatedAt ? 'อัปเดตล่าสุด: ' + formatUpdatedAt(p.availUpdatedAt) : ''}</span>
+        <span class="portal-saved" id="portalSaved"><i class="ti ti-check"></i> บันทึกแล้ว</span>
+      </div>
+    </div>`;
+}
+
+function portalApply(idx, newTag){
+  const p = partners.find(x=> x.updateToken === portalToken);
+  if(!p || !p.tags || !p.tags[idx]) return;
+  p.tags[idx] = newTag(p.tags[idx]);
+  p.availUpdatedAt = Date.now();
+  persistPartners();
+  renderPartnerPortal(portalToken);
+  // flash the saved indicator on the freshly rendered footer
+  const saved = document.getElementById('portalSaved');
+  if(saved){ saved.classList.add('show'); setTimeout(()=> saved.classList.remove('show'), 1800); }
+  // keep the (hidden) dashboard views in sync too
+  renderPartners();
+  rebuildSummaries();
+}
+function portalToggle(idx){
+  portalApply(idx, t=> setTagAvailability(t, tagBusy(t)));
+}
+function portalStep(idx, delta){
+  portalApply(idx, t=> setTagAvail(t, tagAvail(t) + delta));
+}
+
+function closePartnerPortal(){
+  portalToken = null;
+  document.getElementById('partnerPortal').style.display = 'none';
+  const app = document.querySelector('.app');
+  if(app) app.style.display = 'flex';
 }
 
 // Dynamically populate Category and Area filter dropdowns based on actual data
@@ -1656,12 +1955,7 @@ function addEquipRow(values){
     <div class="equip-table">
       <div>
         <div class="col-label">Type</div>
-        <select class="eq-type">
-          <option>Backhoe</option>
-          <option>Crane</option>
-          <option>6-wheel truck</option>
-          <option>Pickup truck</option>
-        </select>
+        <select class="eq-type"></select>
       </div>
       <div>
         <div class="col-label">Model</div>
@@ -1680,11 +1974,31 @@ function addEquipRow(values){
         <input type="text" class="eq-notes" placeholder="Details">
       </div>
       <div>
+        <div class="col-label">ว่าง (คัน)</div>
+        <input type="number" class="eq-avail" min="0" placeholder="ทั้งหมด" title="จำนวนคันที่ว่างตอนนี้ — เว้นว่าง = ว่างทั้งหมด">
+      </div>
+      <div>
         <div class="col-label">&nbsp;</div>
         <div class="remove-equip"><i class="ti ti-trash"></i></div>
       </div>
     </div>`;
-  if(values && values.type) row.querySelector('.eq-type').value = values.type;
+  // Populate the Type select from types actually present in the data (plus
+  // defaults, plus this row's own value) — a hardcoded English list blanks
+  // the select for Thai types, which then silently drops the type on save.
+  const typeSel = row.querySelector('.eq-type');
+  const eqTypes = new Set(['Backhoe','Crane','6-wheel truck','Pickup truck']);
+  partners.forEach(p=> (p.tags||[]).forEach(t=>{
+    const ty = tagDisplayText(t).split(' x')[0].trim();
+    if(ty) eqTypes.add(ty);
+  }));
+  if(values && values.type) eqTypes.add(values.type);
+  typeSel.innerHTML = [...eqTypes].sort((a,b)=> a.localeCompare(b,'th')).map(t=> `<option>${t}</option>`).join('');
+  if(values && values.type) typeSel.value = values.type;
+  // Prefill available count only when some units are busy — blank means
+  // "all available" and auto-adapts if the quantity is edited later.
+  if(values && values.avail != null && values.avail < (parseInt(values.qty)||1)){
+    row.querySelector('.eq-avail').value = values.avail;
+  }
   row.querySelector('.remove-equip').addEventListener('click', ()=> row.remove());
   document.getElementById('equipRows').appendChild(row);
 }
@@ -1693,10 +2007,26 @@ document.getElementById('addEquipRow').addEventListener('click', ()=> addEquipRo
 
 let editingId = null;
 
+// Rebuild the form's Service Area options from the default provinces plus
+// every area actually present in the data, so editing a partner whose area
+// isn't in the hardcoded list doesn't silently blank the select (which then
+// fails required-field validation on save).
+const DEFAULT_FORM_AREAS = ['กรุงเทพ','นนทบุรี','ปทุมธานี','สมุทรปราการ','สมุทรสาคร','นครปฐม'];
+function refreshFormAreaOptions(current){
+  const sel = document.getElementById('f_area');
+  const areas = new Set(DEFAULT_FORM_AREAS);
+  partners.forEach(p=>{ if(p.area) areas.add(p.area.toString().trim()); });
+  if(current) areas.add(current);
+  sel.innerHTML = '<option value="">Select area</option>' +
+    [...areas].sort((a,b)=> a.localeCompare(b,'th')).map(a=> `<option>${a}</option>`).join('');
+  sel.value = current || '';
+}
+
 function resetAddForm(){
   ['f_name','f_contact','f_phone','f_email','f_area','f_status','f_address','f_lat','f_lng','f_notes'].forEach(id=>{
     document.getElementById(id).value = '';
   });
+  refreshFormAreaOptions('');
   document.getElementById('f_id_row').style.display = 'none';
   document.getElementById('equipRows').innerHTML = '';
   addEquipRow();
@@ -1719,7 +2049,7 @@ function fillFormFromPartner(p){
   document.getElementById('f_contact').value = p.contact || '';
   document.getElementById('f_phone').value = p.phone || '';
   document.getElementById('f_email').value = p.email || '';
-  document.getElementById('f_area').value = p.area || '';
+  refreshFormAreaOptions((p.area||'').toString().trim());
   document.getElementById('f_status').value = p.status || '';
   document.getElementById('f_address').value = p.address || '';
   document.getElementById('f_lat').value = p.lat ?? '';
@@ -1729,11 +2059,14 @@ function fillFormFromPartner(p){
   document.getElementById('equipRows').innerHTML = '';
   if(p.tags && p.tags.length){
     p.tags.forEach(t=>{
-      const m = t.match(/^(.+) x(\d+)(?: \((.+)\))?$/);
+      const base = tagDisplayText(t);
+      const price = tagPrice(t);
+      const avail = tagAvail(t);
+      const m = base.match(/^(.+?) x(\d+)(?: \((.+)\))?$/);
       if(m){
-        addEquipRow({type:m[1], qty:m[2], model:m[3]||'', price:(p.equipPrices && p.equipPrices[t]) || 0});
+        addEquipRow({type:m[1], qty:m[2], model:m[3]||'', price: !isNaN(price) ? price : ((p.equipPrices && p.equipPrices[t]) || 0), avail});
       } else {
-        addEquipRow();
+        addEquipRow({avail, qty:1});
       }
     });
   } else {
@@ -1789,15 +2122,15 @@ function openDetailPartner(id){
   if(p.notes){ notesRow.style.display='block'; document.getElementById('d_notes').textContent = p.notes; }
   else notesRow.style.display='none';
 
-  // Parse each tag: "Type x5 (Model) @price" -> {type, qty, model, price}
-  const parsed = (p.tags||[]).map(t=>{
+  // Parse each tag -> {type, qty, model, price, tag, idx}
+  const parsed = (p.tags||[]).map((t, idx)=>{
     const price = tagPrice(t);
     const base = tagDisplayText(t);
     const m = base.match(/^(.+?)\s*x(\d+)(?:\s*\((.*)\))?$/);
     if(m){
-      return { type: m[1].trim(), qty: parseInt(m[2])||0, model: (m[3]||'').trim(), price };
+      return { type: m[1].trim(), qty: parseInt(m[2])||0, model: (m[3]||'').trim(), price, tag: t, idx };
     }
-    return { type: base, qty: 1, model: '', price };
+    return { type: base, qty: 1, model: '', price, tag: t, idx };
   });
 
   // Build equipment summary grouped by Type (sum quantities, track price range)
@@ -1831,14 +2164,31 @@ function openDetailPartner(id){
   const totalUnits = parsed.reduce((sum,item)=> sum + item.qty, 0);
   document.getElementById('d_total_units').textContent = `${totalUnits} unit${totalUnits!==1?'s':''}`;
 
-  // Equipment detail table rows
+  // Equipment detail table rows — single units get a toggle chip, multi-unit
+  // lines get a [− ว่าง n/qty +] stepper for partial availability
   document.getElementById('d_tags').innerHTML = parsed.map(item=> `
     <tr>
       <td>${item.type}</td>
       <td>${item.qty}</td>
       <td>${!isNaN(item.price) ? item.price.toLocaleString() : '-'}</td>
       <td style="color:var(--text2);">${item.model || '-'}</td>
-    </tr>`).join('') || '<tr><td colspan="4" style="color:var(--text3); text-align:center;">No equipment listed</td></tr>';
+      <td style="text-align:center;">
+        ${availControlHtml(item.tag,
+          `event.stopPropagation();toggleEquipAvail(${p.id}, ${item.idx})`,
+          `event.stopPropagation();stepAvail(${p.id}, ${item.idx}, DELTA)`)}
+      </td>
+    </tr>`).join('') || '<tr><td colspan="5" style="color:var(--text3); text-align:center;">No equipment listed</td></tr>';
+
+  // Availability roll-up for this partner
+  const av = availabilityCounts(p);
+  const availEl = document.getElementById('d_avail_summary');
+  if(availEl){
+    const pct = av.total ? Math.round((av.avail/av.total)*100) : 0;
+    availEl.innerHTML = `
+      <span class="dot" style="background:${av.avail ? 'var(--green)' : 'var(--text3)'};"></span>
+      พร้อมใช้งาน <strong>${av.avail}</strong> / ${av.total} คัน (${pct}%)
+      ${p.availUpdatedAt ? `<span style="margin-left:auto; font-size:11px; color:var(--text3);">อัปเดต ${formatUpdatedAt(p.availUpdatedAt)}</span>` : ''}`;
+  }
 
   document.getElementById('d_price').textContent = `Price: ${p.price} THB / day`;
 
@@ -1852,6 +2202,9 @@ document.getElementById('detailClose').addEventListener('click', ()=>{
 });
 document.getElementById('detailEdit').addEventListener('click', ()=>{
   if(detailEditId!=null) openEditPartner(detailEditId);
+});
+document.getElementById('detailCopyLink').addEventListener('click', ()=>{
+  if(detailEditId!=null) copyPartnerLink(detailEditId);
 });
 document.getElementById('detailDelete').addEventListener('click', ()=>{
   if(detailEditId!=null) deletePartner(detailEditId);
@@ -1875,10 +2228,15 @@ document.getElementById('submitAdd').addEventListener('click', ()=>{
     const model = row.querySelector('.eq-model').value.trim();
     const qty = row.querySelector('.eq-qty').value || '1';
     const priceVal = parseFloat(row.querySelector('.eq-price').value);
-    const base = model ? `${type} x${qty} (${model})` : `${type} x${qty}`;
-    const tag = !isNaN(priceVal) ? `${base} @${priceVal}` : base;
-    tags.push(tag);
-    if(!isNaN(priceVal)) equipPrices[tag] = priceVal;
+    const availRaw = row.querySelector('.eq-avail')?.value ?? '';
+    let base = model ? `${type} x${qty} (${model})` : `${type} x${qty}`;
+    if(!isNaN(priceVal)) base += ` @${priceVal}`;
+    // Blank = all units available; otherwise clamp to 0..qty via setTagAvail
+    if(availRaw !== '' && !isNaN(parseInt(availRaw))){
+      base = setTagAvail(base, parseInt(availRaw));
+    }
+    tags.push(base);
+    if(!isNaN(priceVal)) equipPrices[base] = priceVal;
   });
 
   const prices = [];
@@ -2018,6 +2376,10 @@ function renderSheet1(){
   sheet1Rows.forEach((row, i)=>{
     const tr = document.createElement('tr');
     tr.dataset.index = i;
+    const numTd = document.createElement('td');
+    numTd.className = 'raw-num';
+    numTd.textContent = i + 1;
+    tr.appendChild(numTd);
     SHEET1_COLS.forEach(col=>{
       const td = document.createElement('td');
       td.contentEditable = 'true';
@@ -2054,7 +2416,7 @@ function renderSheet1(){
     Array.from(tbody.querySelectorAll('tr')).forEach(tr=> tr.style.height = `${savedHeight}px`);
   }
   if(savedWidth){
-    Array.from(tbody.querySelectorAll('td')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
+    Array.from(tbody.querySelectorAll('td[contenteditable]')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
   }
 
   // Update row count (only count rows that have a Partner ID or Company filled in)
@@ -2078,13 +2440,17 @@ function renderSheet2(filter=''){
     sheet2Rows.push({partnerId:'',company:'',type:'',model:'',quantity:'',price:'',remark:''});
   }
   
-  const filteredRows = filter ? sheet2Rows.filter(r=> r.partnerId === filter) : sheet2Rows;
+  const filteredRows = filter ? sheet2Rows.filter(r=> canonId(r.partnerId) === canonId(filter)) : sheet2Rows;
   console.log('Filtered rows:', filteredRows.length);
   
   filteredRows.forEach((row, origIdx)=>{
     const actualIdx = sheet2Rows.indexOf(row);
     const tr = document.createElement('tr');
     tr.dataset.index = actualIdx;
+    const numTd = document.createElement('td');
+    numTd.className = 'raw-num';
+    numTd.textContent = origIdx + 1;
+    tr.appendChild(numTd);
     SHEET2_COLS.forEach(col=>{
       const td = document.createElement('td');
       td.contentEditable = 'true';
@@ -2118,7 +2484,7 @@ function renderSheet2(filter=''){
     Array.from(tbody.querySelectorAll('tr')).forEach(tr=> tr.style.height = `${savedHeight}px`);
   }
   if(savedWidth){
-    Array.from(tbody.querySelectorAll('td')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
+    Array.from(tbody.querySelectorAll('td[contenteditable]')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
   }
 
   // Update row count — show filtered count, and total if a filter is active
@@ -2391,7 +2757,7 @@ function setupTableSizing(sheetNum){
     const val = colWidthSlider.value;
     colWidthValue.textContent = `${val}px`;
     if(tableBody){
-      Array.from(tableBody.querySelectorAll('td')).forEach(td=>{
+      Array.from(tableBody.querySelectorAll('td[contenteditable]')).forEach(td=>{
         td.style.minWidth = `${val}px`;
       });
     }
@@ -2711,12 +3077,21 @@ function syncBothSheets(){
     return;
   }
 
+  // Sheet 1 lookup by canonical ID — tolerates whitespace/leading-zero
+  // differences between the two sheets, which otherwise silently drop the
+  // contract status (everyone becomes Pending) and create duplicate partners.
+  const sh1ByCanon = {};
+  sheet1Rows.forEach(r=>{
+    const k = canonId(r.partnerId);
+    if(k && !sh1ByCanon[k]) sh1ByCanon[k] = r;
+  });
+
   // Build merged CSV from sheet1 + sheet2 (long format per equipment row)
   const csvLines = ['partner Id,Company,Type,Model,Quantity,Price Per day,Remark'];
-  
+
   sheet2Rows.forEach(eq=>{
     if(!eq.partnerId && !eq.type) return;
-    const partner = sheet1Rows.find(p=> p.partnerId === eq.partnerId);
+    const partner = sh1ByCanon[canonId(eq.partnerId)];
     const company = (eq.company && eq.company.trim()) ? eq.company : (partner ? partner.company : '');
     const line = [eq.partnerId, company, eq.type, eq.model, eq.quantity, eq.price, eq.remark]
       .map(v=> `"${(v||'').toString().replace(/"/g,'""')}"`)
@@ -2732,9 +3107,9 @@ function syncBothSheets(){
     const groups = parseLongFormatCSV(csv);
     console.log('Grouped into', groups.length, 'partners');
     
-    // Merge Sheet1 contact data into each group
+    // Merge Sheet1 contact data into each group (canonical ID match)
     groups.forEach(g=>{
-      const sh1Partner = sheet1Rows.find(p=> p.partnerId === g.sourceId);
+      const sh1Partner = sh1ByCanon[canonId(g.sourceId)];
       if(sh1Partner){
         if(sh1Partner.contact) g.contact = sh1Partner.contact;
         if(sh1Partner.phone) g.phone = sh1Partner.phone;
@@ -2745,6 +3120,22 @@ function syncBothSheets(){
         if(sh1Partner.lat) g.lat = parseFloat(sh1Partner.lat);
         if(sh1Partner.lng) g.lng = parseFloat(sh1Partner.lng);
       }
+    });
+
+    // Preserve equipment availability (!busy) across a re-sync — the Raw Data
+    // sheets have no availability column, so without this a sync would silently
+    // reset every "ไม่ว่าง" flag back to "ว่าง". Key by sheet/partner id + the
+    // equipment display text. Same for the partner's magic-link token and
+    // last-updated stamp, which live only on the partner record.
+    const availBackup = {};
+    const metaBackup = {};
+    partners.forEach(p=>{
+      const key = canonId(p._sheetId != null ? p._sheetId : p.id);
+      metaBackup[key] = {updateToken: p.updateToken, availUpdatedAt: p.availUpdatedAt};
+      (p.tags||[]).forEach(t=>{
+        const avl = tagAvail(t);
+        if(avl < tagQty(t)) (availBackup[key] = availBackup[key] || {})[tagDisplayText(t).trim()] = avl;
+      });
     });
 
     // Now build partners array from enriched groups
@@ -2772,12 +3163,17 @@ function syncBothSheets(){
         email: g.email || '',
         area: normalizeArea(g.area) || 'กรุงเทพ',
         status: normalized,
-        tags: g.tags,
+        tags: (g.tags||[]).map(t=>{
+          const savedAvail = (availBackup[canonId(g.sourceId)]||{})[tagDisplayText(t).trim()];
+          return savedAvail != null ? setTagAvail(t, savedAvail) : t;
+        }),
         price: g.price || '0 - 0',
         lat: (!isNaN(g.lat) && g.lat) ? g.lat : null,
         lng: (!isNaN(g.lng) && g.lng) ? g.lng : null,
-        address: g.address || '', 
-        notes: ''
+        address: g.address || '',
+        notes: '',
+        updateToken: (metaBackup[canonId(g.sourceId)]||{}).updateToken,
+        availUpdatedAt: (metaBackup[canonId(g.sourceId)]||{}).availUpdatedAt
       });
       if(!isNaN(numericId) && newId > partnerIdCounter) partnerIdCounter = newId;
       added++;
@@ -2788,7 +3184,7 @@ function syncBothSheets(){
     let addedNoEquip = 0;
     sheet1Rows.forEach(p1=>{
       if(!p1.partnerId || !p1.partnerId.trim()) return;
-      const alreadyIncluded = partners.some(p=> p._sheetId === p1.partnerId);
+      const alreadyIncluded = partners.some(p=> canonId(p._sheetId) === canonId(p1.partnerId));
       if(alreadyIncluded) return;
 
       const numericId = parseInt(p1.partnerId);
@@ -2888,6 +3284,7 @@ function applyRemoteData(data){
     rebuildSummaries();
     renderSheet1();
     renderSheet2();
+    if(portalToken) renderPartnerPortal(portalToken); // live-refresh the partner portal too
 
     // Keep localStorage as an offline cache too (so a fresh page load
     // never has to fall back to the hardcoded sample data)
@@ -3000,6 +3397,13 @@ if(firebaseReady && HOBI_DOC){
 
 function handleRoute(){
   const hash = location.hash || '';
+  // Partner self-service portal takes over the whole page
+  const mu = hash.match(/^#\/update\/([a-z0-9]+)/i);
+  if(mu){
+    renderPartnerPortal(mu[1]);
+    return;
+  }
+  if(portalToken) closePartnerPortal();
   const m = hash.match(/^#\/partners\/(\d+)/);
   if(m){
     const id = parseInt(m[1]);
