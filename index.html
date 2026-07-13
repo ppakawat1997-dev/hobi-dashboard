@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hobi - Partner Management</title>
+<title>HOBI - Partner Management</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e5352b'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e5352b'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -30,8 +32,9 @@
   .app{display:flex; min-height:100vh;}
   /* Sidebar */
   .sidebar{width:220px; background:var(--card); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0;}
-  .logo{display:flex; align-items:center; gap:10px; padding:20px 18px; font-weight:600; font-size:17px;}
+  .logo{display:flex; align-items:center; gap:10px; padding:20px 18px; font-weight:700; font-size:18px; letter-spacing:.5px;}
   .logo i{font-size:22px; color:var(--blue);}
+  .brand-mark{width:24px; height:24px; flex-shrink:0; display:block;}
   .nav{display:flex; flex-direction:column; gap:2px; padding:0 10px;}
   .nav-item{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; color:var(--text2); font-size:14px; cursor:pointer; text-decoration:none;}
   .nav-item i{font-size:18px;}
@@ -325,7 +328,7 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+    <div class="logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#e5352b"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> HOBI</div>
     <div class="nav">
       <div class="nav-item active" data-view="partners"><i class="ti ti-layout-grid"></i> All Partners</div>
       <div class="nav-item" data-view="map"><i class="ti ti-map-2"></i> Service Area Map</div>
@@ -1235,7 +1238,7 @@ function renderPartnerPortal(token){
   if(!p){
     portal.innerHTML = `
       <div class="portal-wrap">
-        <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+        <div class="portal-logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#e5352b"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> HOBI</div>
         <div class="portal-error">
           ไม่พบลิงก์นี้ หรือข้อมูลยังโหลดไม่เสร็จ<br>
           <span style="font-size:12px; color:var(--text3);">ลองรีเฟรชหน้า ถ้ายังไม่ได้ กรุณาติดต่อทีม Hobi เพื่อขอลิงก์ใหม่</span>
@@ -1262,7 +1265,7 @@ function renderPartnerPortal(token){
 
   portal.innerHTML = `
     <div class="portal-wrap">
-      <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
+      <div class="portal-logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#e5352b"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> HOBI</div>
       <h1>อัปเดตสถานะเครื่องจักร</h1>
       <p class="portal-company">${p.name}</p>
       <p class="portal-hint">กดปุ่มเพื่อสลับ ว่าง / ไม่ว่าง หรือกด − / + ระบุจำนวนคันที่ว่าง — ระบบบันทึกให้อัตโนมัติ ทีม Hobi เห็นทันที</p>
