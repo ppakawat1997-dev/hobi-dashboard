@@ -474,12 +474,12 @@
             <label>Service area <span class="req">*</span></label>
             <select id="f_area">
               <option value="">Select area</option>
-              <option>Bangkok</option>
-              <option>Nonthaburi</option>
-              <option>Pathum Thani</option>
-              <option>Samut Prakan</option>
-              <option>Nakhon Pathom</option>
-              <option>Samut Sakhon</option>
+              <option>กรุงเทพ</option>
+              <option>นนทบุรี</option>
+              <option>ปทุมธานี</option>
+              <option>สมุทรปราการ</option>
+              <option>สมุทรสาคร</option>
+              <option>นครปฐม</option>
             </select>
           </div>
         </div>
@@ -1915,10 +1915,26 @@ document.getElementById('addEquipRow').addEventListener('click', ()=> addEquipRo
 
 let editingId = null;
 
+// Rebuild the form's Service Area options from the default provinces plus
+// every area actually present in the data, so editing a partner whose area
+// isn't in the hardcoded list doesn't silently blank the select (which then
+// fails required-field validation on save).
+const DEFAULT_FORM_AREAS = ['กรุงเทพ','นนทบุรี','ปทุมธานี','สมุทรปราการ','สมุทรสาคร','นครปฐม'];
+function refreshFormAreaOptions(current){
+  const sel = document.getElementById('f_area');
+  const areas = new Set(DEFAULT_FORM_AREAS);
+  partners.forEach(p=>{ if(p.area) areas.add(p.area.toString().trim()); });
+  if(current) areas.add(current);
+  sel.innerHTML = '<option value="">Select area</option>' +
+    [...areas].sort((a,b)=> a.localeCompare(b,'th')).map(a=> `<option>${a}</option>`).join('');
+  sel.value = current || '';
+}
+
 function resetAddForm(){
   ['f_name','f_contact','f_phone','f_email','f_area','f_status','f_address','f_lat','f_lng','f_notes'].forEach(id=>{
     document.getElementById(id).value = '';
   });
+  refreshFormAreaOptions('');
   document.getElementById('f_id_row').style.display = 'none';
   document.getElementById('equipRows').innerHTML = '';
   addEquipRow();
@@ -1941,7 +1957,7 @@ function fillFormFromPartner(p){
   document.getElementById('f_contact').value = p.contact || '';
   document.getElementById('f_phone').value = p.phone || '';
   document.getElementById('f_email').value = p.email || '';
-  document.getElementById('f_area').value = p.area || '';
+  refreshFormAreaOptions((p.area||'').toString().trim());
   document.getElementById('f_status').value = p.status || '';
   document.getElementById('f_address').value = p.address || '';
   document.getElementById('f_lat').value = p.lat ?? '';
