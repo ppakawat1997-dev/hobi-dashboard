@@ -160,6 +160,16 @@
   .avail-toggle.free:hover{border-color:var(--green);}
   .avail-toggle.busy{background:var(--pink-light); color:var(--pink); border-color:var(--pink-light);}
   .avail-toggle.busy:hover{border-color:var(--pink);}
+  .avail-stepper{display:inline-flex; align-items:center; gap:6px;}
+  .step-btn{width:26px; height:26px; border-radius:7px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:15px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; line-height:1; padding:0;}
+  .step-btn:hover:not(:disabled){background:var(--bg);}
+  .step-btn:disabled{opacity:.35; cursor:default;}
+  .avail-count{font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap;}
+  .avail-count.all{background:var(--green-light); color:var(--green);}
+  .avail-count.some{background:var(--amber-light); color:var(--amber);}
+  .avail-count.none{background:var(--pink-light); color:var(--pink);}
+  .avail-stepper.lg .step-btn{width:36px; height:36px; font-size:19px; border-radius:9px;}
+  .avail-stepper.lg .avail-count{font-size:13.5px; padding:6px 13px;}
   .avail-pill{display:inline-block; font-size:10.5px; font-weight:600; padding:1px 7px; border-radius:10px; vertical-align:middle; white-space:nowrap;}
   .avail-pill.all{background:var(--green-light); color:var(--green);}
   .avail-pill.some{background:var(--amber-light); color:var(--amber);}
@@ -168,6 +178,7 @@
   .expand-tag.busy{opacity:.75;}
   .avail-tag-status{font-size:10px; font-weight:600; margin-left:6px; padding:0 5px; border-radius:8px;}
   .expand-tag.free .avail-tag-status{background:var(--green-light); color:var(--green);}
+  .expand-tag.part .avail-tag-status{background:var(--amber-light); color:var(--amber);}
   .expand-tag.busy .avail-tag-status{background:var(--pink-light); color:var(--pink);}
 
   /* Partner self-service portal (magic link #/update/<token>) */
@@ -935,9 +946,13 @@ function renderPartners(){
       : '';
 
     // Build expand tags — each carries an availability dot + status
+    // (full = green ว่าง, partial = amber ว่าง n/qty, none = pink ไม่ว่าง)
     const expandTags = p.tags.map(t=>{
-      const busy = tagBusy(t);
-      return `<span class="expand-tag ${busy?'busy':'free'}"><span class="avail-dot" style="background:${busy?'var(--pink)':'var(--green)'};"></span>${tagDisplayText(t)}<span class="avail-tag-status">${busy?'ไม่ว่าง':'ว่าง'}</span></span>`;
+      const qty = tagQty(t), avl = tagAvail(t);
+      const state = avl === 0 ? 'busy' : (avl < qty ? 'part' : 'free');
+      const dotColor = avl === 0 ? 'var(--pink)' : (avl < qty ? 'var(--amber)' : 'var(--green)');
+      const label = avl === 0 ? 'ไม่ว่าง' : (avl < qty ? `ว่าง ${avl}/${qty}` : 'ว่าง');
+      return `<span class="expand-tag ${state}"><span class="avail-dot" style="background:${dotColor};"></span>${tagDisplayText(t)}<span class="avail-tag-status">${label}</span></span>`;
     }).join('');
 
     grid.innerHTML += `
@@ -1048,38 +1063,56 @@ function getDisplayCoords(p){
   return jitterCoord(base, p.id || 0);
 }
 
-// Tag format: "Type x5 (Model) @price !busy" — @price and !busy are optional
-// internal markers. @price = per-type price. !busy = equipment currently NOT
-// available (unticked availability). Absence of !busy means available (ว่าง).
+// Tag format: "Type x5 (Model) @price !busy|!availN" — optional internal
+// markers appended after the display text:
+//   @price   per-type price
+//   !busy    0 units available (legacy boolean marker, kept for old data)
+//   !availN  N of the line's quantity available (partial availability)
+// No availability marker = every unit available (ว่างทั้งหมด).
 function tagDisplayText(tag){
-  return tag.replace(/\s*!busy\s*$/, '').replace(/\s*@[\d.]+\s*$/, '');
+  return tag.replace(/\s*!avail\d+\s*$/, '').replace(/\s*!busy\s*$/, '').replace(/\s*@[\d.]+\s*$/, '');
 }
 function tagPrice(tag){
   const m = tag.match(/@([\d.]+)/);
   return m ? parseFloat(m[1]) : NaN;
 }
-// Availability marker helpers. "busy" = not available for rent right now.
-function tagBusy(tag){
-  return /!busy/.test(tag);
+// Total units on this tag line (the xN part; 1 if absent)
+function tagQty(tag){
+  const m = tagDisplayText(tag).match(/x(\d+)/);
+  return m ? (parseInt(m[1])||1) : 1;
 }
-// Return a rebuilt tag string with the availability flag set.
-// Keeps display text + @price, appends/removes the !busy marker.
-function setTagAvailability(tag, available){
+// How many units of this line are currently available
+function tagAvail(tag){
+  const qty = tagQty(tag);
+  const m = tag.match(/!avail(\d+)/);
+  if(m) return Math.min(parseInt(m[1])||0, qty);
+  return /!busy/.test(tag) ? 0 : qty;
+}
+function tagBusy(tag){
+  return tagAvail(tag) === 0;
+}
+// Return a rebuilt tag string with N units marked available (clamped 0..qty).
+// Keeps display text + @price; picks the lightest marker that encodes N.
+function setTagAvail(tag, n){
+  const qty = tagQty(tag);
+  n = Math.max(0, Math.min(qty, Math.round(n)));
   const price = tagPrice(tag);
   let base = tagDisplayText(tag).trim();
   if(!isNaN(price)) base += ` @${price}`;
-  if(!available) base += ' !busy';
+  if(n === 0) base += ' !busy';
+  else if(n < qty) base += ` !avail${n}`;
   return base;
+}
+// Boolean convenience wrapper: all available / none available
+function setTagAvailability(tag, available){
+  return setTagAvail(tag, available ? tagQty(tag) : 0);
 }
 // Count available vs total equipment units for a partner (by qty).
 function availabilityCounts(p){
   let total = 0, avail = 0;
   (p.tags||[]).forEach(t=>{
-    const base = tagDisplayText(t);
-    const m = base.match(/x(\d+)/);
-    const qty = m ? (parseInt(m[1])||0) : 1;
-    total += qty;
-    if(!tagBusy(t)) avail += qty;
+    total += tagQty(t);
+    avail += tagAvail(t);
   });
   return {total, avail};
 }
@@ -1100,6 +1133,40 @@ function toggleEquipAvail(partnerId, tagIndex){
   renderPartners();
   rebuildSummaries();
   if(typeof openDetailPartner === 'function') openDetailPartner(partnerId); // refresh open modal
+}
+
+// Adjust the available-unit count of one equipment line by +/-1 (multi-unit
+// lines use a stepper instead of the all-or-nothing toggle).
+function stepAvail(partnerId, tagIndex, delta){
+  const p = partners.find(x=>x.id===partnerId);
+  if(!p || !p.tags || !p.tags[tagIndex]) return;
+  p.tags[tagIndex] = setTagAvail(p.tags[tagIndex], tagAvail(p.tags[tagIndex]) + delta);
+  persistPartners();
+  renderPartners();
+  rebuildSummaries();
+  if(typeof openDetailPartner === 'function') openDetailPartner(partnerId);
+}
+
+// Shared renderer for the availability control on one tag line.
+// qty 1  -> toggle chip (ว่าง/ไม่ว่าง)
+// qty >1 -> [− ว่าง n/qty +] stepper
+function availControlHtml(tag, onToggle, onStep, size){
+  const qty = tagQty(tag), avail = tagAvail(tag);
+  const lg = size === 'lg' ? ' lg' : '';
+  if(qty <= 1){
+    const busy = avail === 0;
+    return `
+      <button class="avail-toggle${lg} ${busy ? 'busy' : 'free'}" title="คลิกเพื่อสลับสถานะว่าง/ไม่ว่าง" onclick="${onToggle}">
+        <i class="ti ti-${busy ? 'circle-x' : 'circle-check'}"></i> ${busy ? 'ไม่ว่าง' : 'ว่าง'}
+      </button>`;
+  }
+  const cls = avail === 0 ? 'none' : (avail < qty ? 'some' : 'all');
+  return `
+    <div class="avail-stepper${lg}">
+      <button class="step-btn" ${avail<=0?'disabled':''} onclick="${onStep.replace('DELTA','-1')}" title="ลดจำนวนคันที่ว่าง">−</button>
+      <span class="avail-count ${cls}">ว่าง ${avail}/${qty}</span>
+      <button class="step-btn" ${avail>=qty?'disabled':''} onclick="${onStep.replace('DELTA','1')}" title="เพิ่มจำนวนคันที่ว่าง">+</button>
+    </div>`;
 }
 
 // ===== Partner self-service portal (magic link) =====
@@ -1163,7 +1230,6 @@ function renderPartnerPortal(token){
   }
 
   const rows = (p.tags||[]).map((t, idx)=>{
-    const busy = tagBusy(t);
     const base = tagDisplayText(t);
     const m = base.match(/^(.+?)\s*x(\d+)(?:\s*\((.*)\))?$/);
     const type = m ? m[1].trim() : base;
@@ -1175,9 +1241,7 @@ function renderPartnerPortal(token){
           <div class="portal-equip-name">${type} ×${qty}</div>
           ${model ? `<div class="portal-equip-model">${model}</div>` : ''}
         </div>
-        <button class="avail-toggle lg ${busy ? 'busy' : 'free'}" onclick="portalToggle(${idx})">
-          <i class="ti ti-${busy ? 'circle-x' : 'circle-check'}"></i> ${busy ? 'ไม่ว่าง' : 'ว่าง'}
-        </button>
+        ${availControlHtml(t, `portalToggle(${idx})`, `portalStep(${idx}, DELTA)`, 'lg')}
       </div>`;
   }).join('');
 
@@ -1186,7 +1250,7 @@ function renderPartnerPortal(token){
       <div class="portal-logo"><i class="ti ti-truck-loading"></i> Hobi</div>
       <h1>อัปเดตสถานะเครื่องจักร</h1>
       <p class="portal-company">${p.name}</p>
-      <p class="portal-hint">กดปุ่มเพื่อสลับสถานะ ว่าง / ไม่ว่าง — ระบบบันทึกให้อัตโนมัติ ทีม Hobi เห็นทันที</p>
+      <p class="portal-hint">กดปุ่มเพื่อสลับ ว่าง / ไม่ว่าง หรือกด − / + ระบุจำนวนคันที่ว่าง — ระบบบันทึกให้อัตโนมัติ ทีม Hobi เห็นทันที</p>
       ${rows || '<div class="portal-error">ยังไม่มีรายการเครื่องจักรในระบบ กรุณาติดต่อทีม Hobi</div>'}
       <div class="portal-footer">
         <span>${p.availUpdatedAt ? 'อัปเดตล่าสุด: ' + formatUpdatedAt(p.availUpdatedAt) : ''}</span>
@@ -1195,10 +1259,10 @@ function renderPartnerPortal(token){
     </div>`;
 }
 
-function portalToggle(idx){
+function portalApply(idx, newTag){
   const p = partners.find(x=> x.updateToken === portalToken);
   if(!p || !p.tags || !p.tags[idx]) return;
-  p.tags[idx] = setTagAvailability(p.tags[idx], tagBusy(p.tags[idx]));
+  p.tags[idx] = newTag(p.tags[idx]);
   p.availUpdatedAt = Date.now();
   persistPartners();
   renderPartnerPortal(portalToken);
@@ -1208,6 +1272,12 @@ function portalToggle(idx){
   // keep the (hidden) dashboard views in sync too
   renderPartners();
   rebuildSummaries();
+}
+function portalToggle(idx){
+  portalApply(idx, t=> setTagAvailability(t, tagBusy(t)));
+}
+function portalStep(idx, delta){
+  portalApply(idx, t=> setTagAvail(t, tagAvail(t) + delta));
 }
 
 function closePartnerPortal(){
@@ -1870,12 +1940,7 @@ function addEquipRow(values){
     <div class="equip-table">
       <div>
         <div class="col-label">Type</div>
-        <select class="eq-type">
-          <option>Backhoe</option>
-          <option>Crane</option>
-          <option>6-wheel truck</option>
-          <option>Pickup truck</option>
-        </select>
+        <select class="eq-type"></select>
       </div>
       <div>
         <div class="col-label">Model</div>
@@ -1894,19 +1959,31 @@ function addEquipRow(values){
         <input type="text" class="eq-notes" placeholder="Details">
       </div>
       <div>
-        <div class="col-label">สถานะ</div>
-        <select class="eq-avail">
-          <option value="1">ว่าง</option>
-          <option value="0">ไม่ว่าง</option>
-        </select>
+        <div class="col-label">ว่าง (คัน)</div>
+        <input type="number" class="eq-avail" min="0" placeholder="ทั้งหมด" title="จำนวนคันที่ว่างตอนนี้ — เว้นว่าง = ว่างทั้งหมด">
       </div>
       <div>
         <div class="col-label">&nbsp;</div>
         <div class="remove-equip"><i class="ti ti-trash"></i></div>
       </div>
     </div>`;
-  if(values && values.type) row.querySelector('.eq-type').value = values.type;
-  if(values && values.busy) row.querySelector('.eq-avail').value = '0';
+  // Populate the Type select from types actually present in the data (plus
+  // defaults, plus this row's own value) — a hardcoded English list blanks
+  // the select for Thai types, which then silently drops the type on save.
+  const typeSel = row.querySelector('.eq-type');
+  const eqTypes = new Set(['Backhoe','Crane','6-wheel truck','Pickup truck']);
+  partners.forEach(p=> (p.tags||[]).forEach(t=>{
+    const ty = tagDisplayText(t).split(' x')[0].trim();
+    if(ty) eqTypes.add(ty);
+  }));
+  if(values && values.type) eqTypes.add(values.type);
+  typeSel.innerHTML = [...eqTypes].sort((a,b)=> a.localeCompare(b,'th')).map(t=> `<option>${t}</option>`).join('');
+  if(values && values.type) typeSel.value = values.type;
+  // Prefill available count only when some units are busy — blank means
+  // "all available" and auto-adapts if the quantity is edited later.
+  if(values && values.avail != null && values.avail < (parseInt(values.qty)||1)){
+    row.querySelector('.eq-avail').value = values.avail;
+  }
   row.querySelector('.remove-equip').addEventListener('click', ()=> row.remove());
   document.getElementById('equipRows').appendChild(row);
 }
@@ -1969,12 +2046,12 @@ function fillFormFromPartner(p){
     p.tags.forEach(t=>{
       const base = tagDisplayText(t);
       const price = tagPrice(t);
-      const busy = tagBusy(t);
+      const avail = tagAvail(t);
       const m = base.match(/^(.+?) x(\d+)(?: \((.+)\))?$/);
       if(m){
-        addEquipRow({type:m[1], qty:m[2], model:m[3]||'', price: !isNaN(price) ? price : ((p.equipPrices && p.equipPrices[t]) || 0), busy});
+        addEquipRow({type:m[1], qty:m[2], model:m[3]||'', price: !isNaN(price) ? price : ((p.equipPrices && p.equipPrices[t]) || 0), avail});
       } else {
-        addEquipRow({busy});
+        addEquipRow({avail, qty:1});
       }
     });
   } else {
@@ -2030,16 +2107,15 @@ function openDetailPartner(id){
   if(p.notes){ notesRow.style.display='block'; document.getElementById('d_notes').textContent = p.notes; }
   else notesRow.style.display='none';
 
-  // Parse each tag: "Type x5 (Model) @price !busy" -> {type, qty, model, price, busy, idx}
+  // Parse each tag -> {type, qty, model, price, tag, idx}
   const parsed = (p.tags||[]).map((t, idx)=>{
     const price = tagPrice(t);
-    const busy = tagBusy(t);
     const base = tagDisplayText(t);
     const m = base.match(/^(.+?)\s*x(\d+)(?:\s*\((.*)\))?$/);
     if(m){
-      return { type: m[1].trim(), qty: parseInt(m[2])||0, model: (m[3]||'').trim(), price, busy, idx };
+      return { type: m[1].trim(), qty: parseInt(m[2])||0, model: (m[3]||'').trim(), price, tag: t, idx };
     }
-    return { type: base, qty: 1, model: '', price, busy, idx };
+    return { type: base, qty: 1, model: '', price, tag: t, idx };
   });
 
   // Build equipment summary grouped by Type (sum quantities, track price range)
@@ -2073,7 +2149,8 @@ function openDetailPartner(id){
   const totalUnits = parsed.reduce((sum,item)=> sum + item.qty, 0);
   document.getElementById('d_total_units').textContent = `${totalUnits} unit${totalUnits!==1?'s':''}`;
 
-  // Equipment detail table rows — availability is a clickable toggle chip
+  // Equipment detail table rows — single units get a toggle chip, multi-unit
+  // lines get a [− ว่าง n/qty +] stepper for partial availability
   document.getElementById('d_tags').innerHTML = parsed.map(item=> `
     <tr>
       <td>${item.type}</td>
@@ -2081,12 +2158,9 @@ function openDetailPartner(id){
       <td>${!isNaN(item.price) ? item.price.toLocaleString() : '-'}</td>
       <td style="color:var(--text2);">${item.model || '-'}</td>
       <td style="text-align:center;">
-        <button class="avail-toggle ${item.busy ? 'busy' : 'free'}"
-          title="คลิกเพื่อสลับสถานะว่าง/ไม่ว่าง"
-          onclick="event.stopPropagation();toggleEquipAvail(${p.id}, ${item.idx})">
-          <i class="ti ti-${item.busy ? 'circle-x' : 'circle-check'}"></i>
-          ${item.busy ? 'ไม่ว่าง' : 'ว่าง'}
-        </button>
+        ${availControlHtml(item.tag,
+          `event.stopPropagation();toggleEquipAvail(${p.id}, ${item.idx})`,
+          `event.stopPropagation();stepAvail(${p.id}, ${item.idx}, DELTA)`)}
       </td>
     </tr>`).join('') || '<tr><td colspan="5" style="color:var(--text3); text-align:center;">No equipment listed</td></tr>';
 
@@ -2139,10 +2213,13 @@ document.getElementById('submitAdd').addEventListener('click', ()=>{
     const model = row.querySelector('.eq-model').value.trim();
     const qty = row.querySelector('.eq-qty').value || '1';
     const priceVal = parseFloat(row.querySelector('.eq-price').value);
-    const available = (row.querySelector('.eq-avail')?.value ?? '1') === '1';
+    const availRaw = row.querySelector('.eq-avail')?.value ?? '';
     let base = model ? `${type} x${qty} (${model})` : `${type} x${qty}`;
     if(!isNaN(priceVal)) base += ` @${priceVal}`;
-    if(!available) base += ' !busy';
+    // Blank = all units available; otherwise clamp to 0..qty via setTagAvail
+    if(availRaw !== '' && !isNaN(parseInt(availRaw))){
+      base = setTagAvail(base, parseInt(availRaw));
+    }
     tags.push(base);
     if(!isNaN(priceVal)) equipPrices[base] = priceVal;
   });
@@ -3024,7 +3101,8 @@ function syncBothSheets(){
       const key = p._sheetId != null ? String(p._sheetId) : String(p.id);
       metaBackup[key] = {updateToken: p.updateToken, availUpdatedAt: p.availUpdatedAt};
       (p.tags||[]).forEach(t=>{
-        if(tagBusy(t)) (availBackup[key] = availBackup[key] || {})[tagDisplayText(t).trim()] = true;
+        const avl = tagAvail(t);
+        if(avl < tagQty(t)) (availBackup[key] = availBackup[key] || {})[tagDisplayText(t).trim()] = avl;
       });
     });
 
@@ -3054,8 +3132,8 @@ function syncBothSheets(){
         area: normalizeArea(g.area) || 'กรุงเทพ',
         status: normalized,
         tags: (g.tags||[]).map(t=>{
-          const wasBusy = availBackup[String(g.sourceId)] && availBackup[String(g.sourceId)][tagDisplayText(t).trim()];
-          return wasBusy ? setTagAvailability(t, false) : t;
+          const savedAvail = (availBackup[String(g.sourceId)]||{})[tagDisplayText(t).trim()];
+          return savedAvail != null ? setTagAvail(t, savedAvail) : t;
         }),
         price: g.price || '0 - 0',
         lat: (!isNaN(g.lat) && g.lat) ? g.lat : null,
