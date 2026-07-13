@@ -69,12 +69,13 @@
 
   /* Partner cards */
   .partners-grid{display:flex; flex-direction:column; gap:0; border:0.5px solid var(--border); border-radius:12px; overflow:hidden;}
-  .list-header{display:grid; grid-template-columns:6px 1fr 80px 150px 120px 32px; gap:10px; padding:8px 16px; background:var(--bg); border-bottom:0.5px solid var(--border);}
+  .list-header{display:grid; grid-template-columns:6px 34px 1fr 80px 150px 120px 32px; gap:10px; padding:8px 16px; background:var(--bg); border-bottom:0.5px solid var(--border);}
   .list-header span{font-size:10px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.06em;}
   .list-header .lh-price{text-align:right;}
   .partner-card{background:var(--card); border-bottom:0.5px solid var(--border); cursor:pointer; position:relative;}
   .partner-card:last-child{border-bottom:none;}
-  .partner-row{display:grid; grid-template-columns:6px 1fr 80px 150px 120px 32px; align-items:center; gap:10px; padding:10px 16px; transition:background .1s;}
+  .partner-row{display:grid; grid-template-columns:6px 34px 1fr 80px 150px 120px 32px; align-items:center; gap:10px; padding:10px 16px; transition:background .1s;}
+  .partner-num{font-size:12px; color:var(--text3); text-align:center; font-variant-numeric:tabular-nums;}
   .partner-row:hover{background:var(--bg);}
   .partner-status-bar{width:6px; height:28px; border-radius:3px; flex-shrink:0;}
   .partner-name{font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
@@ -914,6 +915,7 @@ function renderPartners(){
   grid.innerHTML = `
     <div class="list-header">
       <span></span>
+      <span style="text-align:center;">ลำดับ</span>
       <span>บริษัท / พาร์ทเนอร์</span>
       <span>พื้นที่</span>
       <span>อุปกรณ์</span>
@@ -921,7 +923,7 @@ function renderPartners(){
       <span></span>
     </div>`;
 
-  list.forEach(p=>{
+  list.forEach((p, listIdx)=>{
     const statusColor = p.status==='active' ? '#16a34a' : '#d97706';
     const badge = p.status==='active'
       ? '<span class="badge badge-active">Active</span>'
@@ -959,6 +961,7 @@ function renderPartners(){
       <div class="partner-card" data-id="${p.id}">
         <div class="partner-row">
           <div class="partner-status-bar" style="background:${statusColor};"></div>
+          <div class="partner-num">${listIdx+1}</div>
           <div>
             <div class="partner-name">${p.name}</div>
             <div class="partner-id-small">#${p.id} · ${p.contact||''}</div>
