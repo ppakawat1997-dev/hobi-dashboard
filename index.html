@@ -1012,6 +1012,15 @@ function renderPartners(){
   document.getElementById(id).addEventListener('input', renderPartners);
 });
 
+// Canonical form of a partner ID for cross-sheet matching: trims whitespace
+// and strips leading zeros. Google Sheets often drops leading zeros from
+// numeric cells, so "0133557002356" in one sheet and "133557002356" in the
+// other must still be treated as the same partner.
+function canonId(v){
+  const s = (v == null ? '' : String(v)).trim();
+  return s.replace(/^0+(?=\d)/, '');
+}
+
 // Normalize Thai/English contract status values to 'active' or 'pending'
 function normalizeStatus(raw){
   if(!raw) return null;
@@ -2431,7 +2440,7 @@ function renderSheet2(filter=''){
     sheet2Rows.push({partnerId:'',company:'',type:'',model:'',quantity:'',price:'',remark:''});
   }
   
-  const filteredRows = filter ? sheet2Rows.filter(r=> r.partnerId === filter) : sheet2Rows;
+  const filteredRows = filter ? sheet2Rows.filter(r=> canonId(r.partnerId) === canonId(filter)) : sheet2Rows;
   console.log('Filtered rows:', filteredRows.length);
   
   filteredRows.forEach((row, origIdx)=>{
@@ -3068,12 +3077,21 @@ function syncBothSheets(){
     return;
   }
 
+  // Sheet 1 lookup by canonical ID — tolerates whitespace/leading-zero
+  // differences between the two sheets, which otherwise silently drop the
+  // contract status (everyone becomes Pending) and create duplicate partners.
+  const sh1ByCanon = {};
+  sheet1Rows.forEach(r=>{
+    const k = canonId(r.partnerId);
+    if(k && !sh1ByCanon[k]) sh1ByCanon[k] = r;
+  });
+
   // Build merged CSV from sheet1 + sheet2 (long format per equipment row)
   const csvLines = ['partner Id,Company,Type,Model,Quantity,Price Per day,Remark'];
-  
+
   sheet2Rows.forEach(eq=>{
     if(!eq.partnerId && !eq.type) return;
-    const partner = sheet1Rows.find(p=> p.partnerId === eq.partnerId);
+    const partner = sh1ByCanon[canonId(eq.partnerId)];
     const company = (eq.company && eq.company.trim()) ? eq.company : (partner ? partner.company : '');
     const line = [eq.partnerId, company, eq.type, eq.model, eq.quantity, eq.price, eq.remark]
       .map(v=> `"${(v||'').toString().replace(/"/g,'""')}"`)
@@ -3089,9 +3107,9 @@ function syncBothSheets(){
     const groups = parseLongFormatCSV(csv);
     console.log('Grouped into', groups.length, 'partners');
     
-    // Merge Sheet1 contact data into each group
+    // Merge Sheet1 contact data into each group (canonical ID match)
     groups.forEach(g=>{
-      const sh1Partner = sheet1Rows.find(p=> p.partnerId === g.sourceId);
+      const sh1Partner = sh1ByCanon[canonId(g.sourceId)];
       if(sh1Partner){
         if(sh1Partner.contact) g.contact = sh1Partner.contact;
         if(sh1Partner.phone) g.phone = sh1Partner.phone;
@@ -3112,7 +3130,7 @@ function syncBothSheets(){
     const availBackup = {};
     const metaBackup = {};
     partners.forEach(p=>{
-      const key = p._sheetId != null ? String(p._sheetId) : String(p.id);
+      const key = canonId(p._sheetId != null ? p._sheetId : p.id);
       metaBackup[key] = {updateToken: p.updateToken, availUpdatedAt: p.availUpdatedAt};
       (p.tags||[]).forEach(t=>{
         const avl = tagAvail(t);
@@ -3146,7 +3164,7 @@ function syncBothSheets(){
         area: normalizeArea(g.area) || 'กรุงเทพ',
         status: normalized,
         tags: (g.tags||[]).map(t=>{
-          const savedAvail = (availBackup[String(g.sourceId)]||{})[tagDisplayText(t).trim()];
+          const savedAvail = (availBackup[canonId(g.sourceId)]||{})[tagDisplayText(t).trim()];
           return savedAvail != null ? setTagAvail(t, savedAvail) : t;
         }),
         price: g.price || '0 - 0',
@@ -3154,8 +3172,8 @@ function syncBothSheets(){
         lng: (!isNaN(g.lng) && g.lng) ? g.lng : null,
         address: g.address || '',
         notes: '',
-        updateToken: (metaBackup[String(g.sourceId)]||{}).updateToken,
-        availUpdatedAt: (metaBackup[String(g.sourceId)]||{}).availUpdatedAt
+        updateToken: (metaBackup[canonId(g.sourceId)]||{}).updateToken,
+        availUpdatedAt: (metaBackup[canonId(g.sourceId)]||{}).availUpdatedAt
       });
       if(!isNaN(numericId) && newId > partnerIdCounter) partnerIdCounter = newId;
       added++;
@@ -3166,7 +3184,7 @@ function syncBothSheets(){
     let addedNoEquip = 0;
     sheet1Rows.forEach(p1=>{
       if(!p1.partnerId || !p1.partnerId.trim()) return;
-      const alreadyIncluded = partners.some(p=> p._sheetId === p1.partnerId);
+      const alreadyIncluded = partners.some(p=> canonId(p._sheetId) === canonId(p1.partnerId));
       if(alreadyIncluded) return;
 
       const numericId = parseInt(p1.partnerId);
