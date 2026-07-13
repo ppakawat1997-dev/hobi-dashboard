@@ -293,6 +293,7 @@
   table.raw-table td[contenteditable]{padding:7px 10px; min-width:90px; outline:none; color:var(--text);}
   table.raw-table td[contenteditable]:focus{background:var(--blue-light);}
   table.raw-table td.raw-del{width:40px; text-align:center; cursor:pointer; color:var(--text3); padding:7px; background:var(--bg); border-left:1px solid var(--border);}
+  table.raw-table td.raw-num{width:48px; min-width:48px; text-align:center; color:var(--text3); padding:7px 6px; background:var(--bg); font-size:12px; font-variant-numeric:tabular-nums;}
   table.raw-table td.raw-del:hover{color:var(--pink); background:var(--pink-light);}
   table.raw-table th:last-child{background:var(--bg); position:sticky; right:0; z-index:10; border-left:1px solid var(--border);}
   .raw-paste-box{display:none; margin-bottom:14px;}
@@ -599,6 +600,7 @@
           <table class="raw-table">
             <thead>
               <tr>
+                <th style="width:48px; text-align:center;">ลำดับ</th>
                 <th style="min-width:120px;">Partner ID</th>
                 <th style="min-width:150px;">Company</th>
                 <th style="min-width:130px;">Contact Name</th>
@@ -664,6 +666,7 @@
           <table class="raw-table">
             <thead>
               <tr>
+                <th style="width:48px; text-align:center;">ลำดับ</th>
                 <th style="min-width:120px;">Partner ID</th>
                 <th style="min-width:150px;">Company</th>
                 <th style="min-width:100px;">Type</th>
@@ -2364,6 +2367,10 @@ function renderSheet1(){
   sheet1Rows.forEach((row, i)=>{
     const tr = document.createElement('tr');
     tr.dataset.index = i;
+    const numTd = document.createElement('td');
+    numTd.className = 'raw-num';
+    numTd.textContent = i + 1;
+    tr.appendChild(numTd);
     SHEET1_COLS.forEach(col=>{
       const td = document.createElement('td');
       td.contentEditable = 'true';
@@ -2400,7 +2407,7 @@ function renderSheet1(){
     Array.from(tbody.querySelectorAll('tr')).forEach(tr=> tr.style.height = `${savedHeight}px`);
   }
   if(savedWidth){
-    Array.from(tbody.querySelectorAll('td')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
+    Array.from(tbody.querySelectorAll('td[contenteditable]')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
   }
 
   // Update row count (only count rows that have a Partner ID or Company filled in)
@@ -2431,6 +2438,10 @@ function renderSheet2(filter=''){
     const actualIdx = sheet2Rows.indexOf(row);
     const tr = document.createElement('tr');
     tr.dataset.index = actualIdx;
+    const numTd = document.createElement('td');
+    numTd.className = 'raw-num';
+    numTd.textContent = origIdx + 1;
+    tr.appendChild(numTd);
     SHEET2_COLS.forEach(col=>{
       const td = document.createElement('td');
       td.contentEditable = 'true';
@@ -2464,7 +2475,7 @@ function renderSheet2(filter=''){
     Array.from(tbody.querySelectorAll('tr')).forEach(tr=> tr.style.height = `${savedHeight}px`);
   }
   if(savedWidth){
-    Array.from(tbody.querySelectorAll('td')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
+    Array.from(tbody.querySelectorAll('td[contenteditable]')).forEach(td=> td.style.minWidth = `${savedWidth}px`);
   }
 
   // Update row count — show filtered count, and total if a filter is active
@@ -2737,7 +2748,7 @@ function setupTableSizing(sheetNum){
     const val = colWidthSlider.value;
     colWidthValue.textContent = `${val}px`;
     if(tableBody){
-      Array.from(tableBody.querySelectorAll('td')).forEach(td=>{
+      Array.from(tableBody.querySelectorAll('td[contenteditable]')).forEach(td=>{
         td.style.minWidth = `${val}px`;
       });
     }
