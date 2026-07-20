@@ -4,23 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HOBI Hire — Interview Scorecards</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e5352b'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e5352b'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237c3aed'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237c3aed'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <style>
   :root{
-    --bg:#f0f0f0; --card:#ffffff; --border:#d4d4d8; --text:#27272a; --text2:#71717a; --text3:#a1a1aa;
-    --red:#c81e1e; --red-light:#fbe0e0; --green:#16a34a; --green-light:#e6f7ec;
-    --amber:#d97706; --amber-light:#fef3e2; --blue:#2563eb; --blue-light:#e0ecfd;
-    --purple:#7c3aed; --purple-light:#efe6fd;
-    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05);
+    --bg:#f6f4fa; --card:#ffffff; --border:#e0dce8; --text:#17151c; --text2:#6b6577; --text3:#a49dae;
+    --accent:#6d28d9; --accent-hover:#5b21b6; --accent-light:#ede9fe; --accent-mid:#c4b5fd;
+    --green:#16a34a; --green-light:#e6f7ec; --amber:#d97706; --amber-light:#fef3e2;
+    --red:#dc2626; --red-light:#fde8e8; --blue:#2563eb; --blue-light:#e0ecfd;
+    --shadow:0 1px 3px rgba(23,21,28,.06),0 8px 24px rgba(23,21,28,.06);
   }
   [data-theme="dark"]{
-    --bg:#18181b; --card:#27272a; --border:#3f3f46; --text:#f4f4f5; --text2:#a1a1aa; --text3:#71717a;
-    --red:#f87171; --red-light:#3a1515; --green:#34d27a; --green-light:#15301f;
-    --amber:#f5a623; --amber-light:#3a2c10; --blue:#60a5fa; --blue-light:#152540;
-    --purple:#a78bfa; --purple-light:#241a3a;
-    --shadow:0 1px 3px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.4);
+    --bg:#0e0b14; --card:#1a1523; --border:#332b42; --text:#f2eff7; --text2:#a49dae; --text3:#6b6577;
+    --accent:#a78bfa; --accent-hover:#8b5cf6; --accent-light:#2a2140; --accent-mid:#5b4a8a;
+    --green:#34d27a; --green-light:#15301f; --amber:#f5a623; --amber-light:#3a2c10;
+    --red:#f87171; --red-light:#3a1515; --blue:#60a5fa; --blue-light:#152540;
+    --shadow:0 1px 3px rgba(0,0,0,.35),0 8px 28px rgba(0,0,0,.45);
   }
   *{box-sizing:border-box; font-family:"Segoe UI",-apple-system,Roboto,"Sarabun","Noto Sans Thai",Arial,sans-serif;}
   html{color-scheme:light;}
@@ -31,19 +31,20 @@
   .app{display:flex; min-height:100vh;}
 
   /* Sidebar */
-  .sidebar{width:220px; background:var(--card); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; position:sticky; top:0; height:100vh;}
+  .sidebar{width:225px; background:var(--card); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; position:sticky; top:0; height:100vh;}
   .logo{display:flex; align-items:center; gap:10px; padding:20px 18px; font-weight:700; font-size:18px; letter-spacing:.5px;}
   .brand-mark{width:24px; height:24px; flex-shrink:0; display:block;}
   .nav{display:flex; flex-direction:column; gap:2px; padding:0 10px;}
   .nav-item{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; color:var(--text2); font-size:14px; cursor:pointer; text-decoration:none; user-select:none;}
   .nav-item i{font-size:18px;}
-  .nav-item.active{background:var(--red-light); color:var(--red); font-weight:500;}
+  .nav-item.active{background:var(--accent-light); color:var(--accent); font-weight:600;}
   .nav-item:hover:not(.active){background:var(--bg);}
   .nav-sep{height:1px; background:var(--border); margin:8px 12px;}
-  .sidebar-footer{margin-top:auto; padding:16px 18px; border-top:1px solid var(--border); display:flex; align-items:center; gap:10px;}
-  .avatar{width:34px; height:34px; border-radius:50%; background:var(--red-light); color:var(--red); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px; flex-shrink:0;}
-  .user-name{font-size:13px; font-weight:500;}
-  .user-email{font-size:11px; color:var(--text3);}
+  .sidebar-footer{margin-top:auto; padding:14px 18px; border-top:1px solid var(--border);}
+  .sync-row{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text2);}
+  .sync-dot{width:8px; height:8px; border-radius:50%; background:var(--text3); flex-shrink:0;}
+  .sync-dot.on{background:var(--green); box-shadow:0 0 6px var(--green);}
+  .sync-dot.off{background:var(--amber);}
 
   /* Main */
   .main{flex:1; padding:24px 28px; min-width:0;}
@@ -53,8 +54,8 @@
   .header-actions{display:flex; gap:8px; flex-wrap:wrap;}
   .btn{display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:8px; border:1px solid var(--border); background:var(--card); font-size:13px; color:var(--text); cursor:pointer; white-space:nowrap;}
   .btn:hover{background:var(--bg);}
-  .btn-primary{background:var(--red); color:#fff; border-color:var(--red);}
-  .btn-primary:hover{background:#a81818;}
+  .btn-primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .btn-primary:hover{background:var(--accent-hover);}
   .btn-sm{padding:5px 10px; font-size:12px;}
 
   /* Stats */
@@ -73,53 +74,56 @@
 
   /* Candidate list */
   .list{border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--card);}
-  .list-header{display:grid; grid-template-columns:34px 1fr 150px 130px 90px 110px 90px; gap:12px; padding:10px 16px; background:var(--bg); border-bottom:1px solid var(--border);}
+  .list-header{display:grid; grid-template-columns:34px 1fr 150px 120px 80px 100px 150px; gap:12px; padding:10px 16px; background:var(--bg); border-bottom:1px solid var(--border);}
   .list-header span{font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.06em;}
-  .list-header .r{text-align:right;}
-  .list-header .c{text-align:center;}
-  .cand-row{display:grid; grid-template-columns:34px 1fr 150px 130px 90px 110px 90px; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s;}
+  .cand-row{display:grid; grid-template-columns:34px 1fr 150px 120px 80px 100px 150px; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s;}
   .cand-row:last-child{border-bottom:none;}
   .cand-row:hover{background:var(--bg);}
   .cand-num{font-size:12px; color:var(--text3); text-align:center; font-variant-numeric:tabular-nums;}
   .cand-name{font-size:13px; font-weight:500;}
   .cand-sub{font-size:11px; color:var(--text3); margin-top:1px;}
   .cell{font-size:12px; color:var(--text2);}
-  .c{text-align:center;} .r{text-align:right;}
+  .c{text-align:center;}
 
-  .score-pill{display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:20px; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;}
+  .score-pill{display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;}
   .score-hi{background:var(--green-light); color:var(--green);}
-  .score-mid{background:var(--amber-light); color:var(--amber);}
+  .score-mid{background:var(--accent-light); color:var(--accent);}
+  .score-kiv{background:var(--amber-light); color:var(--amber);}
   .score-lo{background:var(--red-light); color:var(--red);}
   .score-na{background:var(--bg); color:var(--text3); font-weight:500;}
 
-  .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:500;}
-  .st-applied{background:var(--bg); color:var(--text2);}
+  .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:500; white-space:nowrap;}
+  .st-applied{background:var(--bg); color:var(--text2); border:1px solid var(--border);}
   .st-screening{background:var(--blue-light); color:var(--blue);}
-  .st-interview{background:var(--purple-light); color:var(--purple);}
+  .st-interview{background:var(--accent-light); color:var(--accent);}
+  .st-kiv{background:var(--amber-light); color:var(--amber);}
   .st-offer{background:var(--green-light); color:var(--green);}
   .st-hired{background:var(--green); color:#fff;}
   .st-rejected{background:var(--red-light); color:var(--red);}
 
-  .rec-pill{font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px;}
-  .rec-2{background:var(--green); color:#fff;}
-  .rec-1{background:var(--green-light); color:var(--green);}
-  .rec--1{background:var(--amber-light); color:var(--amber);}
-  .rec--2{background:var(--red-light); color:var(--red);}
+  .verdict{display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:600; white-space:nowrap;}
+  .v-fee{background:var(--green); color:#fff;}
+  .v-ee{background:var(--green-light); color:var(--green);}
+  .v-me{background:var(--accent-light); color:var(--accent);}
+  .v-kiv{background:var(--amber-light); color:var(--amber);}
+  .v-be{background:var(--red-light); color:var(--red);}
+  .v-fbe{background:var(--red); color:#fff;}
 
   .empty{padding:48px 16px; text-align:center; color:var(--text3); font-size:13px;}
   .empty i{font-size:34px; display:block; margin-bottom:10px; color:var(--border);}
 
   /* Modal */
-  .modal-overlay{position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; align-items:flex-start; justify-content:center; z-index:100; padding:32px 16px; overflow-y:auto;}
+  .modal-overlay{position:fixed; inset:0; background:rgba(14,11,20,.55); display:none; align-items:flex-start; justify-content:center; z-index:100; padding:28px 16px; overflow-y:auto;}
   .modal-overlay.open{display:flex;}
   .modal-box{background:var(--card); border-radius:14px; width:100%; max-width:640px; box-shadow:var(--shadow); border:1px solid var(--border);}
-  .modal-box.wide{max-width:820px;}
-  .modal-head{display:flex; justify-content:space-between; align-items:center; padding:18px 22px; border-bottom:1px solid var(--border);}
+  .modal-box.wide{max-width:860px;}
+  .modal-head{display:flex; justify-content:space-between; align-items:center; padding:16px 22px; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--card); border-radius:14px 14px 0 0; z-index:5;}
   .modal-head h2{font-size:17px; margin:0;}
   .modal-head .sub{font-size:12px; color:var(--text3); margin-top:2px;}
   .modal-close{background:none; border:none; font-size:22px; color:var(--text3); cursor:pointer; line-height:1;}
   .modal-body{padding:22px;}
-  .modal-foot{display:flex; justify-content:flex-end; gap:10px; padding:16px 22px; border-top:1px solid var(--border);}
+  .modal-foot{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 22px; border-top:1px solid var(--border); position:sticky; bottom:0; background:var(--card); border-radius:0 0 14px 14px;}
+  .timer-chip{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent); background:var(--accent-light); border-radius:20px; padding:4px 12px; font-variant-numeric:tabular-nums;}
 
   .field{margin-bottom:16px;}
   .field label{display:block; font-size:12px; font-weight:500; color:var(--text2); margin-bottom:6px;}
@@ -127,23 +131,34 @@
   .field textarea{resize:vertical; min-height:70px;}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
 
-  /* Score rows in scorecard modal */
-  .crit-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--border);}
-  .crit-row:last-of-type{border-bottom:none;}
-  .crit-name{font-size:13px; font-weight:500;}
-  .crit-hint{font-size:11px; color:var(--text3);}
-  .rating{display:flex; gap:5px;}
-  .rating button{width:34px; height:34px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text2); font-size:13px; font-weight:600; cursor:pointer;}
-  .rating button.sel{background:var(--red); color:#fff; border-color:var(--red);}
-  .rating button:hover:not(.sel){background:var(--bg);}
-
-  .rec-choices{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
-  .rec-choices button{padding:10px 6px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--text2); font-size:12px; font-weight:500; cursor:pointer;}
-  .rec-choices button.sel{color:#fff;}
-  .rec-choices button[data-v="2"].sel{background:var(--green); border-color:var(--green);}
-  .rec-choices button[data-v="1"].sel{background:#4ba86a; border-color:#4ba86a;}
-  .rec-choices button[data-v="-1"].sel{background:var(--amber); border-color:var(--amber);}
-  .rec-choices button[data-v="-2"].sel{background:var(--red); border-color:var(--red);}
+  /* Scorecard sections */
+  .group-head{display:flex; align-items:center; justify-content:space-between; margin:22px 0 6px; padding:10px 14px; background:var(--accent-light); border-radius:10px;}
+  .group-head:first-of-type{margin-top:4px;}
+  .group-title{font-size:14px; font-weight:700; color:var(--accent); display:flex; align-items:center; gap:8px;}
+  .group-time{font-size:11px; font-weight:600; color:var(--accent); opacity:.75;}
+  .item-row{padding:12px 4px; border-bottom:1px solid var(--border);}
+  .item-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .item-name{font-size:13px; font-weight:500;}
+  .item-hint{font-size:11px; color:var(--text3); margin-top:1px;}
+  .rating{display:flex; gap:5px; flex-wrap:wrap;}
+  .rating button{min-width:38px; height:32px; padding:0 6px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text2); font-size:12px; font-weight:600; cursor:pointer; font-variant-numeric:tabular-nums;}
+  .rating button.sel{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .rating button:hover:not(.sel){background:var(--accent-light); color:var(--accent);}
+  .q-toggle{background:none; border:none; color:var(--accent); font-size:11px; cursor:pointer; padding:4px 0; display:inline-flex; align-items:center; gap:4px;}
+  .q-panel{display:none; margin-top:8px; padding:10px 12px; background:var(--bg); border-radius:8px;}
+  .q-panel.open{display:block;}
+  .q-item{display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--text2); padding:4px 0; cursor:pointer;}
+  .q-item input{margin-top:2px; accent-color:var(--accent);}
+  .q-item.asked{color:var(--text); }
+  .q-note{width:100%; margin-top:8px; padding:7px 10px; border:1px solid var(--border); border-radius:7px; font-size:12px; background:var(--card); color:var(--text);}
+  .scale-legend{font-size:11px; color:var(--text3); line-height:1.7; background:var(--bg); border-radius:10px; padding:10px 14px; margin-bottom:14px;}
+  .scale-legend b{color:var(--accent);}
+  .seg{display:flex; gap:6px;}
+  .seg button{padding:7px 14px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--text2); font-size:12px; cursor:pointer;}
+  .seg button.sel-yes{background:var(--green); color:#fff; border-color:var(--green);}
+  .seg button.sel-no{background:var(--red); color:#fff; border-color:var(--red);}
+  .live-overall{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text2);}
+  .live-overall b{font-size:18px; color:var(--accent); font-variant-numeric:tabular-nums;}
 
   /* Detail view */
   .detail-top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; flex-wrap:wrap;}
@@ -152,20 +167,20 @@
   .detail-big-score{text-align:center; padding:0 8px;}
   .detail-big-score .n{font-size:34px; font-weight:700; line-height:1;}
   .detail-big-score .l{font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:.05em; margin-top:4px;}
-
-  .two-col{display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start;}
+  .two-col{display:grid; grid-template-columns:1.25fr 1fr; gap:16px; align-items:start;}
   .panel{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px;}
   .panel h3{font-size:14px; margin:0 0 14px;}
-
-  .crit-bar-row{margin-bottom:14px;}
-  .crit-bar-top{display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;}
-  .crit-bar-top .v{font-weight:600; font-variant-numeric:tabular-nums;}
-  .crit-bar{height:8px; border-radius:5px; background:var(--bg); overflow:hidden;}
-  .crit-bar span{display:block; height:100%; border-radius:5px; background:var(--red);}
+  .crit-bar-row{margin-bottom:11px;}
+  .crit-bar-top{display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; gap:8px;}
+  .crit-bar-top .v{font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0;}
+  .crit-bar{height:7px; border-radius:5px; background:var(--bg); overflow:hidden;}
+  .crit-bar span{display:block; height:100%; border-radius:5px;}
+  .bar-group-label{font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.05em; margin:16px 0 8px;}
+  .bar-group-label:first-of-type{margin-top:0;}
 
   .sc-card{border:1px solid var(--border); border-radius:10px; padding:14px; margin-bottom:12px;}
   .sc-card:last-child{margin-bottom:0;}
-  .sc-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;}
+  .sc-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
   .sc-who{font-size:13px; font-weight:600;}
   .sc-when{font-size:11px; color:var(--text3);}
   .sc-scores{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0;}
@@ -174,16 +189,31 @@
   .sc-comment{font-size:12px; color:var(--text2); line-height:1.5; margin-top:6px; white-space:pre-wrap;}
   .sc-del{background:none; border:none; color:var(--text3); cursor:pointer; font-size:15px;}
   .sc-del:hover{color:var(--red);}
+  .sc-details{margin-top:8px;}
+  .sc-details summary{font-size:11px; color:var(--accent); cursor:pointer;}
+  .sc-detail-row{font-size:11px; color:var(--text2); padding:3px 0; display:flex; justify-content:space-between; gap:8px;}
+  .sc-detail-row b{font-variant-numeric:tabular-nums;}
+  .sc-detail-note{font-size:11px; color:var(--text3); font-style:italic; padding-left:12px;}
 
-  .link-btn{background:none; border:none; color:var(--red); font-size:13px; cursor:pointer; padding:0; display:inline-flex; align-items:center; gap:5px;}
+  .link-btn{background:none; border:none; color:var(--accent); font-size:13px; cursor:pointer; padding:0; display:inline-flex; align-items:center; gap:5px;}
 
-  @media(max-width:860px){
-    .sidebar{width:64px;} .logo span, .nav-item span:not(#themeLabel), .user-name, .user-email, .logo{font-size:0;}
-    .logo .brand-mark{width:26px;height:26px;} .nav-item{justify-content:center;} .nav-item{font-size:0;} .nav-item i{font-size:20px;}
+  /* Question bank */
+  .bank-card{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:14px;}
+  .bank-card h3{margin:0 0 4px; font-size:15px; display:flex; align-items:center; gap:8px;}
+  .bank-card .bank-time{font-size:12px; color:var(--accent); font-weight:600;}
+  .bank-obj{font-size:12px; color:var(--text2); margin:6px 0 10px;}
+  .bank-item{margin:10px 0 4px; font-size:13px; font-weight:600;}
+  .bank-q{font-size:12px; color:var(--text2); padding:3px 0 3px 16px; position:relative;}
+  .bank-q::before{content:"•"; position:absolute; left:4px; color:var(--accent-mid);}
+
+  @media(max-width:900px){
+    .sidebar{width:62px;} .logo span, .nav-item span, .sync-row span{display:none;}
+    .nav-item{justify-content:center; padding:10px 0;} .nav-item i{font-size:20px;}
+    .sidebar-footer{display:flex; justify-content:center;}
     .stats{grid-template-columns:repeat(2,1fr);} .two-col{grid-template-columns:1fr;}
-    .list-header, .cand-row{grid-template-columns:28px 1fr 80px 90px; }
-    .list-header .h-pos,.list-header .h-int,.list-header .h-stage,.cand-row .col-pos,.cand-row .col-int,.cand-row .col-stage{display:none;}
-    .rec-choices{grid-template-columns:repeat(2,1fr);}
+    .list-header, .cand-row{grid-template-columns:28px 1fr 90px 100px;}
+    .h-pos,.h-int,.h-stage,.col-pos,.col-int,.col-stage{display:none;}
+    .grid2{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -192,19 +222,18 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#e5352b"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> <span>HOBI Hire</span></div>
+    <div class="logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#7c3aed"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> <span>HOBI Hire</span></div>
     <div class="nav">
       <div class="nav-item active" data-view="dashboard"><i class="ti ti-layout-dashboard"></i> <span>Dashboard</span></div>
       <div class="nav-item" data-view="candidates"><i class="ti ti-users"></i> <span>ผู้สมัคร</span></div>
+      <div class="nav-item" data-view="bank"><i class="ti ti-list-details"></i> <span>คลังคำถาม (Agenda)</span></div>
       <div class="nav-sep"></div>
+      <div class="nav-item" onclick="importJSON()"><i class="ti ti-file-import"></i> <span>Import ข้อมูล</span></div>
+      <div class="nav-item" onclick="exportJSON()"><i class="ti ti-file-export"></i> <span>Export ข้อมูล</span></div>
       <div class="nav-item" id="themeToggle"><i class="ti ti-moon" id="themeIcon"></i> <span id="themeLabel">Dark mode</span></div>
     </div>
     <div class="sidebar-footer">
-      <div class="avatar">HR</div>
-      <div>
-        <div class="user-name">HOBI Recruiting</div>
-        <div class="user-email">Interview Scorecards</div>
-      </div>
+      <div class="sync-row"><div class="sync-dot" id="syncDot"></div> <span id="syncText">กำลังเชื่อมต่อ…</span></div>
     </div>
   </div>
 
@@ -216,7 +245,7 @@
         <p id="pageSub">ภาพรวมคะแนนสัมภาษณ์ผู้สมัครทั้งหมด</p>
       </div>
       <div class="header-actions">
-        <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
+        <button class="btn" onclick="exportCSV()"><i class="ti ti-table-export"></i> CSV</button>
         <button class="btn btn-primary" onclick="openCandidateModal()"><i class="ti ti-user-plus"></i> เพิ่มผู้สมัคร</button>
       </div>
     </div>
@@ -239,6 +268,7 @@
           <option value="applied">Applied</option>
           <option value="screening">Screening</option>
           <option value="interview">Interview</option>
+          <option value="kiv">Keep in View</option>
           <option value="offer">Offer</option>
           <option value="hired">Hired</option>
           <option value="rejected">Rejected</option>
@@ -253,7 +283,7 @@
         <div class="list-header">
           <span class="c">#</span><span>ผู้สมัคร</span><span class="h-pos">ตำแหน่ง</span>
           <span class="h-stage">สถานะ</span><span class="c h-int">สัมภาษณ์</span>
-          <span class="c">คะแนนเฉลี่ย</span><span class="c">คำแนะนำ</span>
+          <span class="c">Overall</span><span class="c">ผลประเมิน</span>
         </div>
         <div id="candList"></div>
       </div>
@@ -261,6 +291,9 @@
 
     <!-- Detail view -->
     <div id="view-detail" style="display:none;"></div>
+
+    <!-- Question bank view -->
+    <div id="view-bank" style="display:none;"></div>
   </div>
 </div>
 
@@ -275,15 +308,16 @@
       <input type="hidden" id="candId">
       <div class="grid2">
         <div class="field"><label>ชื่อ-นามสกุล *</label><input id="fName" placeholder="เช่น สมชาย ใจดี"></div>
-        <div class="field"><label>ตำแหน่งที่สมัคร *</label><input id="fPosition" placeholder="เช่น Software Engineer"></div>
+        <div class="field"><label>ตำแหน่งที่สมัคร *</label><input id="fPosition" placeholder="เช่น Content Moderator"></div>
       </div>
       <div class="grid2">
-        <div class="field"><label>แผนก</label><input id="fDept" placeholder="เช่น Engineering"></div>
+        <div class="field"><label>ทีม / โปรเจกต์</label><input id="fDept" placeholder="เช่น Labeling Team A"></div>
         <div class="field"><label>สถานะ</label>
           <select id="fStage">
             <option value="applied">Applied</option>
             <option value="screening">Screening</option>
             <option value="interview" selected>Interview</option>
+            <option value="kiv">Keep in View</option>
             <option value="offer">Offer</option>
             <option value="hired">Hired</option>
             <option value="rejected">Rejected</option>
@@ -297,8 +331,11 @@
       <div class="field"><label>หมายเหตุ</label><textarea id="fNotes" placeholder="ข้อมูลเพิ่มเติม..."></textarea></div>
     </div>
     <div class="modal-foot">
-      <button class="btn" onclick="closeModal('candModal')">ยกเลิก</button>
-      <button class="btn btn-primary" onclick="saveCandidate()">บันทึก</button>
+      <span></span>
+      <div style="display:flex;gap:10px">
+        <button class="btn" onclick="closeModal('candModal')">ยกเลิก</button>
+        <button class="btn btn-primary" onclick="saveCandidate()">บันทึก</button>
+      </div>
     </div>
   </div>
 </div>
@@ -307,157 +344,352 @@
 <div class="modal-overlay" id="scoreModal">
   <div class="modal-box wide">
     <div class="modal-head">
-      <div><h2>บันทึกคะแนนสัมภาษณ์</h2><div class="sub" id="scoreModalSub"></div></div>
-      <button class="modal-close" onclick="closeModal('scoreModal')">&times;</button>
+      <div><h2>Interview Scorecard</h2><div class="sub" id="scoreModalSub"></div></div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="timer-chip" title="เวลาที่ใช้ไป / agenda 90 นาที"><i class="ti ti-clock"></i> <span id="scTimer">00:00</span></span>
+        <button class="modal-close" onclick="closeModal('scoreModal')">&times;</button>
+      </div>
     </div>
     <div class="modal-body">
       <input type="hidden" id="scCandId">
+      <div class="scale-legend">
+        <b>1</b> Far Below Expectations — ขาดทักษะสำคัญ ไม่เหมาะกับตำแหน่ง &nbsp;·&nbsp;
+        <b>2</b> Below Expectations — อ่อนหลายด้าน ต้องเทรนหนัก &nbsp;·&nbsp;
+        <b>2.5</b> Keep in View — มีศักยภาพแต่มีจุดอ่อน เก็บไว้พิจารณา &nbsp;·&nbsp;
+        <b>3</b> Meets Expectations — ผ่านเกณฑ์หลักของตำแหน่ง &nbsp;·&nbsp;
+        <b>4</b> Exceeds Expectations — เกินเกณฑ์พื้นฐาน &nbsp;·&nbsp;
+        <b>5</b> Far Exceeds — โดดเด่นมาก มีศักยภาพเป็น mentor/leader
+      </div>
       <div class="grid2">
         <div class="field"><label>ผู้สัมภาษณ์ *</label><input id="scInterviewer" placeholder="ชื่อผู้ให้คะแนน"></div>
-        <div class="field"><label>รอบ / ประเภท</label>
+        <div class="field"><label>รอบสัมภาษณ์</label>
           <select id="scRound">
+            <option selected>Panel Interview (90 min)</option>
             <option>HR Screening</option>
-            <option selected>Technical Interview</option>
-            <option>Culture Fit</option>
             <option>Final Round</option>
-            <option>Take-home Review</option>
+            <option>Follow-up</option>
           </select>
         </div>
       </div>
-      <div class="field" style="margin-bottom:20px;">
-        <label>เกณฑ์การให้คะแนน (1 = ต่ำ, 5 = ดีเยี่ยม)</label>
-        <div id="critRows"></div>
-      </div>
-      <div class="field">
-        <label>คำแนะนำ (Recommendation) *</label>
-        <div class="rec-choices" id="recChoices">
-          <button type="button" data-v="2">Strong Hire</button>
-          <button type="button" data-v="1">Hire</button>
-          <button type="button" data-v="-1">No Hire</button>
-          <button type="button" data-v="-2">Strong No</button>
+      <div id="scSections"></div>
+      <div class="field" style="margin-top:18px">
+        <label>ความพร้อมทำงาน</label>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px">ทำงานกลางคืน (Overnight)
+            <div class="seg" id="segNight"><button data-v="1">ได้</button><button data-v="0">ไม่ได้</button></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px">ทำ OT
+            <div class="seg" id="segOT"><button data-v="1">ได้</button><button data-v="0">ไม่ได้</button></div>
+          </div>
         </div>
       </div>
-      <div class="field"><label>ความเห็น / คอมเมนต์</label><textarea id="scComment" placeholder="จุดเด่น จุดที่ควรพัฒนา ฯลฯ"></textarea></div>
+      <div class="field"><label>Comments (จุดเด่น / จุดที่ควรพัฒนา)</label><textarea id="scComment" placeholder="สรุปความเห็นผู้สัมภาษณ์..."></textarea></div>
     </div>
     <div class="modal-foot">
-      <button class="btn" onclick="closeModal('scoreModal')">ยกเลิก</button>
-      <button class="btn btn-primary" onclick="saveScorecard()">บันทึกคะแนน</button>
+      <div class="live-overall">Overall Score: <b id="scLiveOverall">—</b> <span id="scLiveVerdict"></span></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn" onclick="closeModal('scoreModal')">ยกเลิก</button>
+        <button class="btn btn-primary" onclick="saveScorecard()">บันทึกคะแนน</button>
+      </div>
     </div>
   </div>
 </div>
 
+<input type="file" id="importFile" accept=".json" style="display:none">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* ---------------- Data ---------------- */
-const CRITERIA = [
-  {key:"technical",  name:"Technical Skills", hint:"ความรู้/ทักษะเชิงเทคนิค"},
-  {key:"problem",    name:"Problem Solving",  hint:"การคิดวิเคราะห์แก้ปัญหา"},
-  {key:"communication", name:"Communication", hint:"การสื่อสาร"},
-  {key:"culture",    name:"Culture Fit",      hint:"เข้ากับทีม/องค์กร"},
-  {key:"experience", name:"Experience",       hint:"ประสบการณ์ที่เกี่ยวข้อง"},
+/* ================= Interview template (from Lark agenda, 90 min) ================= */
+const SCALE = [1, 2, 2.5, 3, 4, 5];
+const GROUPS = [
+  {key:'english',    name:'English Language Proficiency', time:30, icon:'ti-language'},
+  {key:'competency', name:'Competency-Based Interview',   time:20, icon:'ti-target-arrow'},
+  {key:'attitude',   name:'Attitude & Cultural Fit',      time:30, icon:'ti-heart-handshake'},
 ];
-const REC_LABEL = {"2":"Strong Hire","1":"Hire","-1":"No Hire","-2":"Strong No Hire"};
+const ITEMS = [
+  {key:'eng', group:'english', name:'English Proficiency', hint:'Grammar · Reading · Writing — essential for labeling/moderation tasks', questions:[
+    'Grammar assessment (basic structures, tenses, articles)',
+    'Reading comprehension (understand guideline-style text)',
+    'Writing sample (clear, concise written response)',
+  ]},
+  {key:'c_rules', group:'competency', name:'Following Instructions & Guidelines', hint:'ทำตามกฎ/แนวทางอย่างเคร่งครัด', questions:[
+    'What types of content have you previously moderated (text, images, videos, etc.)?',
+    'Tell me about a time you had to follow a strict set of rules. How did you ensure you understood and followed them correctly?',
+    'Follow-up: What did you do if something in the rules was unclear?',
+    'Tell me about a time when you disagreed with a moderation guideline. How did you handle it?',
+    'Could you walk me through how you would handle a piece of content that falls in a gray area of your guidelines?',
+  ]},
+  {key:'c_time', group:'competency', name:'Time Management · Productivity · Resilience', hint:'จัดการงานปริมาณมากอย่างมีประสิทธิภาพ', questions:[
+    'Describe your experience with handling high-volume moderation queues efficiently.',
+    'How do you adapt to changes in moderation guidelines or policy updates?',
+  ]},
+  {key:'c_prob', group:'competency', name:'Problem-Solving & Self-driven', hint:'แก้ปัญหาเอง ผลักดันตัวเอง', questions:[
+    'Tell me about a time you faced an unexpected problem at work or in school. How did you solve it?',
+    "Describe how you would handle a situation where you're unsure about a moderation decision.",
+    'What methods have you used to identify areas for personal improvement in your moderation work?',
+    'Tell me about a time you went above and beyond your role responsibilities to help the team succeed.',
+  ]},
+  {key:'c_team', group:'competency', name:'Teamwork & Collaboration', hint:'ทำงานร่วมกับทีม', questions:[
+    'Give an example of a situation where you worked on a team to accomplish a goal. What was your role, and what challenges did you face?',
+    "Describe how you've helped onboard or train new moderators.",
+    'How do you approach disagreements with teammates about moderation decisions?',
+  ]},
+  {key:'a_motiv', group:'attitude', name:'Motivation for Repetitive Tasks', hint:'แรงจูงใจกับงานซ้ำ ๆ', questions:[
+    'Labeling can be repetitive. How do you keep yourself motivated and focused?',
+    'Follow-up: What do you do if you start feeling bored or distracted?',
+    'What motivates you to consistently perform well in your work?',
+  ]},
+  {key:'a_ambig', group:'attitude', name:'Handling Ambiguity', hint:'รับมือความไม่ชัดเจน', questions:[
+    "Sometimes guidelines aren't perfectly clear. How do you handle situations where you're unsure about the correct approach?",
+    'Follow-up: How comfortable are you with asking for help or clarifications?',
+  ]},
+  {key:'a_adapt', group:'attitude', name:'Adaptability & Willingness to Learn', hint:'ปรับตัว เรียนรู้เร็ว', questions:[
+    'Tell me about a time you had to learn a new tool or process quickly. How did you adapt?',
+    'Follow-up: What if the process changes frequently?',
+  ]},
+  {key:'a_well', group:'attitude', name:'Managing Emotional Well-Being', hint:'ดูแลสุขภาพใจตัวเอง', questions:[
+    'Tell me about a time you felt emotionally drained by work or studies. How did you address it?',
+    "Follow-up: What practices do you use to maintain a healthy work-life balance, especially if the content you're reviewing is stressful?",
+  ]},
+  {key:'a_sens', group:'attitude', name:'Handling Sensitive Content', hint:'รับมือคอนเทนต์รุนแรง/ไม่สบายใจ', questions:[
+    'In moderation, you might see upsetting content. How do you maintain professionalism and manage your emotional response?',
+    'Follow-up: If you felt overwhelmed, how would you handle that?',
+  ]},
+  {key:'a_comm', group:'attitude', name:'Team Collaboration & Communication', hint:'สื่อสารและทำงานร่วมกับผู้อื่น', questions:[
+    'Describe a time you worked with others on a project. What was your role, and how did you handle any disagreements?',
+    "Follow-up: What do you do if you disagree with a teammate's approach?",
+    'If someone could describe you, how would it be?',
+  ]},
+  {key:'a_fb', group:'attitude', name:'Receiving & Implementing Feedback', hint:'รับ feedback และนำไปใช้', questions:[
+    'Share a time you received feedback you initially disagreed with. How did you respond?',
+    'Follow-up: In this role, feedback might be frequent. How do you plan to incorporate it?',
+  ]},
+  {key:'a_conf', group:'attitude', name:'Conflict Resolution & Work Environment', hint:'จัดการความขัดแย้ง', questions:[
+    'Tell me about a minor conflict with a coworker or classmate. How did you resolve it, and what did you learn?',
+    'Follow-up: How do you maintain a positive relationship after a conflict?',
+    'Describe your ideal work environment and team dynamic.',
+    'What type of management style helps you perform at your best?',
+  ]},
+  {key:'a_own', group:'attitude', name:'Ownership & Initiative', hint:'ความเป็นเจ้าของงาน กล้าเสนอ', questions:[
+    'If you notice a new error or issue in labeling procedures, how do you bring it up or suggest improvements?',
+    "Follow-up: What if your suggestion isn't accepted right away?",
+  ]},
+  {key:'a_stress', group:'attitude', name:'Stress Tolerance', hint:'ทนแรงกดดัน/เดดไลน์', questions:[
+    'How do you handle stress when you have tight deadlines or a large volume of tasks?',
+    'Follow-up: Do you use any specific methods or tools (checklists, time blocks) to stay organized?',
+  ]},
+  {key:'a_rely', group:'attitude', name:'Reliability & Accountability', hint:'รับผิดชอบต่อความผิดพลาด', questions:[
+    'Give an example of a time you made a mistake at work (or in a project). How did you handle it, and what did you learn?',
+    'Follow-up: What steps do you take now to prevent similar mistakes?',
+  ]},
+  {key:'a_cult', group:'attitude', name:'Cultural Fit & Values', hint:'Collaboration · Respect · Attention to detail + Overnight/OT', questions:[
+    "Our company values collaboration, respect, and attention to detail. Which resonates most with you? Can you give an example of how you've shown it?",
+    'Follow-up: What do you look for in a workplace to feel supported and productive?',
+    'What aspects of your previous company culture did you find most supportive of your work?',
+    'Are you able to work overnight?',
+    'Are you comfortable doing OT?',
+    "Describe how you've contributed to a positive team culture in previous roles.",
+  ]},
+];
+const ITEM_BY_KEY = Object.fromEntries(ITEMS.map(i=>[i.key,i]));
 
+function verdictOf(v){
+  if(v==null) return null;
+  if(v>=4.5) return {k:'fee', t:'Far Exceeds'};
+  if(v>=4)   return {k:'ee',  t:'Exceeds Expectations'};
+  if(v>=3)   return {k:'me',  t:'Meets Expectations'};
+  if(v>=2.5) return {k:'kiv', t:'Keep in View'};
+  if(v>=2)   return {k:'be',  t:'Below Expectations'};
+  return {k:'fbe', t:'Far Below Expectations'};
+}
+
+/* ================= Data & sync ================= */
 const SAMPLE = [
-  {id:1, name:"สมชาย ใจดี", position:"Software Engineer", dept:"Engineering", stage:"interview", email:"somchai@email.com", phone:"081-234-5678", notes:"", createdAt:1721000000000,
+  {id:1, name:'สมหญิง ตัวอย่าง', position:'Content Moderator', dept:'Labeling Team A', stage:'interview', email:'demo@email.com', phone:'081-000-0000', notes:'ตัวอย่างข้อมูล ลบได้', createdAt:Date.now()-86400000, updatedAt:Date.now()-86400000,
     scorecards:[
-      {id:11, interviewer:"Nattapong (Tech Lead)", round:"Technical Interview", date:1721100000000, scores:{technical:5,problem:4,communication:4,culture:4,experience:4}, rec:2, comment:"เก่ง algorithm มาก อธิบายชัดเจน แนะนำให้ผ่าน"},
-      {id:12, interviewer:"Pim (HR)", round:"HR Screening", date:1721050000000, scores:{technical:3,problem:4,communication:5,culture:5,experience:3}, rec:1, comment:"ทัศนคติดี สื่อสารเก่ง"},
-    ]},
-  {id:2, name:"อรุณี แสงทอง", position:"Product Designer", dept:"Design", stage:"offer", email:"arunee@email.com", phone:"089-876-5432", notes:"Portfolio แข็งแรง", createdAt:1720800000000,
-    scorecards:[
-      {id:21, interviewer:"Ken (Design Lead)", round:"Final Round", date:1721200000000, scores:{technical:5,problem:5,communication:4,culture:5,experience:5}, rec:2, comment:"Portfolio ดีมาก คิดเป็นระบบ"},
-    ]},
-  {id:3, name:"ปิยะ วงศ์ดี", position:"Data Analyst", dept:"Data", stage:"screening", email:"piya@email.com", phone:"092-111-2233", notes:"", createdAt:1721300000000,
-    scorecards:[
-      {id:31, interviewer:"Pim (HR)", round:"HR Screening", date:1721350000000, scores:{technical:3,problem:3,communication:3,culture:4,experience:2}, rec:-1, comment:"ประสบการณ์ยังน้อย แต่พื้นฐานพอใช้"},
-    ]},
-  {id:4, name:"วิชัย ตั้งมั่น", position:"Software Engineer", dept:"Engineering", stage:"rejected", email:"wichai@email.com", phone:"086-333-4455", notes:"", createdAt:1720500000000,
-    scorecards:[
-      {id:41, interviewer:"Nattapong (Tech Lead)", round:"Technical Interview", date:1720600000000, scores:{technical:2,problem:2,communication:3,culture:3,experience:2}, rec:-2, comment:"พื้นฐานยังไม่พอสำหรับตำแหน่งนี้"},
+      {id:2, interviewer:'HR Demo', round:'Panel Interview (90 min)', date:Date.now()-80000000,
+        sections:{eng:{score:3}, c_rules:{score:4}, c_time:{score:3}, c_prob:{score:3}, c_team:{score:4}, a_motiv:{score:3}, a_ambig:{score:2.5}, a_sens:{score:3}, a_cult:{score:4}},
+        night:1, ot:1, comment:'ตัวอย่าง scorecard — สื่อสารดี ภาษาอังกฤษพอใช้'},
     ]},
 ];
 
-let candidates = load();
-let idCounter = 0;
-candidates.forEach(c=>{ idCounter=Math.max(idCounter,c.id); (c.scorecards||[]).forEach(s=> idCounter=Math.max(idCounter,s.id)); });
+let candidates = loadLocal();
+let idc = 0;
+function nextId(){ return Date.now()*100 + (idc = (idc+1)%100); }
 
-function load(){
+function loadLocal(){
   try{
-    const raw = localStorage.getItem('hobi_hire');
-    if(raw){ const a=JSON.parse(raw); if(Array.isArray(a)) return a; }
+    const raw = localStorage.getItem('hobi_hire_v2');
+    if(raw){ const a = JSON.parse(raw); if(Array.isArray(a)) return a; }
   }catch(e){}
   return JSON.parse(JSON.stringify(SAMPLE));
 }
-function save(){ try{ localStorage.setItem('hobi_hire', JSON.stringify(candidates)); }catch(e){} }
-function nextId(){ return ++idCounter; }
+function persistLocal(){ try{ localStorage.setItem('hobi_hire_v2', JSON.stringify(candidates)); }catch(e){} }
+
+// ---- Firebase (same project as partner dashboard; separate doc for hiring data) ----
+const firebaseConfig = {
+  apiKey: "AIzaSyCcgqk8syDd4etzczr0Lev-GpGJQg2Yapg",
+  authDomain: "hobi-partner-dashboard.firebaseapp.com",
+  projectId: "hobi-partner-dashboard",
+  storageBucket: "hobi-partner-dashboard.firebasestorage.app",
+  messagingSenderId: "1088313132252",
+  appId: "1:1088313132252:web:ad8058e7b118e1c0d8e019",
+  measurementId: "G-J5V8Q9XC89"
+};
+let db=null, HIRE_DOC=null, firebaseReady=false;
+let isApplyingRemote=false, saveTimer=null, initialLoadComplete=false;
+try{
+  if(typeof firebase !== 'undefined'){
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    HIRE_DOC = db.collection('hobi').doc('hire');
+    firebaseReady = true;
+  }
+}catch(e){ console.error('Firebase init failed:', e); }
+
+function setSync(state){
+  const dot=document.getElementById('syncDot'), txt=document.getElementById('syncText');
+  if(state==='on'){ dot.className='sync-dot on'; txt.textContent='ซิงก์อัตโนมัติ (เรียลไทม์)'; }
+  else if(state==='off'){ dot.className='sync-dot off'; txt.textContent='ออฟไลน์ — เก็บในเครื่อง'; }
+  else { dot.className='sync-dot'; txt.textContent='กำลังเชื่อมต่อ…'; }
+}
+
+if(HIRE_DOC){
+  HIRE_DOC.onSnapshot(doc=>{
+    setSync('on');
+    if(doc.exists){
+      const d = doc.data();
+      if(d && d.json){
+        try{
+          const arr = JSON.parse(d.json);
+          if(Array.isArray(arr)){
+            isApplyingRemote = true;
+            candidates = arr;
+            persistLocal();
+            rerenderCurrent();
+            isApplyingRemote = false;
+          }
+        }catch(e){ console.error('bad remote payload', e); }
+      }
+    }
+    initialLoadComplete = true;
+  }, err=>{ console.error('snapshot error', err); setSync('off'); initialLoadComplete = true; });
+  // if Firestore never answers (blocked network), fall back after 6s
+  setTimeout(()=>{ if(!initialLoadComplete){ setSync('off'); initialLoadComplete = true; } }, 6000);
+}else{
+  setSync('off');
+  initialLoadComplete = true;
+}
+
+function saveData(){
+  persistLocal();
+  if(!HIRE_DOC || isApplyingRemote || !initialLoadComplete) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    HIRE_DOC.set({ json: JSON.stringify(candidates), updatedAt: Date.now() })
+      .then(()=> setSync('on'))
+      .catch(e=>{ console.error('save failed', e); setSync('off'); });
+  }, 700);
+}
+
 function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-/* ---------------- Aggregation ---------------- */
-function avgScore(c){
-  const cards = c.scorecards||[];
-  if(!cards.length) return null;
-  let sum=0,n=0;
-  cards.forEach(s=>{ CRITERIA.forEach(cr=>{ const v=s.scores?.[cr.key]; if(typeof v==='number'){sum+=v;n++;} }); });
-  return n? sum/n : null;
-}
-function critAvgs(c){
-  const cards=c.scorecards||[]; const out={};
-  CRITERIA.forEach(cr=>{
-    let sum=0,n=0;
-    cards.forEach(s=>{ const v=s.scores?.[cr.key]; if(typeof v==='number'){sum+=v;n++;} });
-    out[cr.key]= n? sum/n : null;
+/* ================= Score aggregation ================= */
+function groupAvg(sections, gkey){
+  let sum=0, n=0;
+  ITEMS.filter(i=>i.group===gkey).forEach(i=>{
+    const v = sections?.[i.key]?.score;
+    if(typeof v==='number'){ sum+=v; n++; }
   });
-  return out;
+  return n ? sum/n : null;
 }
-function recSummary(c){
-  const cards=c.scorecards||[];
-  if(!cards.length) return null;
-  const sum = cards.reduce((a,s)=>a+(s.rec||0),0);
-  const avg = sum/cards.length;
-  // rec scale is {-2,-1,1,2} (no 0); snap avg to nearest at the midpoints 1.5 / 0 / -1.5
-  if(avg>=1.5) return 2; if(avg>=0) return 1; if(avg>=-1.5) return -1; return -2;
+function scorecardOverall(s){
+  // time-weighted: English 30 / Competency 20 / Attitude 30
+  let wsum=0, w=0;
+  GROUPS.forEach(g=>{
+    const a = groupAvg(s.sections, g.key);
+    if(a!=null){ wsum += a*g.time; w += g.time; }
+  });
+  return w ? wsum/w : null;
 }
-function scoreClass(v){ if(v==null) return 'score-na'; if(v>=4) return 'score-hi'; if(v>=3) return 'score-mid'; return 'score-lo'; }
-function fmtScore(v){ return v==null? '—' : v.toFixed(1); }
-function fmtDate(ts){ if(!ts) return ''; const d=new Date(ts); return d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'}); }
+function candOverall(c){
+  const vals = (c.scorecards||[]).map(scorecardOverall).filter(v=>v!=null);
+  return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function itemAvg(c, key){
+  let sum=0, n=0;
+  (c.scorecards||[]).forEach(s=>{
+    const v = s.sections?.[key]?.score;
+    if(typeof v==='number'){ sum+=v; n++; }
+  });
+  return n ? sum/n : null;
+}
+function scoreClass(v){
+  if(v==null) return 'score-na';
+  if(v>=4) return 'score-hi'; if(v>=3) return 'score-mid';
+  if(v>=2.5) return 'score-kiv'; return 'score-lo';
+}
+function scoreColor(v){
+  if(v==null) return 'var(--border)';
+  if(v>=4) return 'var(--green)'; if(v>=3) return 'var(--accent)';
+  if(v>=2.5) return 'var(--amber)'; return 'var(--red)';
+}
+function fmtScore(v){ return v==null ? '—' : (Math.round(v*100)/100).toFixed(2).replace(/0$/,'').replace(/\.$/,''); }
+function fmtDate(ts){ if(!ts) return ''; return new Date(ts).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'}); }
 
-/* ---------------- Views ---------------- */
+/* ================= Views ================= */
+let currentView='dashboard', currentDetailId=null;
 function showView(name){
+  currentView=name;
   document.querySelectorAll('.nav-item[data-view]').forEach(i=>i.classList.toggle('active', i.dataset.view===name));
-  ['dashboard','candidates','detail'].forEach(v=> document.getElementById('view-'+v).style.display = v===name?'':'none');
-  const titles={dashboard:['Dashboard','ภาพรวมคะแนนสัมภาษณ์ผู้สมัครทั้งหมด'],candidates:['ผู้สมัคร','รายชื่อผู้สมัครและคะแนนเฉลี่ย'],detail:['รายละเอียดผู้สมัคร','']};
+  ['dashboard','candidates','detail','bank'].forEach(v=> document.getElementById('view-'+v).style.display = v===name?'':'none');
+  const titles={
+    dashboard:['Dashboard','ภาพรวมคะแนนสัมภาษณ์ผู้สมัครทั้งหมด'],
+    candidates:['ผู้สมัคร','รายชื่อผู้สมัครและคะแนน Overall'],
+    bank:['คลังคำถาม — Interview Agenda (90 นาที)','โครงสร้างการสัมภาษณ์และคำถามทั้งหมด'],
+    detail:['รายละเอียดผู้สมัคร',''],
+  };
   if(titles[name]){ document.getElementById('pageTitle').textContent=titles[name][0]; document.getElementById('pageSub').textContent=titles[name][1]; }
   if(name==='dashboard') renderDashboard();
   if(name==='candidates') renderCandidates();
+  if(name==='bank') renderBank();
 }
 document.querySelectorAll('.nav-item[data-view]').forEach(i=> i.onclick=()=>showView(i.dataset.view));
+function rerenderCurrent(){
+  if(currentView==='detail' && currentDetailId!=null){
+    if(candidates.some(c=>c.id===currentDetailId)) openDetail(currentDetailId);
+    else showView('candidates');
+  }else showView(currentView);
+}
 
 function renderDashboard(){
   const total=candidates.length;
   const totalCards=candidates.reduce((a,c)=>a+(c.scorecards?.length||0),0);
-  const scored=candidates.filter(c=>avgScore(c)!=null);
-  const overall = scored.length? scored.reduce((a,c)=>a+avgScore(c),0)/scored.length : null;
+  const scored=candidates.filter(c=>candOverall(c)!=null);
+  const overall = scored.length ? scored.reduce((a,c)=>a+candOverall(c),0)/scored.length : null;
+  const kiv = candidates.filter(c=>{ const v=candOverall(c); return (v!=null && v>=2.5 && v<3) || c.stage==='kiv'; }).length;
   const pending = candidates.filter(c=>!(c.scorecards?.length)).length;
   const stats=[
-    {icon:'ti-users',color:'blue',v:total,l:'ผู้สมัครทั้งหมด'},
-    {icon:'ti-clipboard-check',color:'purple',v:totalCards,l:'ใบให้คะแนน (Scorecards)'},
-    {icon:'ti-star',color:'amber',v:fmtScore(overall),l:'คะแนนเฉลี่ยรวม'},
-    {icon:'ti-hourglass',color:'red',v:pending,l:'ยังไม่ได้สัมภาษณ์'},
+    {icon:'ti-users', color:'accent', v:total, l:'ผู้สมัครทั้งหมด'},
+    {icon:'ti-clipboard-check', color:'blue', v:totalCards, l:'Scorecards ทั้งหมด'},
+    {icon:'ti-star', color:'green', v:fmtScore(overall), l:'คะแนนเฉลี่ยรวม'},
+    {icon:'ti-eye-search', color:'amber', v:kiv+' / '+pending, l:'Keep in View / รอสัมภาษณ์'},
   ];
   document.getElementById('dashStats').innerHTML = stats.map(s=>`
     <div class="stat-card">
-      <div class="stat-icon" style="background:var(--${s.color}-light);color:var(--${s.color})"><i class="ti ${s.icon}"></i></div>
+      <div class="stat-icon" style="background:var(--${s.color}-light,var(--accent-light));color:var(--${s.color})"><i class="ti ${s.icon}"></i></div>
       <div><div class="stat-value">${s.v}</div><div class="stat-label">${s.l}</div></div>
     </div>`).join('');
 
-  const top=[...scored].sort((a,b)=>avgScore(b)-avgScore(a)).slice(0,5);
-  document.getElementById('dashTop').innerHTML = top.length? top.map((c,i)=>{
-    const v=avgScore(c); const rec=recSummary(c);
-    return `<div class="cand-row" style="grid-template-columns:34px 1fr 150px 110px 90px;" onclick="openDetail(${c.id})">
+  const top=[...scored].sort((a,b)=>candOverall(b)-candOverall(a)).slice(0,5);
+  document.getElementById('dashTop').innerHTML = top.length ? top.map((c,i)=>{
+    const v=candOverall(c); const vd=verdictOf(v);
+    return `<div class="cand-row" style="grid-template-columns:34px 1fr 150px 160px 90px;" onclick="openDetail(${c.id})">
       <div class="cand-num">${i+1}</div>
       <div><div class="cand-name">${esc(c.name)}</div><div class="cand-sub">${esc(c.position)}</div></div>
       <div class="cell">${esc(c.dept||'')}</div>
-      <div class="c">${rec!=null?`<span class="rec-pill rec-${rec}">${REC_LABEL[rec]}</span>`:''}</div>
+      <div class="c">${vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:''}</div>
       <div class="c"><span class="score-pill ${scoreClass(v)}">${fmtScore(v)}</span></div>
     </div>`;
   }).join('') : '<div class="empty"><i class="ti ti-inbox"></i>ยังไม่มีคะแนนสัมภาษณ์</div>';
@@ -474,102 +706,147 @@ function renderCandidates(){
   });
   list.sort((a,b)=>{
     if(sort==='name') return a.name.localeCompare(b.name,'th');
-    if(sort==='recent') return (b.createdAt||0)-(a.createdAt||0);
-    const va=avgScore(a), vb=avgScore(b);
+    if(sort==='recent') return (b.updatedAt||b.createdAt||0)-(a.updatedAt||a.createdAt||0);
+    const va=candOverall(a), vb=candOverall(b);
     return (vb==null?-1:vb)-(va==null?-1:va);
   });
   const el=document.getElementById('candList');
   if(!list.length){ el.innerHTML='<div class="empty"><i class="ti ti-user-search"></i>ไม่พบผู้สมัคร</div>'; return; }
   el.innerHTML=list.map((c,i)=>{
-    const v=avgScore(c); const rec=recSummary(c); const n=c.scorecards?.length||0;
+    const v=candOverall(c); const vd=verdictOf(v); const n=c.scorecards?.length||0;
     return `<div class="cand-row" onclick="openDetail(${c.id})">
       <div class="cand-num">${i+1}</div>
       <div><div class="cand-name">${esc(c.name)}</div><div class="cand-sub">${esc(c.email||'')}</div></div>
       <div class="cell col-pos">${esc(c.position)}</div>
-      <div class="col-stage"><span class="badge st-${c.stage}">${c.stage}</span></div>
+      <div class="col-stage"><span class="badge st-${c.stage}">${stageLabel(c.stage)}</span></div>
       <div class="c cell col-int">${n}</div>
       <div class="c"><span class="score-pill ${scoreClass(v)}">${fmtScore(v)}</span></div>
-      <div class="c">${rec!=null?`<span class="rec-pill rec-${rec}">${REC_LABEL[rec].replace('Strong ','S.')}</span>`:'<span class="cell">—</span>'}</div>
+      <div class="c">${vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:'<span class="cell">—</span>'}</div>
     </div>`;
   }).join('');
 }
+function stageLabel(s){ return {applied:'Applied',screening:'Screening',interview:'Interview',kiv:'Keep in View',offer:'Offer',hired:'Hired',rejected:'Rejected'}[s]||s; }
 
 function openDetail(id){
   const c=candidates.find(x=>x.id===id); if(!c) return;
-  const v=avgScore(c); const rec=recSummary(c); const cavg=critAvgs(c);
+  currentDetailId=id; currentView='detail';
+  const v=candOverall(c); const vd=verdictOf(v);
   const cards=[...(c.scorecards||[])].sort((a,b)=>(b.date||0)-(a.date||0));
+  const latest=cards[0];
   const el=document.getElementById('view-detail');
+
+  const barsHtml = GROUPS.map(g=>{
+    const items = ITEMS.filter(i=>i.group===g.key);
+    return `<div class="bar-group-label">${g.name} <span style="opacity:.6">(${g.time} นาที)</span></div>` +
+      items.map(it=>{
+        const a=itemAvg(c,it.key); const pct=a==null?0:(a/5*100);
+        return `<div class="crit-bar-row">
+          <div class="crit-bar-top"><span>${it.name}</span><span class="v">${fmtScore(a)}</span></div>
+          <div class="crit-bar"><span style="width:${pct}%;background:${scoreColor(a)}"></span></div>
+        </div>`;
+      }).join('');
+  }).join('');
+
   el.innerHTML=`
     <button class="link-btn" style="margin-bottom:14px" onclick="showView('candidates')"><i class="ti ti-arrow-left"></i> กลับไปรายชื่อ</button>
     <div class="detail-top">
-      <div style="flex:1;min-width:200px">
+      <div style="flex:1;min-width:220px">
         <div class="detail-name">${esc(c.name)}</div>
-        <div class="detail-meta">${esc(c.position)}${c.dept?' · '+esc(c.dept):''} <span class="badge st-${c.stage}" style="margin-left:6px">${c.stage}</span></div>
+        <div class="detail-meta">${esc(c.position)}${c.dept?' · '+esc(c.dept):''} <span class="badge st-${c.stage}" style="margin-left:6px">${stageLabel(c.stage)}</span></div>
         <div class="detail-meta" style="margin-top:6px">
           ${c.email?`<i class="ti ti-mail"></i> ${esc(c.email)}&nbsp;&nbsp;`:''}
           ${c.phone?`<i class="ti ti-phone"></i> ${esc(c.phone)}`:''}
         </div>
+        ${latest && (latest.night!=null || latest.ot!=null) ? `<div class="detail-meta" style="margin-top:6px">
+          ${latest.night!=null?`<span class="badge ${latest.night?'st-offer':'st-rejected'}">Overnight: ${latest.night?'ได้':'ไม่ได้'}</span>`:''}
+          ${latest.ot!=null?`<span class="badge ${latest.ot?'st-offer':'st-rejected'}" style="margin-left:6px">OT: ${latest.ot?'ได้':'ไม่ได้'}</span>`:''}
+        </div>`:''}
         ${c.notes?`<div class="detail-meta" style="margin-top:6px;font-style:italic">"${esc(c.notes)}"</div>`:''}
         <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" onclick="openScoreModal(${c.id})"><i class="ti ti-plus"></i> เพิ่มคะแนนสัมภาษณ์</button>
+          <button class="btn btn-primary btn-sm" onclick="openScoreModal(${c.id})"><i class="ti ti-clipboard-plus"></i> เริ่มให้คะแนนสัมภาษณ์</button>
           <button class="btn btn-sm" onclick="openCandidateModal(${c.id})"><i class="ti ti-edit"></i> แก้ไข</button>
           <button class="btn btn-sm" onclick="deleteCandidate(${c.id})"><i class="ti ti-trash"></i> ลบ</button>
         </div>
       </div>
       <div class="detail-big-score">
-        <div class="n ${v==null?'':(v>=4?'':'')}" style="color:${v==null?'var(--text3)':(v>=4?'var(--green)':v>=3?'var(--amber)':'var(--red)')}">${fmtScore(v)}</div>
-        <div class="l">คะแนนเฉลี่ย / 5</div>
-        ${rec!=null?`<div style="margin-top:8px"><span class="rec-pill rec-${rec}">${REC_LABEL[rec]}</span></div>`:''}
+        <div class="n" style="color:${scoreColor(v)}">${fmtScore(v)}</div>
+        <div class="l">Overall Score / 5</div>
+        ${vd?`<div style="margin-top:8px"><span class="verdict v-${vd.k}">${vd.t}</span></div>`:''}
       </div>
     </div>
     <div class="two-col">
       <div class="panel">
-        <h3>ใบให้คะแนน (${cards.length})</h3>
-        ${cards.length? cards.map(s=>scorecardHtml(c.id,s)).join('') : '<div class="empty"><i class="ti ti-clipboard"></i>ยังไม่มีใบให้คะแนน<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openScoreModal('+c.id+')">เพิ่มคะแนน</button></div>'}
+        <h3>Scorecards (${cards.length})</h3>
+        ${cards.length ? cards.map(s=>scorecardHtml(c.id,s)).join('') : `<div class="empty"><i class="ti ti-clipboard"></i>ยังไม่มีใบให้คะแนน<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openScoreModal(${c.id})">เริ่มให้คะแนน</button></div>`}
       </div>
       <div class="panel">
-        <h3>คะแนนเฉลี่ยรายเกณฑ์</h3>
-        ${CRITERIA.map(cr=>{
-          const a=cavg[cr.key]; const pct=a==null?0:(a/5*100);
-          const col=a==null?'var(--border)':(a>=4?'var(--green)':a>=3?'var(--amber)':'var(--red)');
-          return `<div class="crit-bar-row">
-            <div class="crit-bar-top"><span>${cr.name}</span><span class="v">${fmtScore(a)}</span></div>
-            <div class="crit-bar"><span style="width:${pct}%;background:${col}"></span></div>
-          </div>`;
-        }).join('')}
+        <h3>คะแนนเฉลี่ยรายหัวข้อ</h3>
+        ${barsHtml}
       </div>
     </div>`;
   document.getElementById('pageTitle').textContent=c.name;
   document.getElementById('pageSub').textContent='รายละเอียดและคะแนนสัมภาษณ์';
-  showViewOnly('detail');
-}
-function showViewOnly(name){
-  ['dashboard','candidates','detail'].forEach(v=> document.getElementById('view-'+v).style.display = v===name?'':'none');
+  ['dashboard','candidates','detail','bank'].forEach(x=> document.getElementById('view-'+x).style.display = x==='detail'?'':'none');
   document.querySelectorAll('.nav-item[data-view]').forEach(i=>i.classList.remove('active'));
 }
 
 function scorecardHtml(candId,s){
+  const ov=scorecardOverall(s); const vd=verdictOf(ov);
+  const gchips = GROUPS.map(g=>{
+    const a=groupAvg(s.sections,g.key);
+    return a!=null?`<span class="sc-chip">${g.name.split(' ')[0]} <b>${fmtScore(a)}</b></span>`:'';
+  }).join('');
+  const detailRows = ITEMS.map(it=>{
+    const sec=s.sections?.[it.key]; if(!sec || sec.score==null) return '';
+    return `<div class="sc-detail-row"><span>${it.name}</span><b>${fmtScore(sec.score)}</b></div>`+
+      (sec.note?`<div class="sc-detail-note">${esc(sec.note)}</div>`:'');
+  }).join('');
   return `<div class="sc-card">
     <div class="sc-head">
-      <div><div class="sc-who">${esc(s.interviewer)}</div><div class="sc-when">${esc(s.round)} · ${fmtDate(s.date)}</div></div>
+      <div><div class="sc-who">${esc(s.interviewer)}</div><div class="sc-when">${esc(s.round||'')} · ${fmtDate(s.date)}</div></div>
       <div style="display:flex;align-items:center;gap:8px">
-        <span class="rec-pill rec-${s.rec}">${REC_LABEL[s.rec]||''}</span>
+        ${vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:''}
+        <span class="score-pill ${scoreClass(ov)}">${fmtScore(ov)}</span>
         <button class="sc-del" title="ลบ" onclick="deleteScorecard(${candId},${s.id})"><i class="ti ti-trash"></i></button>
       </div>
     </div>
-    <div class="sc-scores">
-      ${CRITERIA.map(cr=>{ const v=s.scores?.[cr.key]; return `<span class="sc-chip">${cr.name} <b>${v??'—'}</b></span>`; }).join('')}
+    <div class="sc-scores">${gchips}
+      ${s.night!=null?`<span class="sc-chip">Overnight <b>${s.night?'✓':'✗'}</b></span>`:''}
+      ${s.ot!=null?`<span class="sc-chip">OT <b>${s.ot?'✓':'✗'}</b></span>`:''}
     </div>
     ${s.comment?`<div class="sc-comment">${esc(s.comment)}</div>`:''}
+    ${detailRows?`<details class="sc-details"><summary>ดูคะแนนรายหัวข้อ</summary>${detailRows}</details>`:''}
   </div>`;
 }
 
-/* ---------------- Candidate modal ---------------- */
+/* ================= Question bank view ================= */
+function renderBank(){
+  const el=document.getElementById('view-bank');
+  el.innerHTML=`
+    <div class="bank-card">
+      <h3><i class="ti ti-mood-smile" style="color:var(--accent)"></i> 1. Introduction & Rapport Building <span class="bank-time">(5 นาที)</span></h3>
+      <div class="bank-obj">สร้างบรรยากาศเป็นกันเอง แนะนำกรรมการ (ชื่อ/ตำแหน่ง) และอธิบายลำดับการสัมภาษณ์ทั้ง 4 ช่วง</div>
+    </div>
+    ${GROUPS.map((g,gi)=>`
+      <div class="bank-card">
+        <h3><i class="ti ${g.icon}" style="color:var(--accent)"></i> ${gi+2}. ${g.name} <span class="bank-time">(${g.time} นาที)</span></h3>
+        ${g.key==='competency'?'<div class="bank-obj">คำถามกระชับ · แนะนำให้ผู้สมัครตอบแบบ STAR (Situation, Task, Action, Result)</div>':''}
+        ${ITEMS.filter(i=>i.group===g.key).map(it=>`
+          <div class="bank-item">${it.name}</div>
+          ${it.questions.map(q=>`<div class="bank-q">${esc(q)}</div>`).join('')}
+        `).join('')}
+      </div>`).join('')}
+    <div class="bank-card">
+      <h3><i class="ti ti-flag-check" style="color:var(--accent)"></i> 5. Wrap-Up & Q&A <span class="bank-time">(10 นาที)</span></h3>
+      <div class="bank-obj">เปิดให้ผู้สมัครถามเกี่ยวกับตำแหน่ง/บริษัท · อธิบายขั้นตอนถัดไปและไทม์ไลน์การตัดสินใจ · ขอบคุณผู้สมัคร</div>
+    </div>`;
+}
+
+/* ================= Candidate modal ================= */
 function openCandidateModal(id){
-  const m=document.getElementById('candModal');
   document.getElementById('candId').value = id||'';
-  document.getElementById('candModalTitle').textContent = id? 'แก้ไขผู้สมัคร':'เพิ่มผู้สมัคร';
-  const c = id? candidates.find(x=>x.id===id) : null;
+  document.getElementById('candModalTitle').textContent = id?'แก้ไขผู้สมัคร':'เพิ่มผู้สมัคร';
+  const c = id ? candidates.find(x=>x.id===id) : null;
   document.getElementById('fName').value=c?.name||'';
   document.getElementById('fPosition').value=c?.position||'';
   document.getElementById('fDept').value=c?.dept||'';
@@ -577,7 +854,7 @@ function openCandidateModal(id){
   document.getElementById('fEmail').value=c?.email||'';
   document.getElementById('fPhone').value=c?.phone||'';
   document.getElementById('fNotes').value=c?.notes||'';
-  m.classList.add('open');
+  document.getElementById('candModal').classList.add('open');
 }
 function saveCandidate(){
   const name=document.getElementById('fName').value.trim();
@@ -591,91 +868,213 @@ function saveCandidate(){
     email:document.getElementById('fEmail').value.trim(),
     phone:document.getElementById('fPhone').value.trim(),
     notes:document.getElementById('fNotes').value.trim(),
+    updatedAt:Date.now(),
   };
   if(id){ Object.assign(candidates.find(x=>x.id==id), data); }
   else{ candidates.push({id:nextId(), ...data, createdAt:Date.now(), scorecards:[]}); }
-  save(); closeModal('candModal');
-  const cur=document.getElementById('view-detail').style.display!=='none' && id;
-  if(cur) openDetail(Number(id)); else showView('candidates');
+  saveData(); closeModal('candModal');
+  if(id && currentView==='detail') openDetail(Number(id)); else showView('candidates');
 }
 function deleteCandidate(id){
   if(!confirm('ลบผู้สมัครคนนี้และคะแนนทั้งหมด?')) return;
-  candidates=candidates.filter(c=>c.id!==id); save(); showView('candidates');
+  candidates=candidates.filter(c=>c.id!==id); saveData(); showView('candidates');
 }
 
-/* ---------------- Scorecard modal ---------------- */
-let scRating={}, scRec=null;
+/* ================= Scorecard modal ================= */
+let scDraft=null, scTimerInt=null, scStart=0;
 function openScoreModal(candId){
   const c=candidates.find(x=>x.id===candId); if(!c) return;
   document.getElementById('scCandId').value=candId;
-  document.getElementById('scoreModalSub').textContent='ผู้สมัคร: '+c.name;
+  document.getElementById('scoreModalSub').textContent='ผู้สมัคร: '+c.name+' · '+c.position;
   document.getElementById('scInterviewer').value='';
   document.getElementById('scComment').value='';
-  document.getElementById('scRound').selectedIndex=1;
-  scRating={}; scRec=null;
-  document.getElementById('critRows').innerHTML=CRITERIA.map(cr=>`
-    <div class="crit-row">
-      <div><div class="crit-name">${cr.name}</div><div class="crit-hint">${cr.hint}</div></div>
-      <div class="rating" data-key="${cr.key}">
-        ${[1,2,3,4,5].map(n=>`<button type="button" onclick="setRating('${cr.key}',${n})">${n}</button>`).join('')}
-      </div>
-    </div>`).join('');
-  document.querySelectorAll('#recChoices button').forEach(b=>{ b.classList.remove('sel'); b.onclick=()=>setRec(Number(b.dataset.v)); });
+  document.getElementById('scRound').selectedIndex=0;
+  scDraft={sections:{}, night:null, ot:null};
+
+  document.getElementById('scSections').innerHTML = GROUPS.map(g=>`
+    <div class="group-head">
+      <div class="group-title"><i class="ti ${g.icon}"></i> ${g.name}</div>
+      <div class="group-time"><i class="ti ti-clock"></i> ${g.time} นาที</div>
+    </div>
+    ${ITEMS.filter(i=>i.group===g.key).map(it=>`
+      <div class="item-row" id="row-${it.key}">
+        <div class="item-top">
+          <div style="flex:1;min-width:180px">
+            <div class="item-name">${it.name}</div>
+            <div class="item-hint">${it.hint||''}</div>
+            <button class="q-toggle" onclick="toggleQ('${it.key}')"><i class="ti ti-help-circle"></i> คำถาม (${it.questions.length})</button>
+          </div>
+          <div class="rating" data-key="${it.key}">
+            ${SCALE.map(n=>`<button type="button" onclick="setItemScore('${it.key}',${n})">${n}</button>`).join('')}
+          </div>
+        </div>
+        <div class="q-panel" id="qp-${it.key}">
+          ${it.questions.map((q,qi)=>`
+            <label class="q-item" id="qi-${it.key}-${qi}">
+              <input type="checkbox" onchange="toggleAsked('${it.key}',${qi},this.checked)"> <span>${esc(q)}</span>
+            </label>`).join('')}
+          <input class="q-note" placeholder="โน้ตของหัวข้อนี้ (คำตอบเด่น ๆ, ข้อสังเกต)..." oninput="setItemNote('${it.key}',this.value)">
+        </div>
+      </div>`).join('')}
+  `).join('');
+
+  document.querySelectorAll('#segNight button').forEach(b=> b.onclick=()=>setSeg('night',Number(b.dataset.v)));
+  document.querySelectorAll('#segOT button').forEach(b=> b.onclick=()=>setSeg('ot',Number(b.dataset.v)));
+  updateSegs(); updateLiveOverall();
+
+  // interview timer (agenda = 90 min)
+  scStart=Date.now();
+  clearInterval(scTimerInt);
+  scTimerInt=setInterval(()=>{
+    const s=Math.floor((Date.now()-scStart)/1000);
+    const mm=String(Math.floor(s/60)).padStart(2,'0'), ss=String(s%60).padStart(2,'0');
+    const el=document.getElementById('scTimer'); if(el) el.textContent=mm+':'+ss;
+    if(s===90*60) el.style.color='var(--red)';
+  },1000);
+  document.getElementById('scTimer').textContent='00:00';
   document.getElementById('scoreModal').classList.add('open');
 }
-function setRating(key,n){
-  scRating[key]=n;
-  const row=document.querySelector(`.rating[data-key="${key}"]`);
-  row.querySelectorAll('button').forEach((b,i)=> b.classList.toggle('sel', i+1<=n));
+function toggleQ(key){ document.getElementById('qp-'+key).classList.toggle('open'); }
+function toggleAsked(key,qi,on){
+  scDraft.sections[key]=scDraft.sections[key]||{};
+  const a=scDraft.sections[key].asked=scDraft.sections[key].asked||[];
+  if(on && !a.includes(qi)) a.push(qi);
+  if(!on) scDraft.sections[key].asked=a.filter(x=>x!==qi);
+  document.getElementById(`qi-${key}-${qi}`).classList.toggle('asked',on);
 }
-function setRec(v){
-  scRec=v;
-  document.querySelectorAll('#recChoices button').forEach(b=> b.classList.toggle('sel', Number(b.dataset.v)===v));
+function setItemNote(key,v){
+  scDraft.sections[key]=scDraft.sections[key]||{};
+  scDraft.sections[key].note=v.trim();
+}
+function setItemScore(key,n){
+  scDraft.sections[key]=scDraft.sections[key]||{};
+  // click same score again = clear (skip item)
+  if(scDraft.sections[key].score===n) delete scDraft.sections[key].score;
+  else scDraft.sections[key].score=n;
+  const row=document.querySelector(`.rating[data-key="${key}"]`);
+  row.querySelectorAll('button').forEach(b=> b.classList.toggle('sel', Number(b.textContent)===scDraft.sections[key].score));
+  updateLiveOverall();
+}
+function setSeg(field,v){
+  scDraft[field] = scDraft[field]===v ? null : v;
+  updateSegs();
+}
+function updateSegs(){
+  [['segNight','night'],['segOT','ot']].forEach(([id,f])=>{
+    document.querySelectorAll('#'+id+' button').forEach(b=>{
+      const v=Number(b.dataset.v);
+      b.className = scDraft[f]===v ? (v?'sel-yes':'sel-no') : '';
+    });
+  });
+}
+function updateLiveOverall(){
+  const ov=scorecardOverall(scDraft);
+  document.getElementById('scLiveOverall').textContent=fmtScore(ov);
+  const vd=verdictOf(ov);
+  document.getElementById('scLiveVerdict').innerHTML = vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:'';
 }
 function saveScorecard(){
   const candId=Number(document.getElementById('scCandId').value);
   const interviewer=document.getElementById('scInterviewer').value.trim();
   if(!interviewer){ alert('กรุณากรอกชื่อผู้สัมภาษณ์'); return; }
-  if(Object.keys(scRating).length<CRITERIA.length){ alert('กรุณาให้คะแนนครบทุกเกณฑ์'); return; }
-  if(scRec==null){ alert('กรุณาเลือกคำแนะนำ (Recommendation)'); return; }
+  const scored=Object.values(scDraft.sections).filter(s=>typeof s.score==='number').length;
+  if(!scored){ alert('กรุณาให้คะแนนอย่างน้อย 1 หัวข้อ'); return; }
   const c=candidates.find(x=>x.id===candId);
   c.scorecards=c.scorecards||[];
   c.scorecards.push({
-    id:nextId(), interviewer, round:document.getElementById('scRound').value,
-    date:Date.now(), scores:{...scRating}, rec:scRec,
+    id:nextId(), interviewer,
+    round:document.getElementById('scRound').value,
+    date:Date.now(),
+    sections:scDraft.sections,
+    night:scDraft.night, ot:scDraft.ot,
     comment:document.getElementById('scComment').value.trim(),
+    durationSec:Math.floor((Date.now()-scStart)/1000),
   });
-  save(); closeModal('scoreModal'); openDetail(candId);
+  c.updatedAt=Date.now();
+  saveData(); closeModal('scoreModal'); openDetail(candId);
 }
 function deleteScorecard(candId,scId){
   if(!confirm('ลบใบให้คะแนนนี้?')) return;
   const c=candidates.find(x=>x.id===candId);
-  c.scorecards=c.scorecards.filter(s=>s.id!==scId); save(); openDetail(candId);
+  c.scorecards=c.scorecards.filter(s=>s.id!==scId);
+  c.updatedAt=Date.now();
+  saveData(); openDetail(candId);
 }
 
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o=> o.addEventListener('click', e=>{ if(e.target===o) o.classList.remove('open'); }));
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  if(id==='scoreModal') clearInterval(scTimerInt);
+}
+document.querySelectorAll('.modal-overlay').forEach(o=> o.addEventListener('click', e=>{ if(e.target===o){ o.classList.remove('open'); if(o.id==='scoreModal') clearInterval(scTimerInt); } }));
 
-/* ---------------- Export ---------------- */
+/* ================= Import / Export ================= */
+function exportJSON(){
+  const blob=new Blob([JSON.stringify({app:'hobi-hire',version:2,exportedAt:Date.now(),candidates},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='hobi-hire-backup-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+}
+function importJSON(){ document.getElementById('importFile').click(); }
+document.getElementById('importFile').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      const arr=Array.isArray(data)?data:data.candidates;
+      if(!Array.isArray(arr)) throw new Error('รูปแบบไฟล์ไม่ถูกต้อง');
+      let added=0, merged=0;
+      arr.forEach(inc=>{
+        const ex=candidates.find(c=>c.id===inc.id);
+        if(!ex){ candidates.push(inc); added++; }
+        else{
+          (inc.scorecards||[]).forEach(s=>{
+            ex.scorecards=ex.scorecards||[];
+            if(!ex.scorecards.some(x=>x.id===s.id)) ex.scorecards.push(s);
+          });
+          if((inc.updatedAt||0)>(ex.updatedAt||0)){
+            const keep=ex.scorecards; Object.assign(ex,inc); ex.scorecards=keep;
+          }
+          merged++;
+        }
+      });
+      saveData(); rerenderCurrent();
+      alert(`Import สำเร็จ — เพิ่มใหม่ ${added} คน, รวมข้อมูล ${merged} คน`);
+    }catch(err){ alert('Import ไม่สำเร็จ: '+err.message); }
+    e.target.value='';
+  };
+  reader.readAsText(f);
+});
+
 function exportCSV(){
-  const head=['Candidate','Position','Department','Stage','Interviewer','Round','Date',...CRITERIA.map(c=>c.name),'Avg','Recommendation','Comment'];
+  const head=['Candidate','Position','Team','Stage','Interviewer','Round','Date',
+    ...ITEMS.map(i=>i.name),
+    ...GROUPS.map(g=>g.name+' Avg'),
+    'Overall Score','Verdict','Overnight','OT','Comments'];
   const rows=[head];
   candidates.forEach(c=>{
-    if(!(c.scorecards||[]).length){ rows.push([c.name,c.position,c.dept||'',c.stage,'','','',...CRITERIA.map(()=>''),'','','']); return; }
+    if(!(c.scorecards||[]).length){
+      rows.push([c.name,c.position,c.dept||'',stageLabel(c.stage),'','','',...ITEMS.map(()=>''),...GROUPS.map(()=>''),'','','','','']);
+      return;
+    }
     c.scorecards.forEach(s=>{
-      const vals=CRITERIA.map(cr=>s.scores?.[cr.key]??'');
-      const nums=vals.filter(v=>v!=='');
-      const avg=nums.length?(nums.reduce((a,b)=>a+b,0)/nums.length).toFixed(2):'';
-      rows.push([c.name,c.position,c.dept||'',c.stage,s.interviewer,s.round,fmtDate(s.date),...vals,avg,REC_LABEL[s.rec]||'',s.comment||'']);
+      const ov=scorecardOverall(s); const vd=verdictOf(ov);
+      rows.push([
+        c.name,c.position,c.dept||'',stageLabel(c.stage),s.interviewer,s.round||'',fmtDate(s.date),
+        ...ITEMS.map(i=>s.sections?.[i.key]?.score??''),
+        ...GROUPS.map(g=>{const a=groupAvg(s.sections,g.key); return a==null?'':a.toFixed(2);}),
+        ov==null?'':ov.toFixed(2), vd?vd.t:'',
+        s.night==null?'':(s.night?'Yes':'No'), s.ot==null?'':(s.ot?'Yes':'No'),
+        s.comment||'',
+      ]);
     });
   });
   const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='hobi-interview-scores-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
+  a.download='hobi-hire-scores-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
 }
 
-/* ---------------- Theme ---------------- */
+/* ================= Theme ================= */
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme',t);
   document.getElementById('themeIcon').className='ti '+(t==='dark'?'ti-sun':'ti-moon');
@@ -686,7 +1085,7 @@ let savedTheme='light'; try{ savedTheme=localStorage.getItem('hobi-theme')||'lig
 applyTheme(savedTheme);
 document.getElementById('themeToggle').onclick=()=> applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
-/* ---------------- Init ---------------- */
+/* ================= Init ================= */
 showView('dashboard');
 </script>
 </body>
