@@ -329,6 +329,17 @@
         <div class="field"><label>Phone</label><input id="fPhone" placeholder="08x-xxx-xxxx"></div>
       </div>
       <div class="field"><label>Notes</label><textarea id="fNotes" placeholder="Additional info..."></textarea></div>
+      <div class="field">
+        <label>Resume</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="btn btn-sm" onclick="document.getElementById('resumeFile').click()"><i class="ti ti-upload"></i> Upload file</button>
+          <span id="resumeName" style="font-size:12px;color:var(--text2)"></span>
+          <button type="button" class="btn btn-sm" id="resumeRemoveBtn" style="display:none" onclick="clearResumeDraft()">Remove</button>
+        </div>
+        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" hidden>
+        <input id="fResumeUrl" style="margin-top:8px" placeholder="…or paste a resume link (Google Drive, Dropbox, etc.)">
+        <div style="font-size:11px;color:var(--text3);margin-top:5px">Uploaded files (PDF/image) are stored & synced — keep them under 1 MB. For larger files, paste a link instead.</div>
+      </div>
     </div>
     <div class="modal-foot">
       <span></span>
@@ -346,7 +357,7 @@
     <div class="modal-head">
       <div><h2>Interview Scorecard</h2><div class="sub" id="scoreModalSub"></div></div>
       <div style="display:flex;align-items:center;gap:12px">
-        <span class="timer-chip" title="Time elapsed / 90-min agenda"><i class="ti ti-clock"></i> <span id="scTimer">00:00</span></span>
+        <span class="timer-chip" title="Time elapsed / 50-min agenda"><i class="ti ti-clock"></i> <span id="scTimer">00:00</span></span>
         <button class="modal-close" onclick="closeModal('scoreModal')">&times;</button>
       </div>
     </div>
@@ -403,10 +414,11 @@
 /* ================= Interview template (90-min agenda) ================= */
 const SCALE = [1, 2, 2.5, 3, 4, 5];
 const GROUPS = [
-  {key:'english',    name:'English Language Proficiency', time:30, icon:'ti-language'},
-  {key:'competency', name:'Competency-Based Interview',   time:20, icon:'ti-target-arrow'},
-  {key:'attitude',   name:'Attitude & Cultural Fit',      time:30, icon:'ti-heart-handshake'},
+  {key:'english',    name:'English Language Proficiency', time:15, icon:'ti-language'},
+  {key:'competency', name:'Competency-Based Interview',   time:10, icon:'ti-target-arrow'},
+  {key:'attitude',   name:'Attitude & Cultural Fit',      time:15, icon:'ti-heart-handshake'},
 ];
+const TOTAL_MIN = 50; // Intro 5 + English 15 + Competency 10 + Attitude 15 + Wrap 5
 const ITEMS = [
   {key:'eng', group:'english', name:'English Proficiency', hint:'Grammar · Reading · Writing — essential for labeling/moderation tasks', questions:[
     'Grammar assessment (basic structures, tenses, articles)',
@@ -645,7 +657,7 @@ function showView(name){
   const titles={
     dashboard:['Dashboard','Overview of all candidate interview scores'],
     candidates:['Candidates','Candidate list with overall scores'],
-    bank:['Question Bank — Interview Agenda (90 min)','Full interview structure and all questions'],
+    bank:['Question Bank — Interview Agenda (50 min)','Full interview structure and all questions'],
     detail:['Candidate Detail',''],
   };
   if(titles[name]){ document.getElementById('pageTitle').textContent=titles[name][0]; document.getElementById('pageSub').textContent=titles[name][1]; }
@@ -714,7 +726,7 @@ function renderCandidates(){
     const v=candOverall(c); const vd=verdictOf(v); const n=c.scorecards?.length||0;
     return `<div class="cand-row" onclick="openDetail(${c.id})">
       <div class="cand-num">${i+1}</div>
-      <div><div class="cand-name">${esc(c.name)}</div><div class="cand-sub">${esc(c.email||'')}</div></div>
+      <div><div class="cand-name">${esc(c.name)}${(c.resume||c.resumeUrl)?' <i class="ti ti-paperclip" style="color:var(--text3);font-size:11px" title="Resume attached"></i>':''}</div><div class="cand-sub">${esc(c.email||'')}</div></div>
       <div class="cell col-pos">${esc(c.position)}</div>
       <div class="col-stage"><span class="badge st-${c.stage}">${stageLabel(c.stage)}</span></div>
       <div class="c cell col-int">${n}</div>
@@ -762,6 +774,7 @@ function openDetail(id){
         ${c.notes?`<div class="detail-meta" style="margin-top:6px;font-style:italic">"${esc(c.notes)}"</div>`:''}
         <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-primary btn-sm" onclick="openScoreModal(${c.id})"><i class="ti ti-clipboard-plus"></i> Start Interview Scoring</button>
+          ${(c.resume||c.resumeUrl)?`<button class="btn btn-sm" onclick="viewResume(${c.id})"><i class="ti ti-file-cv"></i> View Resume</button>`:''}
           <button class="btn btn-sm" onclick="openCandidateModal(${c.id})"><i class="ti ti-edit"></i> Edit</button>
           <button class="btn btn-sm" onclick="deleteCandidate(${c.id})"><i class="ti ti-trash"></i> Delete</button>
         </div>
@@ -835,12 +848,31 @@ function renderBank(){
         `).join('')}
       </div>`).join('')}
     <div class="bank-card">
-      <h3><i class="ti ti-flag-check" style="color:var(--accent)"></i> 5. Wrap-Up & Q&A <span class="bank-time">(10 min)</span></h3>
+      <h3><i class="ti ti-flag-check" style="color:var(--accent)"></i> 5. Wrap-Up & Q&A <span class="bank-time">(5 min)</span></h3>
       <div class="bank-obj">Invite candidate questions about the role/company · explain next steps and decision timeline · thank the candidate.</div>
     </div>`;
 }
 
 /* ================= Candidate modal ================= */
+let resumeDraft=null; // null = keep existing, 'REMOVE' = clear, {name,data} = new file
+document.getElementById('resumeFile').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  if(f.size > 1024*1024){
+    alert('This file is larger than 1 MB. Please upload a smaller PDF (compress it) or paste a link instead — large files can break cloud sync.');
+    e.target.value=''; return;
+  }
+  const r=new FileReader();
+  r.onload=()=>{ resumeDraft={name:f.name, data:r.result}; updateResumeUI(); };
+  r.readAsDataURL(f);
+  e.target.value='';
+});
+function clearResumeDraft(){ resumeDraft='REMOVE'; updateResumeUI(); }
+function updateResumeUI(){
+  const nameEl=document.getElementById('resumeName'), rmBtn=document.getElementById('resumeRemoveBtn');
+  if(resumeDraft && resumeDraft!=='REMOVE'){ nameEl.textContent=resumeDraft.name; rmBtn.style.display=''; }
+  else if(resumeDraft==='REMOVE'){ nameEl.textContent='(removed)'; rmBtn.style.display='none'; }
+  else { nameEl.textContent=''; rmBtn.style.display='none'; }
+}
 function openCandidateModal(id){
   document.getElementById('candId').value = id||'';
   document.getElementById('candModalTitle').textContent = id?'Edit Candidate':'Add Candidate';
@@ -852,6 +884,11 @@ function openCandidateModal(id){
   document.getElementById('fEmail').value=c?.email||'';
   document.getElementById('fPhone').value=c?.phone||'';
   document.getElementById('fNotes').value=c?.notes||'';
+  document.getElementById('fResumeUrl').value=c?.resumeUrl||'';
+  resumeDraft=null;
+  const nameEl=document.getElementById('resumeName'), rmBtn=document.getElementById('resumeRemoveBtn');
+  if(c?.resumeName){ nameEl.textContent=c.resumeName; rmBtn.style.display=''; }
+  else { nameEl.textContent=''; rmBtn.style.display='none'; }
   document.getElementById('candModal').classList.add('open');
 }
 function saveCandidate(){
@@ -866,12 +903,27 @@ function saveCandidate(){
     email:document.getElementById('fEmail').value.trim(),
     phone:document.getElementById('fPhone').value.trim(),
     notes:document.getElementById('fNotes').value.trim(),
+    resumeUrl:document.getElementById('fResumeUrl').value.trim(),
     updatedAt:Date.now(),
   };
+  if(resumeDraft && resumeDraft!=='REMOVE'){ data.resume=resumeDraft.data; data.resumeName=resumeDraft.name; }
+  else if(resumeDraft==='REMOVE'){ data.resume=null; data.resumeName=null; }
   if(id){ Object.assign(candidates.find(x=>x.id==id), data); }
   else{ candidates.push({id:nextId(), ...data, createdAt:Date.now(), scorecards:[]}); }
   saveData(); closeModal('candModal');
   if(id && currentView==='detail') openDetail(Number(id)); else showView('candidates');
+}
+function viewResume(id){
+  const c=candidates.find(x=>x.id===id); if(!c) return;
+  if(c.resume){
+    try{
+      const arr=c.resume.split(','); const mime=(arr[0].match(/:(.*?);/)||[])[1]||'application/octet-stream';
+      const bin=atob(arr[1]); const u8=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) u8[i]=bin.charCodeAt(i);
+      const url=URL.createObjectURL(new Blob([u8],{type:mime}));
+      window.open(url,'_blank');
+    }catch(e){ window.open(c.resume,'_blank'); }
+  } else if(c.resumeUrl){ window.open(c.resumeUrl,'_blank'); }
 }
 function deleteCandidate(id){
   if(!confirm('Delete this candidate and all their scores?')) return;
@@ -926,7 +978,7 @@ function openScoreModal(candId){
     const s=Math.floor((Date.now()-scStart)/1000);
     const mm=String(Math.floor(s/60)).padStart(2,'0'), ss=String(s%60).padStart(2,'0');
     const el=document.getElementById('scTimer'); if(el) el.textContent=mm+':'+ss;
-    if(s===90*60 && el) el.style.color='var(--red)';
+    if(s===TOTAL_MIN*60 && el) el.style.color='var(--red)';
   },1000);
   document.getElementById('scTimer').textContent='00:00';
   document.getElementById('scTimer').style.color='';
