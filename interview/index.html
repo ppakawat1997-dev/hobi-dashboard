@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOBI Hire — Interview Scorecards</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237c3aed'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237c3aed'/%3E%3Ccircle cx='50' cy='50' r='31' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M39 34V66M61 34V66M39 50h22' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Internal CDD Pools — Interview Scorecards</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236d28d9'/%3E%3Cpath d='M30 38h40M30 52h40M30 66h26' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236d28d9'/%3E%3Cpath d='M30 38h40M30 52h40M30 66h26' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <style>
   :root{
@@ -22,7 +22,7 @@
     --red:#f87171; --red-light:#3a1515; --blue:#60a5fa; --blue-light:#152540;
     --shadow:0 1px 3px rgba(0,0,0,.35),0 8px 28px rgba(0,0,0,.45);
   }
-  *{box-sizing:border-box; font-family:"Segoe UI",-apple-system,Roboto,"Sarabun","Noto Sans Thai",Arial,sans-serif;}
+  *{box-sizing:border-box; font-family:"Segoe UI",-apple-system,Roboto,Arial,sans-serif;}
   html{color-scheme:light;}
   html[data-theme="dark"]{color-scheme:dark;}
   body{margin:0; background:var(--bg); color:var(--text); transition:background-color .2s,color .2s;}
@@ -32,8 +32,8 @@
 
   /* Sidebar */
   .sidebar{width:225px; background:var(--card); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink:0; position:sticky; top:0; height:100vh;}
-  .logo{display:flex; align-items:center; gap:10px; padding:20px 18px; font-weight:700; font-size:18px; letter-spacing:.5px;}
-  .brand-mark{width:24px; height:24px; flex-shrink:0; display:block;}
+  .logo{display:flex; align-items:center; gap:10px; padding:20px 18px; font-weight:700; font-size:16px; letter-spacing:.3px; line-height:1.2;}
+  .brand-mark{width:26px; height:26px; flex-shrink:0; display:block;}
   .nav{display:flex; flex-direction:column; gap:2px; padding:0 10px;}
   .nav-item{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; color:var(--text2); font-size:14px; cursor:pointer; text-decoration:none; user-select:none;}
   .nav-item i{font-size:18px;}
@@ -222,18 +222,18 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#7c3aed"/><circle cx="50" cy="50" r="31" fill="none" stroke="#fff" stroke-width="7"/><path d="M39 34V66M61 34V66M39 50h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> <span>HOBI Hire</span></div>
+    <div class="logo"><svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#6d28d9"/><path d="M30 38h40M30 52h40M30 66h26" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg> <span>Internal CDD Pools</span></div>
     <div class="nav">
       <div class="nav-item active" data-view="dashboard"><i class="ti ti-layout-dashboard"></i> <span>Dashboard</span></div>
-      <div class="nav-item" data-view="candidates"><i class="ti ti-users"></i> <span>ผู้สมัคร</span></div>
-      <div class="nav-item" data-view="bank"><i class="ti ti-list-details"></i> <span>คลังคำถาม (Agenda)</span></div>
+      <div class="nav-item" data-view="candidates"><i class="ti ti-users"></i> <span>Candidates</span></div>
+      <div class="nav-item" data-view="bank"><i class="ti ti-list-details"></i> <span>Question Bank</span></div>
       <div class="nav-sep"></div>
-      <div class="nav-item" onclick="importJSON()"><i class="ti ti-file-import"></i> <span>Import ข้อมูล</span></div>
-      <div class="nav-item" onclick="exportJSON()"><i class="ti ti-file-export"></i> <span>Export ข้อมูล</span></div>
+      <div class="nav-item" onclick="importJSON()"><i class="ti ti-file-import"></i> <span>Import</span></div>
+      <div class="nav-item" onclick="exportJSON()"><i class="ti ti-file-export"></i> <span>Export</span></div>
       <div class="nav-item" id="themeToggle"><i class="ti ti-moon" id="themeIcon"></i> <span id="themeLabel">Dark mode</span></div>
     </div>
     <div class="sidebar-footer">
-      <div class="sync-row"><div class="sync-dot" id="syncDot"></div> <span id="syncText">กำลังเชื่อมต่อ…</span></div>
+      <div class="sync-row"><div class="sync-dot" id="syncDot"></div> <span id="syncText">Connecting…</span></div>
     </div>
   </div>
 
@@ -242,11 +242,11 @@
     <div class="header">
       <div>
         <h1 id="pageTitle">Dashboard</h1>
-        <p id="pageSub">ภาพรวมคะแนนสัมภาษณ์ผู้สมัครทั้งหมด</p>
+        <p id="pageSub">Overview of all candidate interview scores</p>
       </div>
       <div class="header-actions">
         <button class="btn" onclick="exportCSV()"><i class="ti ti-table-export"></i> CSV</button>
-        <button class="btn btn-primary" onclick="openCandidateModal()"><i class="ti ti-user-plus"></i> เพิ่มผู้สมัคร</button>
+        <button class="btn btn-primary" onclick="openCandidateModal()"><i class="ti ti-user-plus"></i> Add Candidate</button>
       </div>
     </div>
 
@@ -254,7 +254,7 @@
     <div id="view-dashboard">
       <div class="stats" id="dashStats"></div>
       <div class="panel">
-        <h3><i class="ti ti-trophy" style="color:var(--amber)"></i> ผู้สมัครคะแนนสูงสุด (Top candidates)</h3>
+        <h3><i class="ti ti-trophy" style="color:var(--amber)"></i> Top Candidates</h3>
         <div id="dashTop"></div>
       </div>
     </div>
@@ -262,9 +262,9 @@
     <!-- Candidates view -->
     <div id="view-candidates" style="display:none;">
       <div class="filters">
-        <div class="search-box"><i class="ti ti-search"></i><input id="searchInput" placeholder="ค้นหาชื่อ / ตำแหน่ง..." oninput="renderCandidates()"></div>
+        <div class="search-box"><i class="ti ti-search"></i><input id="searchInput" placeholder="Search name / position..." oninput="renderCandidates()"></div>
         <select id="filterStage" onchange="renderCandidates()">
-          <option value="">ทุกสถานะ</option>
+          <option value="">All statuses</option>
           <option value="applied">Applied</option>
           <option value="screening">Screening</option>
           <option value="interview">Interview</option>
@@ -274,16 +274,16 @@
           <option value="rejected">Rejected</option>
         </select>
         <select id="filterSort" onchange="renderCandidates()">
-          <option value="score">เรียงตามคะแนนสูงสุด</option>
-          <option value="name">เรียงตามชื่อ</option>
-          <option value="recent">เรียงตามล่าสุด</option>
+          <option value="score">Sort by highest score</option>
+          <option value="name">Sort by name</option>
+          <option value="recent">Sort by most recent</option>
         </select>
       </div>
       <div class="list">
         <div class="list-header">
-          <span class="c">#</span><span>ผู้สมัคร</span><span class="h-pos">ตำแหน่ง</span>
-          <span class="h-stage">สถานะ</span><span class="c h-int">สัมภาษณ์</span>
-          <span class="c">Overall</span><span class="c">ผลประเมิน</span>
+          <span class="c">#</span><span>Candidate</span><span class="h-pos">Position</span>
+          <span class="h-stage">Status</span><span class="c h-int">Interviews</span>
+          <span class="c">Overall</span><span class="c">Verdict</span>
         </div>
         <div id="candList"></div>
       </div>
@@ -301,18 +301,18 @@
 <div class="modal-overlay" id="candModal">
   <div class="modal-box">
     <div class="modal-head">
-      <div><h2 id="candModalTitle">เพิ่มผู้สมัคร</h2></div>
+      <div><h2 id="candModalTitle">Add Candidate</h2></div>
       <button class="modal-close" onclick="closeModal('candModal')">&times;</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="candId">
       <div class="grid2">
-        <div class="field"><label>ชื่อ-นามสกุล *</label><input id="fName" placeholder="เช่น สมชาย ใจดี"></div>
-        <div class="field"><label>ตำแหน่งที่สมัคร *</label><input id="fPosition" placeholder="เช่น Content Moderator"></div>
+        <div class="field"><label>Full Name *</label><input id="fName" placeholder="e.g. John Smith"></div>
+        <div class="field"><label>Position Applied *</label><input id="fPosition" placeholder="e.g. Content Moderator"></div>
       </div>
       <div class="grid2">
-        <div class="field"><label>ทีม / โปรเจกต์</label><input id="fDept" placeholder="เช่น Labeling Team A"></div>
-        <div class="field"><label>สถานะ</label>
+        <div class="field"><label>Team / Project</label><input id="fDept" placeholder="e.g. Labeling Team A"></div>
+        <div class="field"><label>Status</label>
           <select id="fStage">
             <option value="applied">Applied</option>
             <option value="screening">Screening</option>
@@ -325,16 +325,16 @@
         </div>
       </div>
       <div class="grid2">
-        <div class="field"><label>อีเมล</label><input id="fEmail" placeholder="name@email.com"></div>
-        <div class="field"><label>เบอร์โทร</label><input id="fPhone" placeholder="08x-xxx-xxxx"></div>
+        <div class="field"><label>Email</label><input id="fEmail" placeholder="name@email.com"></div>
+        <div class="field"><label>Phone</label><input id="fPhone" placeholder="08x-xxx-xxxx"></div>
       </div>
-      <div class="field"><label>หมายเหตุ</label><textarea id="fNotes" placeholder="ข้อมูลเพิ่มเติม..."></textarea></div>
+      <div class="field"><label>Notes</label><textarea id="fNotes" placeholder="Additional info..."></textarea></div>
     </div>
     <div class="modal-foot">
       <span></span>
       <div style="display:flex;gap:10px">
-        <button class="btn" onclick="closeModal('candModal')">ยกเลิก</button>
-        <button class="btn btn-primary" onclick="saveCandidate()">บันทึก</button>
+        <button class="btn" onclick="closeModal('candModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveCandidate()">Save</button>
       </div>
     </div>
   </div>
@@ -346,23 +346,23 @@
     <div class="modal-head">
       <div><h2>Interview Scorecard</h2><div class="sub" id="scoreModalSub"></div></div>
       <div style="display:flex;align-items:center;gap:12px">
-        <span class="timer-chip" title="เวลาที่ใช้ไป / agenda 90 นาที"><i class="ti ti-clock"></i> <span id="scTimer">00:00</span></span>
+        <span class="timer-chip" title="Time elapsed / 90-min agenda"><i class="ti ti-clock"></i> <span id="scTimer">00:00</span></span>
         <button class="modal-close" onclick="closeModal('scoreModal')">&times;</button>
       </div>
     </div>
     <div class="modal-body">
       <input type="hidden" id="scCandId">
       <div class="scale-legend">
-        <b>1</b> Far Below Expectations — ขาดทักษะสำคัญ ไม่เหมาะกับตำแหน่ง &nbsp;·&nbsp;
-        <b>2</b> Below Expectations — อ่อนหลายด้าน ต้องเทรนหนัก &nbsp;·&nbsp;
-        <b>2.5</b> Keep in View — มีศักยภาพแต่มีจุดอ่อน เก็บไว้พิจารณา &nbsp;·&nbsp;
-        <b>3</b> Meets Expectations — ผ่านเกณฑ์หลักของตำแหน่ง &nbsp;·&nbsp;
-        <b>4</b> Exceeds Expectations — เกินเกณฑ์พื้นฐาน &nbsp;·&nbsp;
-        <b>5</b> Far Exceeds — โดดเด่นมาก มีศักยภาพเป็น mentor/leader
+        <b>1</b> Far Below Expectations — lacks essential skills, not suitable &nbsp;·&nbsp;
+        <b>2</b> Below Expectations — deficient in several areas, needs heavy training &nbsp;·&nbsp;
+        <b>2.5</b> Keep in View — shows potential but notable weaknesses &nbsp;·&nbsp;
+        <b>3</b> Meets Expectations — satisfies core requirements &nbsp;·&nbsp;
+        <b>4</b> Exceeds Expectations — beyond basic requirements &nbsp;·&nbsp;
+        <b>5</b> Far Exceeds — outstanding, potential mentor/leader
       </div>
       <div class="grid2">
-        <div class="field"><label>ผู้สัมภาษณ์ *</label><input id="scInterviewer" placeholder="ชื่อผู้ให้คะแนน"></div>
-        <div class="field"><label>รอบสัมภาษณ์</label>
+        <div class="field"><label>Interviewer *</label><input id="scInterviewer" placeholder="Scorer name"></div>
+        <div class="field"><label>Interview Round</label>
           <select id="scRound">
             <option selected>Panel Interview (90 min)</option>
             <option>HR Screening</option>
@@ -373,23 +373,23 @@
       </div>
       <div id="scSections"></div>
       <div class="field" style="margin-top:18px">
-        <label>ความพร้อมทำงาน</label>
+        <label>Work Availability</label>
         <div style="display:flex;gap:24px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px">ทำงานกลางคืน (Overnight)
-            <div class="seg" id="segNight"><button data-v="1">ได้</button><button data-v="0">ไม่ได้</button></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px">Overnight
+            <div class="seg" id="segNight"><button data-v="1">Yes</button><button data-v="0">No</button></div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:13px">ทำ OT
-            <div class="seg" id="segOT"><button data-v="1">ได้</button><button data-v="0">ไม่ได้</button></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px">OT
+            <div class="seg" id="segOT"><button data-v="1">Yes</button><button data-v="0">No</button></div>
           </div>
         </div>
       </div>
-      <div class="field"><label>Comments (จุดเด่น / จุดที่ควรพัฒนา)</label><textarea id="scComment" placeholder="สรุปความเห็นผู้สัมภาษณ์..."></textarea></div>
+      <div class="field"><label>Comments (strengths / areas to improve)</label><textarea id="scComment" placeholder="Interviewer's summary..."></textarea></div>
     </div>
     <div class="modal-foot">
       <div class="live-overall">Overall Score: <b id="scLiveOverall">—</b> <span id="scLiveVerdict"></span></div>
       <div style="display:flex;gap:10px">
-        <button class="btn" onclick="closeModal('scoreModal')">ยกเลิก</button>
-        <button class="btn btn-primary" onclick="saveScorecard()">บันทึกคะแนน</button>
+        <button class="btn" onclick="closeModal('scoreModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveScorecard()">Save Scorecard</button>
       </div>
     </div>
   </div>
@@ -400,7 +400,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* ================= Interview template (from Lark agenda, 90 min) ================= */
+/* ================= Interview template (90-min agenda) ================= */
 const SCALE = [1, 2, 2.5, 3, 4, 5];
 const GROUPS = [
   {key:'english',    name:'English Language Proficiency', time:30, icon:'ti-language'},
@@ -413,73 +413,73 @@ const ITEMS = [
     'Reading comprehension (understand guideline-style text)',
     'Writing sample (clear, concise written response)',
   ]},
-  {key:'c_rules', group:'competency', name:'Following Instructions & Guidelines', hint:'ทำตามกฎ/แนวทางอย่างเคร่งครัด', questions:[
+  {key:'c_rules', group:'competency', name:'Following Instructions & Guidelines', hint:'Follows rules/guidelines strictly', questions:[
     'What types of content have you previously moderated (text, images, videos, etc.)?',
     'Tell me about a time you had to follow a strict set of rules. How did you ensure you understood and followed them correctly?',
     'Follow-up: What did you do if something in the rules was unclear?',
     'Tell me about a time when you disagreed with a moderation guideline. How did you handle it?',
     'Could you walk me through how you would handle a piece of content that falls in a gray area of your guidelines?',
   ]},
-  {key:'c_time', group:'competency', name:'Time Management · Productivity · Resilience', hint:'จัดการงานปริมาณมากอย่างมีประสิทธิภาพ', questions:[
+  {key:'c_time', group:'competency', name:'Time Management · Productivity · Resilience', hint:'Handles high volume efficiently', questions:[
     'Describe your experience with handling high-volume moderation queues efficiently.',
     'How do you adapt to changes in moderation guidelines or policy updates?',
   ]},
-  {key:'c_prob', group:'competency', name:'Problem-Solving & Self-driven', hint:'แก้ปัญหาเอง ผลักดันตัวเอง', questions:[
+  {key:'c_prob', group:'competency', name:'Problem-Solving & Self-driven', hint:'Solves problems independently, self-driven', questions:[
     'Tell me about a time you faced an unexpected problem at work or in school. How did you solve it?',
     "Describe how you would handle a situation where you're unsure about a moderation decision.",
     'What methods have you used to identify areas for personal improvement in your moderation work?',
     'Tell me about a time you went above and beyond your role responsibilities to help the team succeed.',
   ]},
-  {key:'c_team', group:'competency', name:'Teamwork & Collaboration', hint:'ทำงานร่วมกับทีม', questions:[
+  {key:'c_team', group:'competency', name:'Teamwork & Collaboration', hint:'Works well with the team', questions:[
     'Give an example of a situation where you worked on a team to accomplish a goal. What was your role, and what challenges did you face?',
     "Describe how you've helped onboard or train new moderators.",
     'How do you approach disagreements with teammates about moderation decisions?',
   ]},
-  {key:'a_motiv', group:'attitude', name:'Motivation for Repetitive Tasks', hint:'แรงจูงใจกับงานซ้ำ ๆ', questions:[
+  {key:'a_motiv', group:'attitude', name:'Motivation for Repetitive Tasks', hint:'Motivation for repetitive work', questions:[
     'Labeling can be repetitive. How do you keep yourself motivated and focused?',
     'Follow-up: What do you do if you start feeling bored or distracted?',
     'What motivates you to consistently perform well in your work?',
   ]},
-  {key:'a_ambig', group:'attitude', name:'Handling Ambiguity', hint:'รับมือความไม่ชัดเจน', questions:[
+  {key:'a_ambig', group:'attitude', name:'Handling Ambiguity', hint:'Handles uncertainty', questions:[
     "Sometimes guidelines aren't perfectly clear. How do you handle situations where you're unsure about the correct approach?",
     'Follow-up: How comfortable are you with asking for help or clarifications?',
   ]},
-  {key:'a_adapt', group:'attitude', name:'Adaptability & Willingness to Learn', hint:'ปรับตัว เรียนรู้เร็ว', questions:[
+  {key:'a_adapt', group:'attitude', name:'Adaptability & Willingness to Learn', hint:'Adapts and learns quickly', questions:[
     'Tell me about a time you had to learn a new tool or process quickly. How did you adapt?',
     'Follow-up: What if the process changes frequently?',
   ]},
-  {key:'a_well', group:'attitude', name:'Managing Emotional Well-Being', hint:'ดูแลสุขภาพใจตัวเอง', questions:[
+  {key:'a_well', group:'attitude', name:'Managing Emotional Well-Being', hint:'Manages own well-being', questions:[
     'Tell me about a time you felt emotionally drained by work or studies. How did you address it?',
     "Follow-up: What practices do you use to maintain a healthy work-life balance, especially if the content you're reviewing is stressful?",
   ]},
-  {key:'a_sens', group:'attitude', name:'Handling Sensitive Content', hint:'รับมือคอนเทนต์รุนแรง/ไม่สบายใจ', questions:[
+  {key:'a_sens', group:'attitude', name:'Handling Sensitive Content', hint:'Handles graphic/upsetting content', questions:[
     'In moderation, you might see upsetting content. How do you maintain professionalism and manage your emotional response?',
     'Follow-up: If you felt overwhelmed, how would you handle that?',
   ]},
-  {key:'a_comm', group:'attitude', name:'Team Collaboration & Communication', hint:'สื่อสารและทำงานร่วมกับผู้อื่น', questions:[
+  {key:'a_comm', group:'attitude', name:'Team Collaboration & Communication', hint:'Communicates and collaborates', questions:[
     'Describe a time you worked with others on a project. What was your role, and how did you handle any disagreements?',
     "Follow-up: What do you do if you disagree with a teammate's approach?",
     'If someone could describe you, how would it be?',
   ]},
-  {key:'a_fb', group:'attitude', name:'Receiving & Implementing Feedback', hint:'รับ feedback และนำไปใช้', questions:[
+  {key:'a_fb', group:'attitude', name:'Receiving & Implementing Feedback', hint:'Receives and applies feedback', questions:[
     'Share a time you received feedback you initially disagreed with. How did you respond?',
     'Follow-up: In this role, feedback might be frequent. How do you plan to incorporate it?',
   ]},
-  {key:'a_conf', group:'attitude', name:'Conflict Resolution & Work Environment', hint:'จัดการความขัดแย้ง', questions:[
+  {key:'a_conf', group:'attitude', name:'Conflict Resolution & Work Environment', hint:'Resolves conflict', questions:[
     'Tell me about a minor conflict with a coworker or classmate. How did you resolve it, and what did you learn?',
     'Follow-up: How do you maintain a positive relationship after a conflict?',
     'Describe your ideal work environment and team dynamic.',
     'What type of management style helps you perform at your best?',
   ]},
-  {key:'a_own', group:'attitude', name:'Ownership & Initiative', hint:'ความเป็นเจ้าของงาน กล้าเสนอ', questions:[
+  {key:'a_own', group:'attitude', name:'Ownership & Initiative', hint:'Ownership and initiative', questions:[
     'If you notice a new error or issue in labeling procedures, how do you bring it up or suggest improvements?',
     "Follow-up: What if your suggestion isn't accepted right away?",
   ]},
-  {key:'a_stress', group:'attitude', name:'Stress Tolerance', hint:'ทนแรงกดดัน/เดดไลน์', questions:[
+  {key:'a_stress', group:'attitude', name:'Stress Tolerance', hint:'Tolerates pressure/deadlines', questions:[
     'How do you handle stress when you have tight deadlines or a large volume of tasks?',
     'Follow-up: Do you use any specific methods or tools (checklists, time blocks) to stay organized?',
   ]},
-  {key:'a_rely', group:'attitude', name:'Reliability & Accountability', hint:'รับผิดชอบต่อความผิดพลาด', questions:[
+  {key:'a_rely', group:'attitude', name:'Reliability & Accountability', hint:'Accountable for mistakes', questions:[
     'Give an example of a time you made a mistake at work (or in a project). How did you handle it, and what did you learn?',
     'Follow-up: What steps do you take now to prevent similar mistakes?',
   ]},
@@ -506,11 +506,11 @@ function verdictOf(v){
 
 /* ================= Data & sync ================= */
 const SAMPLE = [
-  {id:1, name:'สมหญิง ตัวอย่าง', position:'Content Moderator', dept:'Labeling Team A', stage:'interview', email:'demo@email.com', phone:'081-000-0000', notes:'ตัวอย่างข้อมูล ลบได้', createdAt:Date.now()-86400000, updatedAt:Date.now()-86400000,
+  {id:1, name:'Jane Sample', position:'Content Moderator', dept:'Labeling Team A', stage:'interview', email:'demo@email.com', phone:'081-000-0000', notes:'Sample data — safe to delete', createdAt:Date.now()-86400000, updatedAt:Date.now()-86400000,
     scorecards:[
       {id:2, interviewer:'HR Demo', round:'Panel Interview (90 min)', date:Date.now()-80000000,
         sections:{eng:{score:3}, c_rules:{score:4}, c_time:{score:3}, c_prob:{score:3}, c_team:{score:4}, a_motiv:{score:3}, a_ambig:{score:2.5}, a_sens:{score:3}, a_cult:{score:4}},
-        night:1, ot:1, comment:'ตัวอย่าง scorecard — สื่อสารดี ภาษาอังกฤษพอใช้'},
+        night:1, ot:1, comment:'Sample scorecard — good communication, decent English'},
     ]},
 ];
 
@@ -520,14 +520,14 @@ function nextId(){ return Date.now()*100 + (idc = (idc+1)%100); }
 
 function loadLocal(){
   try{
-    const raw = localStorage.getItem('hobi_hire_v2');
+    const raw = localStorage.getItem('cdd_pools_v2');
     if(raw){ const a = JSON.parse(raw); if(Array.isArray(a)) return a; }
   }catch(e){}
   return JSON.parse(JSON.stringify(SAMPLE));
 }
-function persistLocal(){ try{ localStorage.setItem('hobi_hire_v2', JSON.stringify(candidates)); }catch(e){} }
+function persistLocal(){ try{ localStorage.setItem('cdd_pools_v2', JSON.stringify(candidates)); }catch(e){} }
 
-// ---- Firebase (same project as partner dashboard; separate doc for hiring data) ----
+// ---- Firebase (shared real-time database) ----
 const firebaseConfig = {
   apiKey: "AIzaSyCcgqk8syDd4etzczr0Lev-GpGJQg2Yapg",
   authDomain: "hobi-partner-dashboard.firebaseapp.com",
@@ -543,16 +543,16 @@ try{
   if(typeof firebase !== 'undefined'){
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
-    HIRE_DOC = db.collection('hobi').doc('hire');
+    HIRE_DOC = db.collection('hobi').doc('cdd_pools');
     firebaseReady = true;
   }
 }catch(e){ console.error('Firebase init failed:', e); }
 
 function setSync(state){
   const dot=document.getElementById('syncDot'), txt=document.getElementById('syncText');
-  if(state==='on'){ dot.className='sync-dot on'; txt.textContent='ซิงก์อัตโนมัติ (เรียลไทม์)'; }
-  else if(state==='off'){ dot.className='sync-dot off'; txt.textContent='ออฟไลน์ — เก็บในเครื่อง'; }
-  else { dot.className='sync-dot'; txt.textContent='กำลังเชื่อมต่อ…'; }
+  if(state==='on'){ dot.className='sync-dot on'; txt.textContent='Auto-sync (real-time)'; }
+  else if(state==='off'){ dot.className='sync-dot off'; txt.textContent='Offline — saved locally'; }
+  else { dot.className='sync-dot'; txt.textContent='Connecting…'; }
 }
 
 if(HIRE_DOC){
@@ -575,7 +575,6 @@ if(HIRE_DOC){
     }
     initialLoadComplete = true;
   }, err=>{ console.error('snapshot error', err); setSync('off'); initialLoadComplete = true; });
-  // if Firestore never answers (blocked network), fall back after 6s
   setTimeout(()=>{ if(!initialLoadComplete){ setSync('off'); initialLoadComplete = true; } }, 6000);
 }else{
   setSync('off');
@@ -605,7 +604,6 @@ function groupAvg(sections, gkey){
   return n ? sum/n : null;
 }
 function scorecardOverall(s){
-  // time-weighted: English 30 / Competency 20 / Attitude 30
   let wsum=0, w=0;
   GROUPS.forEach(g=>{
     const a = groupAvg(s.sections, g.key);
@@ -636,7 +634,7 @@ function scoreColor(v){
   if(v>=2.5) return 'var(--amber)'; return 'var(--red)';
 }
 function fmtScore(v){ return v==null ? '—' : (Math.round(v*100)/100).toFixed(2).replace(/0$/,'').replace(/\.$/,''); }
-function fmtDate(ts){ if(!ts) return ''; return new Date(ts).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'}); }
+function fmtDate(ts){ if(!ts) return ''; return new Date(ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'}); }
 
 /* ================= Views ================= */
 let currentView='dashboard', currentDetailId=null;
@@ -645,10 +643,10 @@ function showView(name){
   document.querySelectorAll('.nav-item[data-view]').forEach(i=>i.classList.toggle('active', i.dataset.view===name));
   ['dashboard','candidates','detail','bank'].forEach(v=> document.getElementById('view-'+v).style.display = v===name?'':'none');
   const titles={
-    dashboard:['Dashboard','ภาพรวมคะแนนสัมภาษณ์ผู้สมัครทั้งหมด'],
-    candidates:['ผู้สมัคร','รายชื่อผู้สมัครและคะแนน Overall'],
-    bank:['คลังคำถาม — Interview Agenda (90 นาที)','โครงสร้างการสัมภาษณ์และคำถามทั้งหมด'],
-    detail:['รายละเอียดผู้สมัคร',''],
+    dashboard:['Dashboard','Overview of all candidate interview scores'],
+    candidates:['Candidates','Candidate list with overall scores'],
+    bank:['Question Bank — Interview Agenda (90 min)','Full interview structure and all questions'],
+    detail:['Candidate Detail',''],
   };
   if(titles[name]){ document.getElementById('pageTitle').textContent=titles[name][0]; document.getElementById('pageSub').textContent=titles[name][1]; }
   if(name==='dashboard') renderDashboard();
@@ -671,10 +669,10 @@ function renderDashboard(){
   const kiv = candidates.filter(c=>{ const v=candOverall(c); return (v!=null && v>=2.5 && v<3) || c.stage==='kiv'; }).length;
   const pending = candidates.filter(c=>!(c.scorecards?.length)).length;
   const stats=[
-    {icon:'ti-users', color:'accent', v:total, l:'ผู้สมัครทั้งหมด'},
-    {icon:'ti-clipboard-check', color:'blue', v:totalCards, l:'Scorecards ทั้งหมด'},
-    {icon:'ti-star', color:'green', v:fmtScore(overall), l:'คะแนนเฉลี่ยรวม'},
-    {icon:'ti-eye-search', color:'amber', v:kiv+' / '+pending, l:'Keep in View / รอสัมภาษณ์'},
+    {icon:'ti-users', color:'accent', v:total, l:'Total Candidates'},
+    {icon:'ti-clipboard-check', color:'blue', v:totalCards, l:'Total Scorecards'},
+    {icon:'ti-star', color:'green', v:fmtScore(overall), l:'Overall Avg Score'},
+    {icon:'ti-eye-search', color:'amber', v:kiv+' / '+pending, l:'Keep in View / Pending'},
   ];
   document.getElementById('dashStats').innerHTML = stats.map(s=>`
     <div class="stat-card">
@@ -692,7 +690,7 @@ function renderDashboard(){
       <div class="c">${vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:''}</div>
       <div class="c"><span class="score-pill ${scoreClass(v)}">${fmtScore(v)}</span></div>
     </div>`;
-  }).join('') : '<div class="empty"><i class="ti ti-inbox"></i>ยังไม่มีคะแนนสัมภาษณ์</div>';
+  }).join('') : '<div class="empty"><i class="ti ti-inbox"></i>No interview scores yet</div>';
 }
 
 function renderCandidates(){
@@ -705,13 +703,13 @@ function renderCandidates(){
     return true;
   });
   list.sort((a,b)=>{
-    if(sort==='name') return a.name.localeCompare(b.name,'th');
+    if(sort==='name') return a.name.localeCompare(b.name);
     if(sort==='recent') return (b.updatedAt||b.createdAt||0)-(a.updatedAt||a.createdAt||0);
     const va=candOverall(a), vb=candOverall(b);
     return (vb==null?-1:vb)-(va==null?-1:va);
   });
   const el=document.getElementById('candList');
-  if(!list.length){ el.innerHTML='<div class="empty"><i class="ti ti-user-search"></i>ไม่พบผู้สมัคร</div>'; return; }
+  if(!list.length){ el.innerHTML='<div class="empty"><i class="ti ti-user-search"></i>No candidates found</div>'; return; }
   el.innerHTML=list.map((c,i)=>{
     const v=candOverall(c); const vd=verdictOf(v); const n=c.scorecards?.length||0;
     return `<div class="cand-row" onclick="openDetail(${c.id})">
@@ -737,7 +735,7 @@ function openDetail(id){
 
   const barsHtml = GROUPS.map(g=>{
     const items = ITEMS.filter(i=>i.group===g.key);
-    return `<div class="bar-group-label">${g.name} <span style="opacity:.6">(${g.time} นาที)</span></div>` +
+    return `<div class="bar-group-label">${g.name} <span style="opacity:.6">(${g.time} min)</span></div>` +
       items.map(it=>{
         const a=itemAvg(c,it.key); const pct=a==null?0:(a/5*100);
         return `<div class="crit-bar-row">
@@ -748,7 +746,7 @@ function openDetail(id){
   }).join('');
 
   el.innerHTML=`
-    <button class="link-btn" style="margin-bottom:14px" onclick="showView('candidates')"><i class="ti ti-arrow-left"></i> กลับไปรายชื่อ</button>
+    <button class="link-btn" style="margin-bottom:14px" onclick="showView('candidates')"><i class="ti ti-arrow-left"></i> Back to list</button>
     <div class="detail-top">
       <div style="flex:1;min-width:220px">
         <div class="detail-name">${esc(c.name)}</div>
@@ -758,14 +756,14 @@ function openDetail(id){
           ${c.phone?`<i class="ti ti-phone"></i> ${esc(c.phone)}`:''}
         </div>
         ${latest && (latest.night!=null || latest.ot!=null) ? `<div class="detail-meta" style="margin-top:6px">
-          ${latest.night!=null?`<span class="badge ${latest.night?'st-offer':'st-rejected'}">Overnight: ${latest.night?'ได้':'ไม่ได้'}</span>`:''}
-          ${latest.ot!=null?`<span class="badge ${latest.ot?'st-offer':'st-rejected'}" style="margin-left:6px">OT: ${latest.ot?'ได้':'ไม่ได้'}</span>`:''}
+          ${latest.night!=null?`<span class="badge ${latest.night?'st-offer':'st-rejected'}">Overnight: ${latest.night?'Yes':'No'}</span>`:''}
+          ${latest.ot!=null?`<span class="badge ${latest.ot?'st-offer':'st-rejected'}" style="margin-left:6px">OT: ${latest.ot?'Yes':'No'}</span>`:''}
         </div>`:''}
         ${c.notes?`<div class="detail-meta" style="margin-top:6px;font-style:italic">"${esc(c.notes)}"</div>`:''}
         <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-sm" onclick="openScoreModal(${c.id})"><i class="ti ti-clipboard-plus"></i> เริ่มให้คะแนนสัมภาษณ์</button>
-          <button class="btn btn-sm" onclick="openCandidateModal(${c.id})"><i class="ti ti-edit"></i> แก้ไข</button>
-          <button class="btn btn-sm" onclick="deleteCandidate(${c.id})"><i class="ti ti-trash"></i> ลบ</button>
+          <button class="btn btn-primary btn-sm" onclick="openScoreModal(${c.id})"><i class="ti ti-clipboard-plus"></i> Start Interview Scoring</button>
+          <button class="btn btn-sm" onclick="openCandidateModal(${c.id})"><i class="ti ti-edit"></i> Edit</button>
+          <button class="btn btn-sm" onclick="deleteCandidate(${c.id})"><i class="ti ti-trash"></i> Delete</button>
         </div>
       </div>
       <div class="detail-big-score">
@@ -777,15 +775,15 @@ function openDetail(id){
     <div class="two-col">
       <div class="panel">
         <h3>Scorecards (${cards.length})</h3>
-        ${cards.length ? cards.map(s=>scorecardHtml(c.id,s)).join('') : `<div class="empty"><i class="ti ti-clipboard"></i>ยังไม่มีใบให้คะแนน<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openScoreModal(${c.id})">เริ่มให้คะแนน</button></div>`}
+        ${cards.length ? cards.map(s=>scorecardHtml(c.id,s)).join('') : `<div class="empty"><i class="ti ti-clipboard"></i>No scorecards yet<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openScoreModal(${c.id})">Start scoring</button></div>`}
       </div>
       <div class="panel">
-        <h3>คะแนนเฉลี่ยรายหัวข้อ</h3>
+        <h3>Average Score by Topic</h3>
         ${barsHtml}
       </div>
     </div>`;
   document.getElementById('pageTitle').textContent=c.name;
-  document.getElementById('pageSub').textContent='รายละเอียดและคะแนนสัมภาษณ์';
+  document.getElementById('pageSub').textContent='Details and interview scores';
   ['dashboard','candidates','detail','bank'].forEach(x=> document.getElementById('view-'+x).style.display = x==='detail'?'':'none');
   document.querySelectorAll('.nav-item[data-view]').forEach(i=>i.classList.remove('active'));
 }
@@ -807,7 +805,7 @@ function scorecardHtml(candId,s){
       <div style="display:flex;align-items:center;gap:8px">
         ${vd?`<span class="verdict v-${vd.k}">${vd.t}</span>`:''}
         <span class="score-pill ${scoreClass(ov)}">${fmtScore(ov)}</span>
-        <button class="sc-del" title="ลบ" onclick="deleteScorecard(${candId},${s.id})"><i class="ti ti-trash"></i></button>
+        <button class="sc-del" title="Delete" onclick="deleteScorecard(${candId},${s.id})"><i class="ti ti-trash"></i></button>
       </div>
     </div>
     <div class="sc-scores">${gchips}
@@ -815,7 +813,7 @@ function scorecardHtml(candId,s){
       ${s.ot!=null?`<span class="sc-chip">OT <b>${s.ot?'✓':'✗'}</b></span>`:''}
     </div>
     ${s.comment?`<div class="sc-comment">${esc(s.comment)}</div>`:''}
-    ${detailRows?`<details class="sc-details"><summary>ดูคะแนนรายหัวข้อ</summary>${detailRows}</details>`:''}
+    ${detailRows?`<details class="sc-details"><summary>View scores by topic</summary>${detailRows}</details>`:''}
   </div>`;
 }
 
@@ -824,28 +822,28 @@ function renderBank(){
   const el=document.getElementById('view-bank');
   el.innerHTML=`
     <div class="bank-card">
-      <h3><i class="ti ti-mood-smile" style="color:var(--accent)"></i> 1. Introduction & Rapport Building <span class="bank-time">(5 นาที)</span></h3>
-      <div class="bank-obj">สร้างบรรยากาศเป็นกันเอง แนะนำกรรมการ (ชื่อ/ตำแหน่ง) และอธิบายลำดับการสัมภาษณ์ทั้ง 4 ช่วง</div>
+      <h3><i class="ti ti-mood-smile" style="color:var(--accent)"></i> 1. Introduction & Rapport Building <span class="bank-time">(5 min)</span></h3>
+      <div class="bank-obj">Set a friendly tone, introduce the panel (name/role), and outline the 4 interview stages.</div>
     </div>
     ${GROUPS.map((g,gi)=>`
       <div class="bank-card">
-        <h3><i class="ti ${g.icon}" style="color:var(--accent)"></i> ${gi+2}. ${g.name} <span class="bank-time">(${g.time} นาที)</span></h3>
-        ${g.key==='competency'?'<div class="bank-obj">คำถามกระชับ · แนะนำให้ผู้สมัครตอบแบบ STAR (Situation, Task, Action, Result)</div>':''}
+        <h3><i class="ti ${g.icon}" style="color:var(--accent)"></i> ${gi+2}. ${g.name} <span class="bank-time">(${g.time} min)</span></h3>
+        ${g.key==='competency'?'<div class="bank-obj">Keep questions concise · encourage STAR answers (Situation, Task, Action, Result).</div>':''}
         ${ITEMS.filter(i=>i.group===g.key).map(it=>`
           <div class="bank-item">${it.name}</div>
           ${it.questions.map(q=>`<div class="bank-q">${esc(q)}</div>`).join('')}
         `).join('')}
       </div>`).join('')}
     <div class="bank-card">
-      <h3><i class="ti ti-flag-check" style="color:var(--accent)"></i> 5. Wrap-Up & Q&A <span class="bank-time">(10 นาที)</span></h3>
-      <div class="bank-obj">เปิดให้ผู้สมัครถามเกี่ยวกับตำแหน่ง/บริษัท · อธิบายขั้นตอนถัดไปและไทม์ไลน์การตัดสินใจ · ขอบคุณผู้สมัคร</div>
+      <h3><i class="ti ti-flag-check" style="color:var(--accent)"></i> 5. Wrap-Up & Q&A <span class="bank-time">(10 min)</span></h3>
+      <div class="bank-obj">Invite candidate questions about the role/company · explain next steps and decision timeline · thank the candidate.</div>
     </div>`;
 }
 
 /* ================= Candidate modal ================= */
 function openCandidateModal(id){
   document.getElementById('candId').value = id||'';
-  document.getElementById('candModalTitle').textContent = id?'แก้ไขผู้สมัคร':'เพิ่มผู้สมัคร';
+  document.getElementById('candModalTitle').textContent = id?'Edit Candidate':'Add Candidate';
   const c = id ? candidates.find(x=>x.id===id) : null;
   document.getElementById('fName').value=c?.name||'';
   document.getElementById('fPosition').value=c?.position||'';
@@ -859,7 +857,7 @@ function openCandidateModal(id){
 function saveCandidate(){
   const name=document.getElementById('fName').value.trim();
   const position=document.getElementById('fPosition').value.trim();
-  if(!name||!position){ alert('กรุณากรอกชื่อและตำแหน่ง'); return; }
+  if(!name||!position){ alert('Please enter name and position'); return; }
   const id=document.getElementById('candId').value;
   const data={
     name, position,
@@ -876,7 +874,7 @@ function saveCandidate(){
   if(id && currentView==='detail') openDetail(Number(id)); else showView('candidates');
 }
 function deleteCandidate(id){
-  if(!confirm('ลบผู้สมัครคนนี้และคะแนนทั้งหมด?')) return;
+  if(!confirm('Delete this candidate and all their scores?')) return;
   candidates=candidates.filter(c=>c.id!==id); saveData(); showView('candidates');
 }
 
@@ -885,7 +883,7 @@ let scDraft=null, scTimerInt=null, scStart=0;
 function openScoreModal(candId){
   const c=candidates.find(x=>x.id===candId); if(!c) return;
   document.getElementById('scCandId').value=candId;
-  document.getElementById('scoreModalSub').textContent='ผู้สมัคร: '+c.name+' · '+c.position;
+  document.getElementById('scoreModalSub').textContent='Candidate: '+c.name+' · '+c.position;
   document.getElementById('scInterviewer').value='';
   document.getElementById('scComment').value='';
   document.getElementById('scRound').selectedIndex=0;
@@ -894,7 +892,7 @@ function openScoreModal(candId){
   document.getElementById('scSections').innerHTML = GROUPS.map(g=>`
     <div class="group-head">
       <div class="group-title"><i class="ti ${g.icon}"></i> ${g.name}</div>
-      <div class="group-time"><i class="ti ti-clock"></i> ${g.time} นาที</div>
+      <div class="group-time"><i class="ti ti-clock"></i> ${g.time} min</div>
     </div>
     ${ITEMS.filter(i=>i.group===g.key).map(it=>`
       <div class="item-row" id="row-${it.key}">
@@ -902,7 +900,7 @@ function openScoreModal(candId){
           <div style="flex:1;min-width:180px">
             <div class="item-name">${it.name}</div>
             <div class="item-hint">${it.hint||''}</div>
-            <button class="q-toggle" onclick="toggleQ('${it.key}')"><i class="ti ti-help-circle"></i> คำถาม (${it.questions.length})</button>
+            <button class="q-toggle" onclick="toggleQ('${it.key}')"><i class="ti ti-help-circle"></i> Questions (${it.questions.length})</button>
           </div>
           <div class="rating" data-key="${it.key}">
             ${SCALE.map(n=>`<button type="button" onclick="setItemScore('${it.key}',${n})">${n}</button>`).join('')}
@@ -913,7 +911,7 @@ function openScoreModal(candId){
             <label class="q-item" id="qi-${it.key}-${qi}">
               <input type="checkbox" onchange="toggleAsked('${it.key}',${qi},this.checked)"> <span>${esc(q)}</span>
             </label>`).join('')}
-          <input class="q-note" placeholder="โน้ตของหัวข้อนี้ (คำตอบเด่น ๆ, ข้อสังเกต)..." oninput="setItemNote('${it.key}',this.value)">
+          <input class="q-note" placeholder="Notes for this topic (key answers, observations)..." oninput="setItemNote('${it.key}',this.value)">
         </div>
       </div>`).join('')}
   `).join('');
@@ -922,16 +920,16 @@ function openScoreModal(candId){
   document.querySelectorAll('#segOT button').forEach(b=> b.onclick=()=>setSeg('ot',Number(b.dataset.v)));
   updateSegs(); updateLiveOverall();
 
-  // interview timer (agenda = 90 min)
   scStart=Date.now();
   clearInterval(scTimerInt);
   scTimerInt=setInterval(()=>{
     const s=Math.floor((Date.now()-scStart)/1000);
     const mm=String(Math.floor(s/60)).padStart(2,'0'), ss=String(s%60).padStart(2,'0');
     const el=document.getElementById('scTimer'); if(el) el.textContent=mm+':'+ss;
-    if(s===90*60) el.style.color='var(--red)';
+    if(s===90*60 && el) el.style.color='var(--red)';
   },1000);
   document.getElementById('scTimer').textContent='00:00';
+  document.getElementById('scTimer').style.color='';
   document.getElementById('scoreModal').classList.add('open');
 }
 function toggleQ(key){ document.getElementById('qp-'+key).classList.toggle('open'); }
@@ -948,7 +946,6 @@ function setItemNote(key,v){
 }
 function setItemScore(key,n){
   scDraft.sections[key]=scDraft.sections[key]||{};
-  // click same score again = clear (skip item)
   if(scDraft.sections[key].score===n) delete scDraft.sections[key].score;
   else scDraft.sections[key].score=n;
   const row=document.querySelector(`.rating[data-key="${key}"]`);
@@ -976,9 +973,9 @@ function updateLiveOverall(){
 function saveScorecard(){
   const candId=Number(document.getElementById('scCandId').value);
   const interviewer=document.getElementById('scInterviewer').value.trim();
-  if(!interviewer){ alert('กรุณากรอกชื่อผู้สัมภาษณ์'); return; }
+  if(!interviewer){ alert('Please enter the interviewer name'); return; }
   const scored=Object.values(scDraft.sections).filter(s=>typeof s.score==='number').length;
-  if(!scored){ alert('กรุณาให้คะแนนอย่างน้อย 1 หัวข้อ'); return; }
+  if(!scored){ alert('Please score at least 1 topic'); return; }
   const c=candidates.find(x=>x.id===candId);
   c.scorecards=c.scorecards||[];
   c.scorecards.push({
@@ -994,7 +991,7 @@ function saveScorecard(){
   saveData(); closeModal('scoreModal'); openDetail(candId);
 }
 function deleteScorecard(candId,scId){
-  if(!confirm('ลบใบให้คะแนนนี้?')) return;
+  if(!confirm('Delete this scorecard?')) return;
   const c=candidates.find(x=>x.id===candId);
   c.scorecards=c.scorecards.filter(s=>s.id!==scId);
   c.updatedAt=Date.now();
@@ -1009,9 +1006,9 @@ document.querySelectorAll('.modal-overlay').forEach(o=> o.addEventListener('clic
 
 /* ================= Import / Export ================= */
 function exportJSON(){
-  const blob=new Blob([JSON.stringify({app:'hobi-hire',version:2,exportedAt:Date.now(),candidates},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({app:'internal-cdd-pools',version:2,exportedAt:Date.now(),candidates},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='hobi-hire-backup-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  a.download='cdd-pools-backup-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
 }
 function importJSON(){ document.getElementById('importFile').click(); }
 document.getElementById('importFile').addEventListener('change', e=>{
@@ -1021,7 +1018,7 @@ document.getElementById('importFile').addEventListener('change', e=>{
     try{
       const data=JSON.parse(reader.result);
       const arr=Array.isArray(data)?data:data.candidates;
-      if(!Array.isArray(arr)) throw new Error('รูปแบบไฟล์ไม่ถูกต้อง');
+      if(!Array.isArray(arr)) throw new Error('Invalid file format');
       let added=0, merged=0;
       arr.forEach(inc=>{
         const ex=candidates.find(c=>c.id===inc.id);
@@ -1038,8 +1035,8 @@ document.getElementById('importFile').addEventListener('change', e=>{
         }
       });
       saveData(); rerenderCurrent();
-      alert(`Import สำเร็จ — เพิ่มใหม่ ${added} คน, รวมข้อมูล ${merged} คน`);
-    }catch(err){ alert('Import ไม่สำเร็จ: '+err.message); }
+      alert(`Import complete — ${added} added, ${merged} merged`);
+    }catch(err){ alert('Import failed: '+err.message); }
     e.target.value='';
   };
   reader.readAsText(f);
@@ -1071,7 +1068,7 @@ function exportCSV(){
   const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='hobi-hire-scores-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
+  a.download='cdd-pools-scores-'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
 }
 
 /* ================= Theme ================= */
@@ -1079,9 +1076,9 @@ function applyTheme(t){
   document.documentElement.setAttribute('data-theme',t);
   document.getElementById('themeIcon').className='ti '+(t==='dark'?'ti-sun':'ti-moon');
   document.getElementById('themeLabel').textContent=t==='dark'?'Light mode':'Dark mode';
-  try{ localStorage.setItem('hobi-theme',t); }catch(e){}
+  try{ localStorage.setItem('cdd-theme',t); }catch(e){}
 }
-let savedTheme='light'; try{ savedTheme=localStorage.getItem('hobi-theme')||'light'; }catch(e){}
+let savedTheme='light'; try{ savedTheme=localStorage.getItem('cdd-theme')||'light'; }catch(e){}
 applyTheme(savedTheme);
 document.getElementById('themeToggle').onclick=()=> applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
